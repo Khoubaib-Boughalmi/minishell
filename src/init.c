@@ -58,6 +58,7 @@ int init_envp(char **envp)
 		if(!node)
 			return (0);
 		envp_lst_add_back(node);
+		free_split(envp_split);
 		i++;
 	}
 	return (1);

@@ -49,4 +49,5 @@ t_token *tokenize_input(void);      // for creating the array of tokens from the
 int     init_gstruct();  // for initializing the global strcut
 int		init_envp(char **envp);
 void	ft_env(void);
+void	free_split(char **list);
 # endif
