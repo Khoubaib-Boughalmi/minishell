@@ -36,5 +36,9 @@ int main(int ac, char *av[], char *envp[])
 	init_envp(envp);
 	// repl();
 	ft_env();
+	ft_export("myVar", "myVarValue");
+	printf("****************************\n");
+	ft_env();
+
 	return (0);
 }

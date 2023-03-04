@@ -12,7 +12,9 @@ SRCS_MAND= 		./src/main.c							\
 				./src/utils.c							\
 				./src/parse.c							\
 				./src/init.c							\
+				./src/envp_node.c						\
 				./src/builtins/env.c					\
+				./src/builtins/export.c					\
 				./get_next_line/get_next_line.c			\
 				./get_next_line/get_next_line_utils.c	\
 
