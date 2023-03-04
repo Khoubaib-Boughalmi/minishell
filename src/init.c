@@ -60,13 +60,5 @@ int init_envp(char **envp)
 		envp_lst_add_back(node);
 		i++;
 	}
-	t_envp_node	*head_copy;
-
-	head_copy = gstruct->envp_head;
-	while (head_copy)
-	{
-		printf("key : %s\n", head_copy->key);
-		head_copy = head_copy->next;
-	}
 	return (1);
 }

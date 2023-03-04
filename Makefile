@@ -8,10 +8,11 @@ PRINTF			= libft/ft_printf/libftprintf.a
 
 # SRCS_BONUS=
 
-SRCS_MAND= 	./src/main.c							\
+SRCS_MAND= 		./src/main.c							\
 				./src/utils.c							\
 				./src/parse.c							\
 				./src/init.c							\
+				./src/builtins/env.c					\
 				./get_next_line/get_next_line.c			\
 				./get_next_line/get_next_line_utils.c	\
 

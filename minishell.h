@@ -48,5 +48,5 @@ void	parse_and_execute(char *input);    // the starting point
 t_token *tokenize_input(void);      // for creating the array of tokens from the user input
 int     init_gstruct();  // for initializing the global strcut
 int		init_envp(char **envp);
-
+void	ft_env(void);
 # endif
