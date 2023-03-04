@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal <kboughal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:39:21 by kboughal          #+#    #+#             */
-/*   Updated: 2022/10/10 14:41:24 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/03/04 18:02:56 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strmapi(char const *s, char (*f) (unsigned int, char));
 char	*ft_strtrim(char const *s, char const *set);
 char	*ft_itoa(int n);
-char	**ft_split(char const *s, char *list);
+char	**ft_split(char *s, char c);
 
 typedef struct s_list
 {

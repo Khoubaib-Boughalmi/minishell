@@ -21,18 +21,19 @@ int	repl(void)
 			free(input);
 			break;
 		}
-		if(!init_gstruct(input))
-			return (1);
 		parse_and_execute(input); //tokenization etc
 		free(input);
 	}
 	return (0);
 }
 
-int main(int ac, char **av)
+int main(int ac, char *av[], char *envp[])
 {
 	(void) ac;
 	(void) av;
-	repl();
+	if(!init_gstruct())
+		return (1);
+	init_envp(envp);
+	// repl();	
 	return (0);
 }

@@ -25,19 +25,28 @@ typedef struct s_token {
 	char*			redirect_fname; // the filename to redirect to for a redirection token
 } t_token;
 
+
+typedef struct s_envp_node
+{
+	struct s_envp_node	*next;
+	char				*key;
+	char				*value;
+} t_envp_node;
+
 //shared data goes here
 typedef struct s_global_struct
 {
-	char	*src_input;		//pointer to the users source input
-	t_token *tokens;    	//pointer to the array of tokens
+	char		*src_input;		//pointer to the users source input
+	t_token		*tokens;    	//pointer to the array of tokens
+	t_envp_node	*envp_head;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
 
-
 int     repl(void);                 // the starting point :  repl = read-eval-print loop
 void	parse_and_execute(char *input);    // the starting point
-int     init_gstruct(char *input);  // for initializing the global strcut
 t_token *tokenize_input(void);      // for creating the array of tokens from the user input
+int     init_gstruct();  // for initializing the global strcut
+int		init_envp(char **envp);
 
 # endif

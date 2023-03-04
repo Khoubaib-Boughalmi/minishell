@@ -1,6 +1,6 @@
 NAME 				= minishell
 BONUS_NAME 		= checker
-CFLAGS 			= -Wall -Wextra -Werror
+CFLAGS 			= #-Wall -Wextra -Werror
 CC 				= cc
 RM 				= rm -f
 LIBFT				= libft/libft.a
@@ -11,6 +11,7 @@ PRINTF			= libft/ft_printf/libftprintf.a
 SRCS_MAND= 	./src/main.c							\
 				./src/utils.c							\
 				./src/parse.c							\
+				./src/init.c							\
 				./get_next_line/get_next_line.c			\
 				./get_next_line/get_next_line_utils.c	\
 
