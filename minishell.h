@@ -49,9 +49,10 @@ t_token 	*tokenize_input(void);      // for creating the array of tokens from th
 int     	init_gstruct();  // for initializing the global strcut
 int			init_envp(char **envp);
 void		free_split(char **list);
-t_envp_node	*new_envp_node(char *key, char *value);
+t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node);
+void		envp_delete_node(int pos);
 void		ft_env(void);
 int			ft_export(char *key, char *value);
-
+void		ft_unest(char *key);
 # endif

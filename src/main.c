@@ -35,10 +35,15 @@ int main(int ac, char *av[], char *envp[])
 		return (1);
 	init_envp(envp);
 	// repl();
+	ft_export("myVar1", "myVarValue1");
+	ft_export("myVar2", "myVarValue2");
+	ft_export("myVar3", "myVarValue3");
+	ft_export("myVar4", "myVarValue4");
 	ft_env();
-	ft_export("myVar", "myVarValue");
-	printf("****************************\n");
+	ft_unest("myVar3");
+	ft_unest("myVar1");
+	ft_unest("myVar4");
+	printf("-------------------\n");
 	ft_env();
-
 	return (0);
 }

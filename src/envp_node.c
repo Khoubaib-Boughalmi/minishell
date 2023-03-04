@@ -1,7 +1,7 @@
 #include "../minishell.h"
 
 
-t_envp_node	*new_envp_node(char *key, char *value)
+t_envp_node	*envp_new_node(char *key, char *value)
 {
 	t_envp_node	*node;
 
@@ -30,5 +30,31 @@ void envp_lst_add_back(t_envp_node *node)
 		while (head_copy->next)
 			head_copy = head_copy->next;
 		head_copy->next = node;
+	}
+}
+
+void envp_delete_node(int pos)
+{
+	int	i;
+	t_envp_node	*current;
+	t_envp_node	*previous;
+	
+	
+	i = -1;
+	current = gstruct->envp_head;
+	if(pos == 0)
+	{
+		gstruct->envp_head = gstruct->envp_head->next;
+		free(current);
+	}
+	else
+	{
+		while (++i < pos)
+		{
+			previous = current;
+			current = current->next;
+		}
+		previous->next = current->next;
+		free(current);
 	}
 }
