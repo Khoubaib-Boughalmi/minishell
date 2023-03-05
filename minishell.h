@@ -1,13 +1,16 @@
 # ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdlib.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-# include	"libft/libft.h"
-# include	"get_next_line/get_next_line.h"
+# include <stdlib.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/types.h>
+# include <signal.h>
+# include <unistd.h>
+# include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
 
 // AST node types
 typedef enum {
@@ -39,6 +42,7 @@ typedef struct s_global_struct
 	char		*src_input;		//pointer to the users source input
 	t_token		*tokens_head;	//linked list of tokens
 	t_envp_node	*envp_head;		//linked list of envp
+	int			sigint_listener;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -58,5 +62,9 @@ int			ft_unest(char *key);
 int			ft_pwd(void);
 int			ft_echo(char *str);
 int			ft_cd(char *str);
+void		sig_init(int sig, void (*sig_handler)(int));
+void		sigint_hander(int sig);
+void		sigquit_hander(int sig);
+char		*rl_replace_line(const char *text, int clear_undo);
 
 # endif
