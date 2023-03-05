@@ -1,13 +1,16 @@
 #include "../../minishell.h"
 
-void ft_env(void)
+int	ft_env(void)
 {
-	t_envp_node	*head_copy;
+	t_envp_node	*ptr;
 
-	head_copy = gstruct->envp_head;
-	while (head_copy)
+	ptr = gstruct->envp_head;
+	if(!ptr)
+		return (1);
+	while (ptr)
 	{
-		printf("%s=%s\n", head_copy->key,  head_copy->value);
-		head_copy = head_copy->next;
+		printf("%s=%s\n", ptr->key,  ptr->value);
+		ptr = ptr->next;
 	}
+	return (0);
 }

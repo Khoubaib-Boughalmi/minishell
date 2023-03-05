@@ -45,5 +45,7 @@ int main(int ac, char *av[], char *envp[])
 	ft_unest("myVar4");
 	printf("-------------------\n");
 	ft_env();
+	ft_pwd();
+	ft_echo("hello world");
 	return (0);
 }

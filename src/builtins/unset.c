@@ -1,20 +1,21 @@
 #include "../../minishell.h"
 
-void ft_unest(char *key)
+int	ft_unest(char *key)
 {
-	t_envp_node	*head_copy;
+	t_envp_node	*ptr;
 	int			i;
 
 	i = 0;
-	head_copy = gstruct->envp_head;
-	while (head_copy)
+	ptr = gstruct->envp_head;
+	while (ptr)
 	{
-		if(!ft_strncmp(head_copy->key, key, ft_strlen((char *)key)))
+		if(!ft_strncmp(ptr->key, key, ft_strlen((char *)key)))
 		{
 			envp_delete_node(i);
-			break;
+			return (0);
 		}
-		head_copy = head_copy->next;
+		ptr = ptr->next;
 		i++;
 	}
+	return (127);
 }
