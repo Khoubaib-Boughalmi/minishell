@@ -37,8 +37,8 @@ typedef struct s_envp_node
 typedef struct s_global_struct
 {
 	char		*src_input;		//pointer to the users source input
-	t_token		*tokens;    	//pointer to the array of tokens
-	t_envp_node	*envp_head;
+	t_token		*tokens_head;	//linked list of tokens
+	t_envp_node	*envp_head;		//linked list of envp
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -57,5 +57,6 @@ int			ft_export(char *key, char *value);
 int			ft_unest(char *key);
 int			ft_pwd(void);
 int			ft_echo(char *str);
+int			ft_cd(char *str);
 
 # endif

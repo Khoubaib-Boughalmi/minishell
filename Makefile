@@ -18,6 +18,7 @@ SRCS_MAND= 		./src/main.c							\
 				./src/builtins/unset.c					\
 				./src/builtins/pwd.c					\
 				./src/builtins/echo.c					\
+				./src/builtins/cd.c						\
 				./get_next_line/get_next_line.c			\
 				./get_next_line/get_next_line_utils.c	\
 
