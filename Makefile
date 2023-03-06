@@ -19,7 +19,6 @@ SRCS_MAND= 		./src/main.c							\
 				./src/builtins/pwd.c					\
 				./src/builtins/echo.c					\
 				./src/builtins/cd.c						\
-				./src/variable/v_expansion.c			\
 				./src/signals/sig_handler.c				\
 				./src/signals/sig_init.c				\
 				./get_next_line/get_next_line.c			\

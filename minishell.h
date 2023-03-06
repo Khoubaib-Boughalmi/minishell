@@ -58,6 +58,7 @@ void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node);
 void		envp_delete_node(int pos);
+char		*envp_find_node(char *key);
 int			ft_env(void);
 int			ft_export(char *key, char *value);
 int			ft_unest(char *key);
@@ -68,6 +69,5 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 char		*rl_replace_line(const char *text, int clear_undo);
-char		*variable_expansion(char *key);
 
 # endif
