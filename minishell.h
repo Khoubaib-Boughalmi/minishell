@@ -68,5 +68,6 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 char		*rl_replace_line(const char *text, int clear_undo);
+char		*variable_expansion(char *key);
 
 # endif
