@@ -8,6 +8,7 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <signal.h>
+#include <termios.h>
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -26,6 +27,7 @@ typedef struct s_token {
 	int				num_args; // the number of arguments for a command token
 	int				redirect_fd; // the file descriptor to redirect for a redirection token
 	char*			redirect_fname; // the filename to redirect to for a redirection token
+	int				exit_status;
 } t_token;
 
 

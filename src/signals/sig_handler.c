@@ -13,7 +13,7 @@ void	sigint_hander(int sig)
 
 void	sigquit_hander(int sig)
 {
-	printf("");
+	// printf("");
 }
 
 
