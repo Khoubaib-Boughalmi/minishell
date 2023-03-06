@@ -7,6 +7,8 @@
 	5-	create the unset functionality to the new envp linked list		(delete existing variables)
 	6-	add all builtins functions (export unset env pwd cd exit echo)
 	6-	create signal handlers for ctrl+C ctrl+D ctrl+\
+	7-	creating variable expansion functiona
+	8-	creating a history mechanism
 	
 ## other minor functions in utils.c
 	1-	crate a free_split function that frees a char **list

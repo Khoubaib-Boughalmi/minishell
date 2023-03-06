@@ -33,6 +33,7 @@ int	repl(void)
 			free(input);
 			break;
 		}
+		add_history(input);
 		parse_and_execute(input); //tokenization etc
 		free(input);
 	}
