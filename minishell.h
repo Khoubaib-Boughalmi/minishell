@@ -88,5 +88,6 @@ int			ft_count_der(char	**str);
 char		*ft_strdup_arg(char	*s);
 char		*ft_strdup_der(char	*s);
 void		display_tokens(t_token_lst *token);
+void		expand(t_token_lst *tokens_lst);
 
 # endif

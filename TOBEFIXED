@@ -1,29 +1,31 @@
 1 - in tokenizing function	: exp ls -la | | cat -e >> out.txt 
-==outout==>	COMMAND: ls -la 
+==output==>	COMMAND: ls -la 
 			PIPE: | 
 			COMMAND: 
 			PIPE: | 
 			COMMAND: cat -e 
 			REDIR: >> out.txt
 							: exp ls -la || cat -e >> out.txt 
-==outout==>	COMMAND: ls -la 
+==output==>	COMMAND: ls -la 
 			PIPE: | 
 			COMMAND: cat -e 
 			REDIR: >> out.txt
 							: exp ls -la || cat -e >>>>>> out.txt 
-==outout==>	COMMAND: ls -la 
+==output==>	COMMAND: ls -la 
 			PIPE: | 
 			COMMAND: cat -e 
 			REDIR: >> out.txt
 							: exp ls -la |||||||| cat -e >> out.txt 
-==outout==>	COMMAND: ls -la 
+==output==>	COMMAND: ls -la 
 			PIPE: | 
 			COMMAND: cat -e 
 			REDIR: >> out.txt
 							: exp ls -la ||ls|||||| cat -e >> out.txt 
-==outout==>	COMMAND: ls -la 
+==output==>	COMMAND: ls -la 
 			PIPE: | 
 			COMMAND: ls 
 			PIPE: | 
 			COMMAND: cat -e 
 			REDIR: >> out.txt
+2 - error when you tokenizing input that doesn't contain a pipe before a redirections exp : $echo hello >> file.txt
+==output==> zsh: segmentation fault  ./minishell
