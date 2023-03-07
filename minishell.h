@@ -87,5 +87,6 @@ char		**ft_pipe_insert(char	**str);
 int			ft_count_der(char	**str);
 char		*ft_strdup_arg(char	*s);
 char		*ft_strdup_der(char	*s);
+void		display_tokens(t_token_lst *token);
 
 # endif

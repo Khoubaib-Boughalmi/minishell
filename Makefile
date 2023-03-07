@@ -24,6 +24,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/utils/split_string.c					\
 				./src/tokenizer/tokenizer_utils1.c			\
 				./src/tokenizer/tokenizer_utils2.c			\
+				./src/tokenizer/display_tokens.c			\
 				./src/tokenizer/tokenizer.c					\
 				./get_next_line/get_next_line.c				\
 				./get_next_line/get_next_line_utils.c		\
