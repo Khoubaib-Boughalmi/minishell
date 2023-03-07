@@ -6,38 +6,54 @@
 #include <errno.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-# include	"libft/libft.h"
-# include	"get_next_line/get_next_line.h"
 
-// AST node types
+#include <string.h>
+#include<stdio.h>
 typedef enum {
-	AST_COMMAND,     // a command to execute
-	AST_PIPE,        // a pipe between two commands
-	AST_REDIRECTION, // a redirection of input or output
+	AST_COMMAND,
+	AST_PIPE,
+	AST_REDIRECTION,
 } t_token_type;
 
-// node structure
+
 typedef struct s_token {
-	t_token_type	type; // the type of the token
-	char**			args; // the arguments for a command token
-	int				num_args; // the number of arguments for a command token
-	int				redirect_fd; // the file descriptor to redirect for a redirection token
-	char*			redirect_fname; // the filename to redirect to for a redirection token
+	t_token_type	type;
+	char**			args;
+	int				num_args;
+	char*			redirect_fd;
+	char*			redirect_fname;
 } t_token;
+
+typedef struct s_token_list {
+	t_token				*token;
+	struct s_token_list *next;
+} t_token_list;
 
 //shared data goes here
 typedef struct s_global_struct
 {
 	char	*src_input;		//pointer to the users source input
-	t_token *tokens;    	//pointer to the array of tokens
+	t_token_list *tokens;    	//pointer to the array of tokens
 } t_global_struct;
 
 extern t_global_struct *gstruct;
 
 
-int     repl(void);                 // the starting point :  repl = read-eval-print loop
-void	parse_and_execute(char *input);    // the starting point
-int     init_gstruct(char *input);  // for initializing the global strcut
-t_token *tokenize_input(void);      // for creating the array of tokens from the user input
+
+t_token	*ft_tokenization(char	*input);
+char	**ft_split(char *s, char c);
+char	*ft_strdup(const char *s);
+int	ft_strlen(const char *c);
+
+int ft_check_der(char *str);
+int ft_check_pipe(char *str);
+char *ft_strdup_file(char	*s);
+char	**ft_split_der(char	**str);
+void	ft_lstadd_back(t_token_list **lst, t_token_list *new);
+int ft_count_str(char	**str);
+char	**ft_pipe_insert(char	**str);
+int ft_count_der(char	**str);
+char *ft_strdup_arg(char	*s);
+char *ft_strdup_der(char	*s);
 
 # endif
