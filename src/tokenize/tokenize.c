@@ -50,7 +50,7 @@ t_token_lst *ft_put_intoken(char **str)
 	return (token);
 }
 
-t_token_lst *tokenizer(char	*input)
+t_token_lst *tokenize(char	*input)
 {
 	t_token_lst	*token;
 	char			**temp;

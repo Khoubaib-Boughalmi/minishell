@@ -34,7 +34,7 @@ int	repl(void)
 			break;
 		}
 		add_history(input);
-		parse_and_execute(input); //tokenization etc
+		tokenize_expand_execute(input); //tokenization etc
 		free(input);
 	}
 	/* Restore original terminal settings */
@@ -50,8 +50,7 @@ int main(int ac, char *av[], char *envp[])
 	sig_init(SIGQUIT, &sigquit_hander);
 	if(!init_gstruct())
 		return (1);
-	// init_envp(envp);
-	// ft_env();
+	init_envp(envp);
 	repl();
 	return (0);
 }

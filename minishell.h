@@ -55,7 +55,7 @@ typedef struct s_global_struct
 extern t_global_struct *gstruct;
 
 int     	repl(void);                 // the starting point :  repl = read-eval-print loop
-void		parse_and_execute(char *input);    // the starting point
+int			tokenize_expand_execute(char *input);    // the starting point
 t_token 	*tokenize_input(void);      // for creating the array of tokens from the user input
 int     	init_gstruct();  // for initializing the global strcut
 int			init_envp(char **envp);
@@ -76,7 +76,7 @@ void		sigquit_hander(int sig);
 char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
-t_token_lst	*tokenizer(char	*input);
+t_token_lst	*tokenize(char	*input);
 int			ft_check_der(char *str);
 int			ft_check_pipe(char *str);
 char		*ft_strdup_file(char	*s);
