@@ -9,7 +9,7 @@
 	6-	create signal handlers for ctrl+C ctrl+D ctrl+\
 	7-	creating variable expansion functiona
 	8-	creating a history mechanism
-	
+	9-	creating expanding variables functionality
 ## other minor functions in utils.c
 	1-	crate a free_split function that frees a char **list
 	2-	added display_tokens function that would allow displing the list in an easy format

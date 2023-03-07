@@ -16,3 +16,5 @@ int	tokenize_expand_execute(char *input)
 	display_tokens(tokens_lst);
 	return (1);
 }
+
+//try this : ls -la | hello $PATH | echo $myKey
