@@ -8,21 +8,25 @@ PRINTF			= libft/ft_printf/libftprintf.a
 
 # SRCS_BONUS=
 
-SRCS_MAND= 		./src/main.c							\
-				./src/utils.c							\
-				./src/parse.c							\
-				./src/init.c							\
-				./src/envp/envp_node.c					\
-				./src/builtins/env.c					\
-				./src/builtins/export.c					\
-				./src/builtins/unset.c					\
-				./src/builtins/pwd.c					\
-				./src/builtins/echo.c					\
-				./src/builtins/cd.c						\
-				./src/signals/sig_handler.c				\
-				./src/signals/sig_init.c				\
-				./get_next_line/get_next_line.c			\
-				./get_next_line/get_next_line_utils.c	\
+SRCS_MAND= 		./src/main.c								\
+				./src/parse.c								\
+				./src/init.c								\
+				./src/envp/envp_node.c						\
+				./src/builtins/env.c						\
+				./src/builtins/export.c						\
+				./src/builtins/unset.c						\
+				./src/builtins/pwd.c						\
+				./src/builtins/echo.c						\
+				./src/builtins/cd.c							\
+				./src/signals/sig_handler.c					\
+				./src/signals/sig_init.c					\
+				./src/utils/utils.c							\
+				./src/utils/split_string.c					\
+				./src/tokenizer/tokenizer_utils1.c			\
+				./src/tokenizer/tokenizer_utils2.c			\
+				./src/tokenizer/tokenizer.c					\
+				./get_next_line/get_next_line.c				\
+				./get_next_line/get_next_line_utils.c		\
 
 M_OBJ 		= ${SRCS_MAND:.c=.o}
 B_OBJ 		= ${SRCS_BONUS:.c=.o}
