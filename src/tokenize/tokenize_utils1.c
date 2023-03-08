@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 int ft_count_str(char	**str)
 {
@@ -58,6 +58,7 @@ char *ft_strdup_arg(char	*s)
 	int		i;
 	int		len;
 
+	len = 0;
 	while (s[len] != '\0')
 	{
 		if (s[len] == '<' || s[len] == '>')

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../minishell.h"
 
 int ft_check_der(char *str)
 {
@@ -81,9 +81,9 @@ char	**ft_split_der(char	**str)
 	return (res);
 }
 
-void	ft_lstadd_back(t_token_list **lst, t_token_list *new)
+void	ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new)
 {
-	t_token_list	*ptr;
+	t_token_lst	*ptr;
 
 	ptr = *lst;
 	if (!new)
