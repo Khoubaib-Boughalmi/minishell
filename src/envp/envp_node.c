@@ -70,5 +70,5 @@ t_envp_node	*envp_find_node(char *key)
 			return (ptr);
 		ptr = ptr->next;
 	}
-	return (NULL);
+	return ((void *)0);
 }
