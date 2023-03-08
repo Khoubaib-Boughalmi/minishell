@@ -59,7 +59,7 @@ void envp_delete_node(int pos)
 	}
 }
 //can be used for variable expansion
-char	*envp_find_node(char *key)
+t_envp_node	*envp_find_node(char *key)
 {
 	t_envp_node *ptr;
 
@@ -67,7 +67,7 @@ char	*envp_find_node(char *key)
 	while (ptr)
 	{
 		if(!ft_strncmp(ptr->key, key, ft_strlen(key)))
-			return (ptr->value);
+			return (ptr);
 		ptr = ptr->next;
 	}
 	return (NULL);
