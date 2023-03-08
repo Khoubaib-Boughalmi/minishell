@@ -15,7 +15,7 @@ int	tokenize_expand_execute(char *input)
 	ft_env();
 	display_tokens(tokens_lst);
 	printf("~~~~~~~~~~~~~~~~\n");
-	// printf("~~~~~~~~~~~~~~~~\n");
+	printf("~~~~~~~~~~~~~~~~\n");
 	expand(tokens_lst);
 	display_tokens(tokens_lst);
 	return (1);
