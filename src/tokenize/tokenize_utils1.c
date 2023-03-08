@@ -85,15 +85,12 @@ char *ft_strdup_der(char	*s)
 	int		j;
 	int		len;
 
+	len = 0;
 	while (s[len] != '<' && s[len] != '>')
-	{
 		len++;
-	}
 	j = ft_strlen(s);
 	while (s[j] != '<' && s[j] != '>')
-	{
 		j--;
-	}
 	j++;
 	len = j - len;
 	i = 0;
