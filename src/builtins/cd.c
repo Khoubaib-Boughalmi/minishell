@@ -1,8 +1,11 @@
 #include "../../minishell.h"
 
-int	ft_cd(char *dir)
+void	ft_cd(char *dir)
 {
 	if(chdir(dir))
+	{
 		perror("cd failed");
-	return (0);
+		gstruct->exit_status = 1;
+		return ;
+	}
 }

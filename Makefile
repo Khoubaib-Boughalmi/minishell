@@ -27,6 +27,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/tokenize_utils2.c			\
 				./src/tokenize/tokenize.c					\
 				./src/expand/expand.c						\
+				./src/expand/utils.c						\
 				./get_next_line/get_next_line.c				\
 				./get_next_line/get_next_line_utils.c		\
 

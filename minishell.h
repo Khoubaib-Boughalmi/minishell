@@ -50,6 +50,7 @@ typedef struct s_global_struct
 	t_token_lst	*tokens_head;	//linked list of tokens
 	t_envp_node	*envp_head;		//linked list of envp
 	int			sigint_listener;
+	int			exit_status;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -64,12 +65,12 @@ t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node);
 void		envp_delete_node(int pos);
 t_envp_node	*envp_find_node(char *key);
-int			ft_env(void);
-int			ft_export(char *key, char *value);
-int			ft_unest(char *key);
-int			ft_pwd(void);
-int			ft_echo(char *str);
-int			ft_cd(char *str);
+void		ft_env(void);
+void		ft_export(char *key, char *value);
+void		ft_unest(char *key);
+void		ft_pwd(void);
+void		ft_echo(char *str);
+void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
@@ -91,4 +92,6 @@ void		display_tokens(t_token_lst *token);
 void		expand(t_token_lst *tokens_lst);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
+void		expand_exit_status(t_token_lst *tokens_lst, int i);
+
 # endif

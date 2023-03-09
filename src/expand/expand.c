@@ -3,6 +3,8 @@
 void	expand(t_token_lst *tokens_lst)
 {
 	t_envp_node	*tmp;
+		char	*expanded_exit;
+
 	int			i;
 	int			j;
 
@@ -16,11 +18,16 @@ void	expand(t_token_lst *tokens_lst)
 			{
 				if(tokens_lst->token->args[i][0] == '$')
 				{
-					tmp = envp_find_node(&(tokens_lst->token->args[i][1]));
-					if(tmp)
+					if(tokens_lst->token->args[i][1] == '?')
+						expand_exit_status(tokens_lst, i);
+					else
 					{
-						free(tokens_lst->token->args[i]);
-						tokens_lst->token->args[i] = tmp->value;
+						tmp = envp_find_node(&(tokens_lst->token->args[i][1]));
+						if(tmp)
+						{
+							free(tokens_lst->token->args[i]);
+							tokens_lst->token->args[i] = tmp->value;
+						}
 					}
 				}
 			}	

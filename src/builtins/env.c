@@ -1,16 +1,19 @@
 #include "../../minishell.h"
 
-int	ft_env(void)
+void	ft_env(void)
 {
 	t_envp_node	*ptr;
 
 	ptr = gstruct->envp_head;
 	if(!ptr)
-		return (1);
+	{
+		gstruct->exit_status = 1;
+		return ;
+	}
 	while (ptr)
 	{
 		printf("%s=%s\n", ptr->key,  ptr->value);
 		ptr = ptr->next;
 	}
-	return (0);
+	gstruct->exit_status = 0;
 }

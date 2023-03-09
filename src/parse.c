@@ -8,12 +8,12 @@ int	tokenize_expand_execute(char *input)
 	if(!tokens_lst)
 		return (0);
 	gstruct->tokens_head = tokens_lst;
-	ft_export("myKey", "myValue");
+	ft_export("", "myValue");
 	ft_export("myKey", "");
 	ft_unest("myKey");
-	ft_export("myKey", "");
+	ft_export("myKey", "valueKEY");
 	ft_export("myFile", "outfile.txt");
-	ft_env();
+	// ft_env();
 	display_tokens(tokens_lst);
 	printf("~~~~~~~~~~~~~~~~\n");
 	printf("~~~~~~~~~~~~~~~~\n");
