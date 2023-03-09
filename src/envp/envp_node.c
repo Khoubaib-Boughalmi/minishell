@@ -66,7 +66,7 @@ t_envp_node	*envp_find_node(char *key)
 	ptr = gstruct->envp_head;
 	while (ptr)
 	{
-		if(!ft_strncmp(ptr->key, key, ft_strlen(key)))
+		if(!ft_strlcmp(ptr->key, key))
 			return (ptr);
 		ptr = ptr->next;
 	}

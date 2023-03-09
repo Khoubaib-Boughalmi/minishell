@@ -5,8 +5,11 @@ int	ft_export(char *key, char *value)
 	t_envp_node *node;
 	t_envp_node	*prev_node;
 	
+
+	if(!check_str(key) || !check_str(value))
+		return (1);
 	prev_node = envp_find_node(key);
-	if(prev_node && !ft_strncmp(prev_node->value, value, ft_strlen(value)))
+	if(prev_node && !ft_strlcmp(prev_node->value, value))
 		return (1);
 	else if(prev_node)
 	{

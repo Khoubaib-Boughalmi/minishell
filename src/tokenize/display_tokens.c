@@ -15,7 +15,7 @@ void	display_tokens(t_token_lst *tokens_lst)
 				printf("COMMAND: ");
 				while (tokens_lst->token->args[i] != 0)
 				{
-					printf("[%d]: %s ", i, tokens_lst->token->args[i]);
+					printf("[%d]: -%s-", i, tokens_lst->token->args[i]);
 					i++;
 				}
 			}
@@ -24,7 +24,7 @@ void	display_tokens(t_token_lst *tokens_lst)
 				printf("PIPE: ");
 				while (tokens_lst->token->args[i] != 0)
 				{
-					printf("%s ", tokens_lst->token->args[i]);
+					printf("%s", tokens_lst->token->args[i]);
 					i++;
 				}
 
@@ -32,7 +32,7 @@ void	display_tokens(t_token_lst *tokens_lst)
 		}
 		if(tokens_lst->token->type == AST_REDIRECTION)
 		{
-			printf("REDIR: %s %s", tokens_lst->token->redirect_fd, tokens_lst->token->redirect_fname);
+			printf("REDIR: %s %s-", tokens_lst->token->redirect_fd, tokens_lst->token->redirect_fname);
 		}
 		printf("\n");
 		tokens_lst = tokens_lst->next;

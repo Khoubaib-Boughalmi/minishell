@@ -89,5 +89,6 @@ char		*ft_strdup_arg(char	*s);
 char		*ft_strdup_der(char	*s);
 void		display_tokens(t_token_lst *token);
 void		expand(t_token_lst *tokens_lst);
-
+int			ft_strlcmp(const char *s1, const char *s2);
+int			check_str(char *str);
 # endif

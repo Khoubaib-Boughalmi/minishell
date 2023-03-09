@@ -28,7 +28,7 @@ int	repl(void)
 			free(input);
 			continue;
 		}
-		if (!strncmp(input, "exit", 5))
+		if (!ft_strlcmp(input, "exit"))
 		{
 			free(input);
 			break;

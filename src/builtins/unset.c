@@ -6,10 +6,12 @@ int	ft_unest(char *key)
 	int			i;
 
 	i = 0;
+	if(!check_str(key))
+		return (1);
 	ptr = gstruct->envp_head;
 	while (ptr)
 	{
-		if(!ft_strncmp(ptr->key, key, ft_strlen((char *)key)))
+		if(!ft_strlcmp(ptr->key, key))
 		{
 			envp_delete_node(i);
 			return (0);
