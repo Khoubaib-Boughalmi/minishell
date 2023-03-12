@@ -18,7 +18,7 @@ int	tokenize_expand_execute(char *input)
 	printf("~~~~~~~~~~~~~~~~\n");
 	printf("~~~~~~~~~~~~~~~~\n");
 	expand(tokens_lst);
-	display_tokens(tokens_lst);
+	// display_tokens(tokens_lst);
 	return (1);
 }
 

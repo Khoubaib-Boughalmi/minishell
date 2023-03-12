@@ -64,7 +64,7 @@ void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node);
 void		envp_delete_node(int pos);
-t_envp_node	*envp_find_node(char *key);
+t_envp_node	*envp_find_node(char *key, size_t len);
 void		ft_env(void);
 void		ft_export(char *key, char *value);
 void		ft_unest(char *key);
@@ -81,12 +81,15 @@ t_token_lst	*tokenize(char	*input);
 int			ft_check_der(char *str);
 int			ft_check_pipe(char *str);
 void		display_tokens(t_token_lst *token);
+// void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
+void		expand_quotes(char *arg, t_token_type token_type);
+void		expand_variables(char *key, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
 void		expand_exit_status(t_token_lst *tokens_lst, int i);
 char    **ft_pipe_insert(char   *input, char    **str);
-
+int		get_key_len(char *start);
 
 
 char		*ft_strdup_file(char	*s);

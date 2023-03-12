@@ -32,6 +32,9 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/ft_split_qotes.c				\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
+				./src/expand/expand_var.c					\
+				./src/expand/expand_quotes.c				\
+				./src/expand/expand_exit.c					\
 				./get_next_line/get_next_line.c				\
 				./get_next_line/get_next_line_utils.c		\
 

@@ -59,14 +59,14 @@ void envp_delete_node(int pos)
 	}
 }
 //can be used for variable expansion
-t_envp_node	*envp_find_node(char *key)
+t_envp_node	*envp_find_node(char *key, size_t	len)
 {
 	t_envp_node *ptr;
 
 	ptr = gstruct->envp_head;
 	while (ptr)
 	{
-		if(!ft_strlcmp(ptr->key, key))
+		if(!ft_strncmp(ptr->key, key, len))
 			return (ptr);
 		ptr = ptr->next;
 	}
