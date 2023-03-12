@@ -80,18 +80,32 @@ int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
 int			ft_check_der(char *str);
 int			ft_check_pipe(char *str);
-char		*ft_strdup_file(char	*s);
-char		**ft_split_der(char	**str);
-void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
-int			ft_count_str(char	**str);
-char		**ft_pipe_insert(char	**str);
-int			ft_count_der(char	**str);
-char		*ft_strdup_arg(char	*s);
-char		*ft_strdup_der(char	*s);
 void		display_tokens(t_token_lst *token);
 void		expand(t_token_lst *tokens_lst);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
 void		expand_exit_status(t_token_lst *tokens_lst, int i);
+char    **ft_pipe_insert(char   *input, char    **str);
+
+
+
+char		*ft_strdup_file(char	*s);
+char		**ft_split_der(char	**str, char *input);
+void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
+int			ft_count_str(char	**str);
+char		**ft_pipe_insert(char *input, char	**str);
+int			ft_count_der(char	**str);
+char		*ft_strdup_arg(char	*s);
+char		*ft_strdup_der(char	*s);
+
+char	*ft_strtrim(char const *s1, char const *set);
+int	ft_check_mul_pipe(char	*input);
+int ft_check_space_pipe(char **temp);
+char	**ft_args_split(char *str);
+int	ft_check_mul_der(char	*input, char c);
+char	**ft_der_insert(char	*input, char	**str, char *c);
+char	**ft_split_qotes(char *s, char c);
+
 
 # endif
+

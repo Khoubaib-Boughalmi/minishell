@@ -26,6 +26,10 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/tokenize_utils1.c			\
 				./src/tokenize/tokenize_utils2.c			\
 				./src/tokenize/tokenize.c					\
+				./src/tokenize/check_der.c					\
+				./src/tokenize/qoute_check.c				\
+				./src/tokenize/check_pipe_dub.c				\
+				./src/tokenize/ft_split_qotes.c				\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
 				./get_next_line/get_next_line.c				\
@@ -38,7 +42,7 @@ B_OBJ 		= ${SRCS_BONUS:.c=.o}
 	${CC} -c $< -o $@ ${CFLAGS}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
-		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -o ${NAME}
+		${CC} ${CFLAGS} ${M_OBJ}  -fsanitize=address -g libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -o ${NAME}
 
 # ${BONUS_NAME}:  ${LIBFT} ${PRINTF} ${B_OBJ}
 # 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
@@ -66,3 +70,5 @@ fclean:	clean
 re:	fclean all
 
 .PHONY:	all clean fclean re
+
+
