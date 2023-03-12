@@ -23,9 +23,9 @@ void	expand_variables(char	*key, t_token_type token_type)
 				// printf("len :%d\n", get_key_len(&(key[1])));
 				if(tmp)
 				{
-					// free(key[i]);
+					// free(key);
 					printf("%s", tmp->value);
-					// key[i] = tmp->value;
+					// key = tmp->value;
 				}
 			// }
 		// }	
