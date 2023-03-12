@@ -15,9 +15,7 @@ void	expand(t_token_lst *tokens_lst)
 		if(tokens_lst->token->type == AST_COMMAND)
 		{
 			while (tokens_lst->token->args[++i])
-			{
 				expand_quotes(tokens_lst->token->args[i], tokens_lst->token->type);
-			}	
 		}
 		else if(tokens_lst->token->type == AST_REDIRECTION)
 		{

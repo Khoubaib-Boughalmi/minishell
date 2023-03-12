@@ -20,6 +20,7 @@ void	expand_variables(char	*key, t_token_type token_type)
 			// else
 			// {
 				tmp = envp_find_node(&(key[1]), get_key_len(&(key[1])));
+				printf("len :%d\n", get_key_len(&(key[1])));
 				if(tmp)
 				{
 					// free(key[i]);
