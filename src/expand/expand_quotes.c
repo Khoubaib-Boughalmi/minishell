@@ -1,56 +1,55 @@
 #include "../../minishell.h"
 
-void expand_quotes(char *str, t_token_type token_type)
+void expand_quotes(char *original, t_token_type token_type)
 {
 	int	i = 0;
 	int	j = 0;
-	char	*str_cpy;
+	char	*copy;
 
-	str_cpy = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
-	ft_strlcpy(str_cpy, str, ft_strlen(str) + 1);
-	printf("copy : %s\n", str_cpy);
-
-	while(str_cpy[i])
+	copy = (char *)malloc(sizeof(char) * ft_strlen(original) + 1);
+	ft_strlcpy(copy, original, ft_strlen(original) + 1);
+	free(original);
+	while(copy[i])
 	{
-		if(str_cpy[i] == '\"')
+		if(copy[i] == '\"')
 		{
 			i++;
-			while (str_cpy[i] && str_cpy[i] != '\"')
+			while (copy[i] && copy[i] != '\"')
 			{
-				if(str_cpy[i] == '$')
+				if(copy[i] == '$')
 				{
-					expand_variables(str_cpy + i, token_type);
-					while (str_cpy[i] && str_cpy[i] != ' ' && str_cpy[i] != '\"' && str_cpy[i] != '\'')
+					expand_variables(original, copy + i, token_type);
+					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
 						i++;
 				}
 				else
 				{
-					printf("%c", str_cpy[i]);
+					printf("%c", copy[i]);
 					i++;
 				}
 			}
 		}
-		else if(str_cpy[i] == '\'')
+		else if(copy[i] == '\'')
 		{
 			i++;
-			while (str_cpy[i] && str_cpy[i] != '\'')
+			while (copy[i] && copy[i] != '\'')
 			{
-				printf("%c", str_cpy[i]);
+				printf("%c", copy[i]);
 				i++;
 			}
 		}
 		else
 		{
-			if(str_cpy[i] == '$')
+			if(copy[i] == '$')
 			{
-				expand_variables(str_cpy + i, token_type);
-				while (str_cpy[i] && str_cpy[i] != ' ')
+				expand_variables(original, copy + i, token_type);
+				while (copy[i] && copy[i] != ' ')
 					i++;
-				if(str_cpy[i] != ' ')
+				if(copy[i] != ' ')
 					i++;
 			}
 			else
-				printf("%c", str_cpy[i]);
+				printf("%c", copy[i]);
 		}
 		i++;	
 	}

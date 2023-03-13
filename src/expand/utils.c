@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-int	get_key_len(char *start)
+int	get_variable_len(char *start)
 {
 	size_t	i;
 
