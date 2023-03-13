@@ -12,55 +12,48 @@ void expand_quotes(char **original, t_token_type token_type)
 	ft_memset(*original, 0, ft_strlen(*original));
 	free(*original);
 	*original = NULL;
-	// char *new_or = NULL;
-	// char *str = "1234567890";
-	// printf("cp-%s-\n", copy);
-	printf("original %s", *original);
-
 	while(copy[i])
 	{
-		// if(copy[i] == '\"')
-		// {
-		// 	i++;
-		// 	while (copy[i] && copy[i] != '\"')
-		// 	{
-		// 		if(copy[i] == '$')
-		// 		{
-		// 			// expand_variables(original, copy + i, token_type);
-		// 			while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
-		// 				i++;
-		// 		}
-		// 		else
-		// 		{
-		// 			cbc_str_join(original, copy[i]);
-		// 			i++;
-		// 		}
-		// 	}
-		// }
-		// else if(copy[i] == '\'')
-		// {
-		// 	i++;
-		// 	while (copy[i] && copy[i] != '\'')
-		// 	{
-		// 		cbc_str_join(original, copy[i]);
-		// 		i++;
-		// 	}
-		// }
-		// else
-		// {
-			// if(copy[i] == '$')
-			// {
-			// 	// expand_variables(original, copy + i, token_type);
-			// 	while (copy[i] && copy[i] != ' ')
-			// 		i++;
-			// 	if(copy[i] != ' ')
-			// 		i++;
-			// }
-			// else
-			// printf("%c-\n", copy[i]);
-		cbc_str_join(original, copy[i]);
-		// }
-	printf("original : %s\n", *original);
+		if(copy[i] == '\"')
+		{
+			i++;
+			while (copy[i] && copy[i] != '\"')
+			{
+				if(copy[i] == '$')
+				{
+					// expand_variables(original, copy + i, token_type);
+					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
+						i++;
+				}
+				else
+				{
+					cbc_str_join(original, copy[i]);
+					i++;
+				}
+			}
+		}
+		else if(copy[i] == '\'')
+		{
+			i++;
+			while (copy[i] && copy[i] != '\'')
+			{
+				cbc_str_join(original, copy[i]);
+				i++;
+			}
+		}
+		else
+		{
+			if(copy[i] == '$')
+			{
+				// expand_variables(original, copy + i, token_type);
+				while (copy[i] && copy[i] != ' ')
+					i++;
+				if(copy[i] != ' ')
+					i++;
+			}
+			else
+				cbc_str_join(original, copy[i]);
+		}
 		i++;	
 	}
 	// free(copy);
