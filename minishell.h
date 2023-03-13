@@ -8,7 +8,6 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <signal.h>
-#include <termios.h>
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -74,7 +73,7 @@ void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -83,14 +82,15 @@ int			ft_check_pipe(char *str);
 void		display_tokens(t_token_lst *token);
 // void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
-void		expand_quotes(char *arg, t_token_type token_type);
+void		expand_quotes(char **original, t_token_type token_type);
 void		expand_variables(char *original, char *copy, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
 void		expand_exit_status(t_token_lst *tokens_lst, int i);
-char    **ft_pipe_insert(char   *input, char    **str);
-int		get_variable_len(char *start);
-
+char   		 **ft_pipe_insert(char   *input, char    **str);
+int			get_variable_len(char *start);
+void		cbc_str_join(char **original, char c);
+void		create_original_str(char **original);
 
 char		*ft_strdup_file(char	*s);
 char		**ft_split_der(char	**str, char *input);

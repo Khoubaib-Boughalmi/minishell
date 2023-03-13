@@ -6,13 +6,13 @@ void	create_original_str(char **original)
 
 	if(!(*original))
 	{
-		printf("from here\n");
+		printf("from first\n");
 		*original = (char *)malloc(sizeof(char) * 2);
 		ft_memset(*original, 0, 2);
 	}
 	else
 	{
-		printf("from second here\n");
+		printf("from second\n");
 		tmp = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
 		ft_memset(tmp, 0, ft_strlen(*original) + 1);
 		ft_strlcpy(tmp, *original, ft_strlen(*original) + 1);
@@ -26,31 +26,32 @@ void	create_original_str(char **original)
 
 void cbc_str_join(char **original, char c)
 {
-	if(!*original || !(ft_strlen(*original) % 2))
+	if(!*original)
+	{
+		printf("first entered\n");
 		create_original_str(original);	
+	}
+	else if(!(ft_strlen(*original) % 2))
+	{
+		printf("second entered\n");
+		create_original_str(original);	
+	}
+	printf("len :%ld\n", strlen((char *)*original));
 	(*original)[ft_strlen(*original)] = c;
-	printf("string : %s\n", (*original));
-
+	// printf("string : %s\n", (*original));
 }
 
 
-int main()
-{
-	char *str = NULL;
-	cbc_str_join(&str, 'A');
-	cbc_str_join(&str, 'B');
-	cbc_str_join(&str, 'C');
-	cbc_str_join(&str, 'D');
-	cbc_str_join(&str, 'E');
-	cbc_str_join(&str, 'F');
-	cbc_str_join(&str, 'G');
-	cbc_str_join(&str, '1');
-	cbc_str_join(&str, '2');
-	cbc_str_join(&str, '3');
-	cbc_str_join(&str, '4');
-	cbc_str_join(&str, '5');
-	cbc_str_join(&str, '6');
-	cbc_str_join(&str, '7');
+// int main()
+// {
+// 	char *str = NULL;
+// 	char *copy = "hello world";
+// 	int i = 0;
+// 	while(copy[i])
+// 	{
+// 		cbc_str_join(&str, copy[i]);
+// 		i++;
+// 	}
 
-	return (0);
-}
+// 	return (0);
+// }

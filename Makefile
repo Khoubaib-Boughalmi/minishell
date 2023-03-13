@@ -22,6 +22,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/signals/sig_init.c					\
 				./src/utils/utils.c							\
 				./src/utils/split_string.c					\
+				./src/utils/cbc_str_join.c					\
 				./src/tokenize/display_tokens.c				\
 				./src/tokenize/tokenize_utils1.c			\
 				./src/tokenize/tokenize_utils2.c			\
@@ -45,7 +46,7 @@ B_OBJ 		= ${SRCS_BONUS:.c=.o}
 	${CC} -c $< -o $@ ${CFLAGS}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
-		${CC} ${CFLAGS} ${M_OBJ}  -fsanitize=address -g libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -o ${NAME}
+		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -o ${NAME}
 
 # ${BONUS_NAME}:  ${LIBFT} ${PRINTF} ${B_OBJ}
 # 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
