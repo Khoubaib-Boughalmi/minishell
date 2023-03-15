@@ -1,0 +1,6 @@
+$ echo "'$USER'"
+==> 'kboughal' (with '')
+$ echo ''$USER''
+==> kboughal
+$ echo ''$USER"'"
+==> kboughal' with(' at the end)

@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:14:37 by khoubaib          #+#    #+#             */
-/*   Updated: 2023/03/09 15:26:08 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/03/15 18:11:32 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,17 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] != '\0')
 	{
-		if (--n == 0)
-			return (0);
+		if (n-- == 0)
+		{
+		printf("%s\n", s1);
+
+			break;
+		}
 		i++;
 	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	// n--;
+	if(!s1[i] && !n)
+		return (0);
+	else
+		return (1);
 }

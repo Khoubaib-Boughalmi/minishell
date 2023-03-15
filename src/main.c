@@ -41,6 +41,7 @@ int main(int ac, char *av[], char *envp[])
 	if(!init_gstruct())
 		return (1);
 	init_envp(envp);
+	// ft_env();
 	repl();
 	return (0);
 }

@@ -10,7 +10,7 @@ void	ft_export(char *key, char *value)
 		gstruct->exit_status = 1;
 		return ;
 	}
-	prev_node = envp_find_node(key);
+	prev_node = envp_find_node(key, ft_strlen(key));
 	if(prev_node && !ft_strlcmp(prev_node->value, value))
 		return ;
 	else if(prev_node)

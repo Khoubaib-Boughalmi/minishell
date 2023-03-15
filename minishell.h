@@ -8,7 +8,6 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <signal.h>
-#include <termios.h>
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -27,6 +26,7 @@ typedef struct s_token {
 	int				num_args; // the number of arguments for a command token
 	char			*redirect_fd; // the file descriptor to redirect for a redirection token
 	char			*redirect_fname; // the filename to redirect to for a redirection token
+	char			*com_plus;
 	int				exit_status;
 } t_token;
 
@@ -64,7 +64,7 @@ void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node);
 void		envp_delete_node(int pos);
-t_envp_node	*envp_find_node(char *key);
+t_envp_node	*envp_find_node(char *key, size_t len);
 void		ft_env(void);
 void		ft_export(char *key, char *value);
 void		ft_unest(char *key);
@@ -80,18 +80,45 @@ int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
 int			ft_check_der(char *str);
 int			ft_check_pipe(char *str);
-char		*ft_strdup_file(char	*s);
-char		**ft_split_der(char	**str);
-void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
-int			ft_count_str(char	**str);
-char		**ft_pipe_insert(char	**str);
-int			ft_count_der(char	**str);
-char		*ft_strdup_arg(char	*s);
-char		*ft_strdup_der(char	*s);
 void		display_tokens(t_token_lst *token);
+// void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
+void		expand_quotes(char **original, t_token_type token_type);
+void		expand_variables(char **original, char *copy, t_token_type token_type);
+void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
 void		expand_exit_status(t_token_lst *tokens_lst, int i);
+char   		 **ft_pipe_insert(char   *input, char    **str);
+int			get_variable_len(char *start);
+void		cbc_str_join(char **original, char c);
+void		create_original_str(char **original);
+
+char		*ft_strdup_file(char	*s);
+char		**ft_split_der(char	**str, char *input);
+void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
+int			ft_count_str(char	**str);
+char		**ft_pipe_insert(char *input, char	**str);
+int			ft_count_der(char	**str);
+char		*ft_strdup_arg(char	*s);
+char		*ft_strdup_der(char	*s);
+
+char	*ft_strtrim(char const *s1, char const *set);
+int ft_check_space_pipe(char **temp);
+char	**ft_args_split(char *str);
+char	**ft_der_insert(char	*input, char	**str, char *c);
+char	**ft_split_qotes(char *s, char c);
+
+
+int			ft_check_dub_der2(char	*input);
+int			ft_check_mul_pipe(char	*input);
+int			ft_check_der(char *str);
+int 		ft_check_pipe(char *str);
+int			ft_check_mul_der(char	*input, char c);
+int			ft_check_der_right(char *str);
+int			ft_check_der_left(char *str);
+char		**ft_der_insert_2(char	*input, char	**str, char *c);
+void		ft_free_token(char **str);
 
 # endif
+

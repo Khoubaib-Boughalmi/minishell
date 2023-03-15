@@ -22,12 +22,23 @@ SRCS_MAND= 		./src/main.c								\
 				./src/signals/sig_init.c					\
 				./src/utils/utils.c							\
 				./src/utils/split_string.c					\
+				./src/utils/cbc_str_join.c					\
 				./src/tokenize/display_tokens.c				\
 				./src/tokenize/tokenize_utils1.c			\
 				./src/tokenize/tokenize_utils2.c			\
 				./src/tokenize/tokenize.c					\
+				./src/tokenize/check_der.c					\
+				./src/tokenize/qoute_check.c				\
+				./src/tokenize/check_pipe_dub.c				\
+				./src/tokenize/ft_split_qotes.c				\
+				./src/tokenize/redirections_utiles1.c		\
+				./src/tokenize/redirections.c				\
+				./src/tokenize/redirections_utiles2.c		\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
+				./src/expand/expand_var.c					\
+				./src/expand/expand_quotes.c				\
+				./src/expand/expand_exit.c					\
 				./get_next_line/get_next_line.c				\
 				./get_next_line/get_next_line_utils.c		\
 
@@ -66,3 +77,5 @@ fclean:	clean
 re:	fclean all
 
 .PHONY:	all clean fclean re
+
+
