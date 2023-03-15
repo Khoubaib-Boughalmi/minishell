@@ -26,6 +26,7 @@ typedef struct s_token {
 	int				num_args; // the number of arguments for a command token
 	char			*redirect_fd; // the file descriptor to redirect for a redirection token
 	char			*redirect_fname; // the filename to redirect to for a redirection token
+	char			*com_plus;
 	int				exit_status;
 } t_token;
 
@@ -103,13 +104,21 @@ char		*ft_strdup_arg(char	*s);
 char		*ft_strdup_der(char	*s);
 
 char	*ft_strtrim(char const *s1, char const *set);
-int	ft_check_mul_pipe(char	*input);
 int ft_check_space_pipe(char **temp);
 char	**ft_args_split(char *str);
-int	ft_check_mul_der(char	*input, char c);
 char	**ft_der_insert(char	*input, char	**str, char *c);
 char	**ft_split_qotes(char *s, char c);
 
+
+int			ft_check_dub_der2(char	*input);
+int			ft_check_mul_pipe(char	*input);
+int			ft_check_der(char *str);
+int 		ft_check_pipe(char *str);
+int			ft_check_mul_der(char	*input, char c);
+int			ft_check_der_right(char *str);
+int			ft_check_der_left(char *str);
+char		**ft_der_insert_2(char	*input, char	**str, char *c);
+void		ft_free_token(char **str);
 
 # endif
 

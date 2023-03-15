@@ -2,12 +2,10 @@
 
 int	ft_check_mul_der(char	*input, char c)
 {
-	int		i;
-	int		j;
-	char	n;
-	int		k;
+	int i = 0;
+	int j;
+	int k;
 
-	i = 0;
 	while (input[i])
 	{
 		if (input[i] != ' ' && input[i] != '\t' && input[i] != c)
@@ -19,24 +17,15 @@ int	ft_check_mul_der(char	*input, char c)
 	while (input[i])
 	{
 		k = 0;
-		if (input[i] == '\'' || input[i] == '\"')
-		{
-			n = input[i];
-			i++;
-			while (!input[i] || (input[i] != n && input[i] != n))
-				i++;
-			if (!input[i])
-				return (1);
-		}
 		if (input[i] == c)
 		{
 			j = i + 1;
-			while (input[j])
+			while(input[j])
 			{
 				if (input[j] == c)
 					k++;
 				else
-					break ;
+					break;
 				j++;
 			}
 		}
@@ -47,9 +36,9 @@ int	ft_check_mul_der(char	*input, char c)
 	return (0);
 }
 
-int	ft_count_str_der(char	**str)
+int ft_count_str_der(char	**str)
 {
-	int	count;
+	int count;
 
 	count = 0;
 	while (str[count])
@@ -59,9 +48,8 @@ int	ft_count_str_der(char	**str)
 
 int	ft_check_dub_der(char	*input, char c)
 {
-	int	i;
+	int i = 0;
 
-	i = 0;
 	while (input[i])
 	{
 		if (input[i] == c && input[i + 1] == c)
@@ -71,12 +59,11 @@ int	ft_check_dub_der(char	*input, char c)
 	return (0);
 }
 
-int	ft_check_last_der(char	*input, char c)
+int ft_check_last_der(char	*input,char c)
 {
-	int	i;
-	int	j;
+	int i = 0;
+	int j;
 
-	i = 0;
 	while (input[i])
 	{
 		if (input[i] == c && input[i + 1] == '\0')
@@ -85,7 +72,7 @@ int	ft_check_last_der(char	*input, char c)
 			while (input[j] != '\0')
 			{
 				if (input[i] != ' ' && input[i] != '\t')
-					break ;
+					break;
 				j++;
 			}
 			if (input[j] == '\0')
@@ -98,14 +85,12 @@ int	ft_check_last_der(char	*input, char c)
 
 char	**ft_der_insert(char	*input, char	**str, char *c)
 {
-	char	**res;
-	int		i;
-	int		j;
-	int		k;
-	int		m;
+	char **res;
+	int i = 0;
+	int j = 0;
+	int k;
+	int m;
 
-	j = 0;
-	i = 0;
 	k = ft_check_dub_der(input , c[0]);
 	m = ft_check_last_der(input, c[0]);
 	res = malloc((2 * ft_count_str_der(str) + k + m + 1) * sizeof(char *));
@@ -115,11 +100,11 @@ char	**ft_der_insert(char	*input, char	**str, char *c)
 		j++;
 		if (k == 1)
 		{
-			if (c[0] == '>')
-				res[j] = ft_strdup(">>");
-			else
-				res[j] = ft_strdup("<<");
-		}
+            if (c[0] == '>')
+			    res[j] = ft_strdup(">>");
+            else
+                res[j] = ft_strdup("<<");
+        }
 		else
 			res[j] = ft_strdup(c);
 		j++;
@@ -130,12 +115,12 @@ char	**ft_der_insert(char	*input, char	**str, char *c)
 	{
 		j++;
 		if (m == 2)
-		{
-			if (c[0] == '>')
-				res[j] = ft_strdup(">>");
-			else
-				res[j] = ft_strdup("<<");
-		}
+        {
+            if (c[0] == '>')
+			    res[j] = ft_strdup(">>");
+            else
+                res[j] = ft_strdup("<<");
+        }
         res[j] = ft_strdup(c);
 	}
 	j++;

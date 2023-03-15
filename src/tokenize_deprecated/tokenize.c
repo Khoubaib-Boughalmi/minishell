@@ -14,6 +14,7 @@ t_token_lst *ft_put_intoken(char **str)
 	{
 		node = malloc(sizeof(t_token_lst));
 		node->token = malloc(sizeof(t_token));
+		node->next = NULL;
 		if (ft_check_pipe(str[i]))
 		{
 			node->token->args = ft_split(str[i],' ');
@@ -34,10 +35,10 @@ t_token_lst *ft_put_intoken(char **str)
 		}
 		else 
 		{
-			node->token->args = ft_split(str[i],' ');
+			node->token->args =  ft_split_qotes(str[i], ' ');
 			while(node->token->args[j])
 				j++;
-			node->token->num_args = j;
+			node->token->num_args = 0;
 			node->token->redirect_fd = NULL;
 			node->token->redirect_fname = NULL;
 			node->token->type = AST_COMMAND;
@@ -50,16 +51,18 @@ t_token_lst *ft_put_intoken(char **str)
 	return (token);
 }
 
+
+
 t_token_lst *tokenize(char	*input)
 {
 	t_token_lst	*token;
 	char			**temp;
 
 	token = NULL;
-	temp = ft_split(input, '|');
-	temp = ft_pipe_insert(temp);
-	temp = ft_split_der(temp);
+	
+	temp = ft_split_qotes(input, '|');
+	temp = ft_pipe_insert(input, temp);
+	temp = ft_split_der(temp, input);
 	token = ft_put_intoken(temp);
-
 	return (token);
 }

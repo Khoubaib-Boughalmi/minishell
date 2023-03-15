@@ -31,6 +31,9 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/qoute_check.c				\
 				./src/tokenize/check_pipe_dub.c				\
 				./src/tokenize/ft_split_qotes.c				\
+				./src/tokenize/redirections_utiles1.c		\
+				./src/tokenize/redirections.c				\
+				./src/tokenize/redirections_utiles2.c		\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
 				./src/expand/expand_var.c					\

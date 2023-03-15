@@ -30,8 +30,8 @@ void	display_tokens(t_token_lst *tokens_lst)
 
 			}			
 		}
-		if(tokens_lst->token->type == AST_REDIRECTION)
-			printf("REDIR: %s %s", tokens_lst->token->redirect_fd, tokens_lst->token->redirect_fname);
+		if (tokens_lst->token->type == AST_REDIRECTION) 
+			printf("REDIR: %s %s %s", tokens_lst->token->redirect_fd, tokens_lst->token->redirect_fname, tokens_lst->token->com_plus);
 		printf("\n");
 		tokens_lst = tokens_lst->next;
 	}

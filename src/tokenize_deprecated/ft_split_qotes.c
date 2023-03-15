@@ -4,7 +4,7 @@ static int	how_mush_char(char *s, char c)
 {
 	int		i;
 	int		count;
-	char	n;
+	char n;
 
 	i = 0;
 	count = 0;
@@ -44,7 +44,7 @@ char	**ft_split_qotes(char *s, char c)
 	int		i;
 	int		j;
 	int		k;
-	char	n;
+	char 	n;
 	char	**resulta;
 
 	j = 0;
@@ -66,7 +66,7 @@ char	**ft_split_qotes(char *s, char c)
 			while (!s[i] || (s[i] != n && s[i] != n))
 				i++;
 		}
-		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0 && j < how_mush_char(s, c) -1)
+		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0)
 		{
 			resulta[j++] = make_word(s, k, i);
 			k = -1;

@@ -10,22 +10,73 @@ int ft_count_str(char	**str)
 	return (count);
 }
 
-char	**ft_pipe_insert(char	**str)
+int	ft_check_dub_pipe(char	*input)
+{
+	int i = 0;
+
+	while (input[i])
+	{
+		if (input[i] == '|' && input[i + 1] == '|')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int ft_check_last_pipe(char	*input)
+{
+	int i = 0;
+	int j;
+
+	while (input[i])
+	{
+		if (input[i] == '|' && input[i + 1] == '\0')
+		{
+			j = i + 1;
+			while (input[j] != '\0')
+			{
+				if (input[i] != ' ' && input[i] != '\t')
+					break;
+				j++;
+			}
+			if (input[j] == '\0')
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	**ft_pipe_insert(char	*input, char	**str)
 {
 	char **res;
 	int i = 0;
 	int j = 0;
+	int k;
+	int m;
 
-	res = malloc((2 * ft_count_str(str) + 1) * sizeof(char *));
+	k = ft_check_dub_pipe(input);
+	m = ft_check_last_pipe(input);
+	res = malloc((2 * ft_count_str(str) + k + m + 1) * sizeof(char *));
 	while (str[i + 1])
 	{
 		res[j] = ft_strdup(str[i]);
 		j++;
-		res[j] = ft_strdup("|");
+		if (k == 1)
+			res[j] = ft_strdup("||");
+		else
+			res[j] = ft_strdup("|");
 		j++;
 		i++;
 	}
 	res[j] = ft_strdup(str[i]);
+	if (m != 0)
+	{
+		j++;
+		if (m == 2)
+			res[j] = ft_strdup("||");
+		res[j] = ft_strdup("|");
+	}
 	j++;
 	res[j] = 0;
 	//ft_free(str);
@@ -36,6 +87,7 @@ int ft_count_der(char	**str)
 {
 	int i;
 	int j;
+	int count = 0;
 
 	i = 0;
 	while (str[i])
@@ -44,12 +96,16 @@ int ft_count_der(char	**str)
 		while (str[i][j])
 		{
 			if (str[i][j] == '<' || str[i][j] == '>')
-				return (1);
+			{
+				count++;
+				while (str[i][j] == '<' || str[i][j] == '>')
+					j++;
+			}
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	return (2 * count);
 }
 
 char *ft_strdup_arg(char	*s)

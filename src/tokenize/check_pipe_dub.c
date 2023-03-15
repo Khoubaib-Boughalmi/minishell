@@ -2,13 +2,14 @@
 
 int	ft_check_mul_pipe(char	*input)
 {
-	int i = 0;
-	int j;
-	int k;
+	int		i;
+	int		j;
+	char	n;
 
+	i = 0;
 	while (input[i])
 	{
-		if (input[i] != ' '&& input[i] != '\t' && input[i] != '|')
+		if (input[i] != ' ' && input[i] != '\t' && input[i] != '|')
 			break ;
 		if (input[i] == '|')
 			return (1);
@@ -16,36 +17,27 @@ int	ft_check_mul_pipe(char	*input)
 	}
 	while (input[i])
 	{
-		k = 0;
+		if (input[i] == '\'' || input[i] == '\"')
+		{
+			n = input[i];
+			i++;
+			while (!input[i] || (input[i] != n && input[i] != n))
+				i++;
+			if (input[i] == '\0')
+				return (1);
+		}
 		if (input[i] == '|')
 		{
 			j = i + 1;
-			while(input[j])
+			while (input[j])
 			{
 				if (input[j] == '|')
-					k++;
+					return (1);
 				else
-					break;
+					break ;
 				j++;
 			}
 		}
-		if (k > 1)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int ft_check_space_pipe(char **temp)
-{
-	int i = 0;
-	char **tmp;
-
-	while (temp[i])
-	{
-		tmp = ft_split(temp[i], ' ');
-		if (!*tmp)
-			return (1);
 		i++;
 	}
 	return (0);
