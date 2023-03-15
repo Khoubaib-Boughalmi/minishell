@@ -9,7 +9,7 @@ void expand_quotes(char **original, t_token_type token_type)
 	copy = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
 	ft_strlcpy(copy, *original, ft_strlen(*original) + 1);
 	copy[ft_strlen(*original)] = '\0';
-	ft_memset(*original, 0, ft_strlen(*original));
+	memset(*original, 0, ft_strlen(*original));
 	free(*original);
 	*original = NULL;
 	while(copy[i])
@@ -62,7 +62,7 @@ void expand_quotes(char **original, t_token_type token_type)
 			}
 		}
 	}
-	// free(copy);
+	free(copy);
 }
 
 

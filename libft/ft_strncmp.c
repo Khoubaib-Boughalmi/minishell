@@ -22,14 +22,9 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] == s2[i] && s1[i] != '\0')
 	{
 		if (n-- == 0)
-		{
-		printf("%s\n", s1);
-
 			break;
-		}
 		i++;
 	}
-	// n--;
 	if(!s1[i] && !n)
 		return (0);
 	else

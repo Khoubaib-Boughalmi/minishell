@@ -6,8 +6,8 @@ void	create_original_str(char **original)
 
 	if(!(*original))
 	{
-		*original = (char *)malloc(sizeof(char) * 2);
-		ft_memset(*original, 0, 2);
+		*original = (char *)malloc(sizeof(char) * 3);
+		ft_memset(*original, 0, 3);
 	}
 	else
 	{
@@ -24,9 +24,7 @@ void	create_original_str(char **original)
 
 void cbc_str_join(char **original, char c)
 {
-	if(!*original)
-		create_original_str(original);	
-	else if(!(ft_strlen(*original) % 2))
+	if(!*original || !(ft_strlen(*original) % 2))
 		create_original_str(original);	
 	(*original)[ft_strlen(*original)] = c;
 }
