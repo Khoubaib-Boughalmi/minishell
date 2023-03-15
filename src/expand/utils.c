@@ -5,7 +5,7 @@ int	get_variable_len(char *start)
 	size_t	i;
 
 	i = 0;
-	while (start[i] && start[i] != ' ' && start[i] != '\"' && start[i] != '\'')
+	while (start[i] && start[i] != ' ' && start[i] != '\"' && start[i] != '\'' && start[i] != '$' )
 		i++;
 	return (i);
 }

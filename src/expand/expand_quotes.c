@@ -21,7 +21,7 @@ void expand_quotes(char **original, t_token_type token_type)
 			{
 				if(copy[i] == '$')
 				{
-					// expand_variables(original, copy + i, token_type);
+					expand_variables(original, copy + i, token_type);
 					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
 						i++;
 				}
@@ -31,6 +31,8 @@ void expand_quotes(char **original, t_token_type token_type)
 					i++;
 				}
 			}
+			if(copy[i] == '\"')
+				i++;
 		}
 		else if(copy[i] == '\'')
 		{
@@ -40,21 +42,25 @@ void expand_quotes(char **original, t_token_type token_type)
 				cbc_str_join(original, copy[i]);
 				i++;
 			}
+			if(copy[i] == '\'')
+				i++;
 		}
 		else
 		{
 			if(copy[i] == '$')
 			{
-				// expand_variables(original, copy + i, token_type);
-				while (copy[i] && copy[i] != ' ')
+				expand_variables(original, copy + i, token_type);
+				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
 					i++;
-				if(copy[i] != ' ')
-					i++;
+				// if(copy[i] != ' ')
+				// 	i++;
 			}
 			else
+			{
 				cbc_str_join(original, copy[i]);
+				i++;	
+			}
 		}
-		i++;	
 	}
 	// free(copy);
 }
