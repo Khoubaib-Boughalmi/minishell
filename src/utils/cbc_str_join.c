@@ -28,18 +28,3 @@ void cbc_str_join(char **original, char c)
 		create_original_str(original);	
 	(*original)[ft_strlen(*original)] = c;
 }
-
-
-// int main()
-// {
-// 	char *str = NULL;
-// 	char *copy = "hello world";
-// 	int i = 0;
-// 	while(copy[i])
-// 	{
-// 		cbc_str_join(&str, copy[i]);
-// 		i++;
-// 	}
-
-// 	return (0);
-// }

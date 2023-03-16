@@ -64,7 +64,6 @@ t_envp_node	*envp_find_node(char *key, size_t len)
 	t_envp_node *ptr;
 
 	ptr = gstruct->envp_head;
-	printf("ass key %s\n", key);
 	if(!len)
 		return ((void *)0);
 	while (ptr)

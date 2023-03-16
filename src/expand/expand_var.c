@@ -35,7 +35,6 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 			// else
 			// {
 				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])));
-				printf("len :%d\n", get_variable_len(&(copy[1])));
 				// printf("tmp :%s\n", tmp->value);
 
 				if(tmp)

@@ -10,7 +10,7 @@
 	7-	creating variable expansion functiona
 	8-	creating a history mechanism
 	9-	creating expanding variables functionality
-	11- expanding double/sngle quotes with variable expansion
+	10-	expanding double/sngle quotes with variable expansion
 ## other minor functions in utils.c
 	1-	crate a free_split function that frees a char **list
 	2-	added display_tokens function that would allow displing the list in an easy format

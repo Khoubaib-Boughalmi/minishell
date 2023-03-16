@@ -19,6 +19,14 @@ typedef enum {
 	AST_REDIRECTION, // a redirection of input or output
 } t_token_type;
 
+
+typedef enum {
+	INPUT,
+	OUTPUT,
+	HEREDOC,
+	APPEND,
+} t_red_type;
+
 // node structure
 typedef struct s_token {
 	t_token_type	type; // the type of the token
@@ -26,8 +34,9 @@ typedef struct s_token {
 	int				num_args; // the number of arguments for a command token
 	char			*redirect_fd; // the file descriptor to redirect for a redirection token
 	char			*redirect_fname; // the filename to redirect to for a redirection token
-	char			*com_plus;
+	t_red_type		red_type;
 	int				exit_status;
+	char			*com_plus;
 } t_token;
 
 
@@ -74,7 +83,7 @@ void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
