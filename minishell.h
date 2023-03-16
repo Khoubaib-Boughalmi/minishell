@@ -97,7 +97,7 @@ void		expand_variables(char **original, char *copy, t_token_type token_type);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
-void		expand_exit_status(t_token_lst *tokens_lst, int i);
+void		expand_exit_status(char **original, char *copy);
 char   		 **ft_pipe_insert(char   *input, char    **str);
 int			get_variable_len(char *start);
 void		cbc_str_join(char **original, char c);

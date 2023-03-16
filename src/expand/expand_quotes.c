@@ -52,8 +52,6 @@ void expand_quotes(char **original, t_token_type token_type)
 				expand_variables(original, copy + i, token_type);
 				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
 					i++;
-				// if(copy[i] != ' ')
-				// 	i++;
 			}
 			else
 			{
@@ -64,13 +62,3 @@ void expand_quotes(char **original, t_token_type token_type)
 	}
 	free(copy);
 }
-
-
-// int main()
-// {
-// 	char str[] = {'h', '\"', 'e', 'l', 'l', 'o', '\"','\"','\"', '\'', '\"', ' ', '$', 'U', 'S', 'E', 'R', '\"', '\'', '\0'};
-// 	expand_quotes("h\"ello\"\"\" $USER\"");
-// 	return (0);
-// }
-
-// "h\"ello\"\"\" $USER\""

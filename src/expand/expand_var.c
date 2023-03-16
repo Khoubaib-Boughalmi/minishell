@@ -30,10 +30,13 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 	// {
 		// while (copy[++i])
 		// {
-			// if(copy[1] == '?')
-			// 	expand_exit_status(tokens_lst, i);
-			// else
-			// {
+			if(copy[1] == '?')
+			{
+				printf("EXIT %s\n", *original);
+				expand_exit_status(original, &(copy[1]));
+			}
+			else
+			{
 				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])));
 				// printf("tmp :%s\n", tmp->value);
 
@@ -47,7 +50,7 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 						cbc_str_join(original, tmp->value[i]);
 					// copy = tmp->value;
 				}
-			// }
+			}
 		// }	
 	// }
 		// else if(tokens_lst->token->type == AST_REDIRECTION)

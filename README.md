@@ -11,8 +11,9 @@
 	8-	creating a history mechanism
 	9-	creating expanding variables functionality
 	10-	expanding double/sngle quotes with variable expansion
+	11-	adding redirection double/single quotes expansion
+	12-	adding exit status expansion
 ## other minor functions in utils.c
 	1-	crate a free_split function that frees a char **list
 	2-	added display_tokens function that would allow displing the list in an easy format
 ## to be fixed
-	1-	creating the exit status expansion : echo $PATH | $USER | $abc | $myKey | $myFile | $?hello | $??? | $?PATH | $?
