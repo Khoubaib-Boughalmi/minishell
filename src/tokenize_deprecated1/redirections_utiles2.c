@@ -1,13 +1,13 @@
 #include "../../minishell.h"
 
-int	ft_check_dub_der2(char	*input, char n)
+int	ft_check_dub_der2(char	*input)
 {
 	int	i;
 
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == n && input[i + 1] == n)
+		if (input[i] == '>' && input[i + 1] == '>')
 			return (1);
 		i++;
 	}

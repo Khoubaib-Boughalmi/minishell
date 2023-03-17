@@ -1,18 +1,6 @@
 #include "../../minishell.h"
 
-int if_der_exe(char	*str,char	n)
-{
-	int i = 0;
-	while (str[i])
-	{
-		if (str[i] == n)
-			return 1;
-		i++;
-	}
-	return 0;
-}
-
-char	**ft_split_der(char	**str, char *input, char n)
+char	**ft_split_der(char	**str, char *input)
 {
 	int		i;
 	int		j;
@@ -24,13 +12,13 @@ char	**ft_split_der(char	**str, char *input, char n)
 	i = 0;
 	k = 0;
 	j = 0;
-	res = malloc((ft_count_str(str) + ft_count_der(str, n) + 1) * sizeof(char *));
+	res = malloc((ft_count_str(str) + ft_count_der(str) + 1) * sizeof(char *));
 	while (str[i])
 	{
 		k = 0;
-		if (n == '>' && if_der_exe(str[i], n))
+		if (ft_check_der_right(str[i]))
 		{
-			m = ft_check_dub_der2(str[i], n);
+			m = ft_check_dub_der2(str[i]);
 			temp = ft_split_qotes(str[i], '>');
 			if (m == 1)
 				temp = ft_der_insert_2(str[i], temp, ">>");
@@ -39,11 +27,11 @@ char	**ft_split_der(char	**str, char *input, char n)
 			while (temp[k])
 				res[j++] = ft_strdup(temp[k++]);
 		}
-		else if (n == '<' && if_der_exe(str[i], n))
+		else if (ft_check_der_left(str[i]))
 		{
-			m = ft_check_dub_der2(str[i], n);
+			m = ft_check_dub_der2(str[i]);
 			temp = ft_split_qotes(str[i], '<');
-		 	if (m == 1)
+			if (m == 1)
 				temp = ft_der_insert_2(str[i], temp, "<<");
 			else
 				temp = ft_der_insert_2(str[i], temp, "<");

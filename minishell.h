@@ -104,11 +104,11 @@ void		cbc_str_join(char **original, char c);
 void		create_original_str(char **original);
 
 char		*ft_strdup_file(char	*s);
-char		**ft_split_der(char	**str, char *input);
+char		**ft_split_der(char	**str, char *input, char n);
 void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
 int			ft_count_str(char	**str);
 char		**ft_pipe_insert(char *input, char	**str);
-int			ft_count_der(char	**str);
+int			ft_count_der(char	**str, char n);
 char		*ft_strdup_arg(char	*s);
 char		*ft_strdup_der(char	*s);
 
@@ -119,7 +119,7 @@ char	**ft_der_insert(char	*input, char	**str, char *c);
 char	**ft_split_qotes(char *s, char c);
 
 
-int			ft_check_dub_der2(char	*input);
+int			ft_check_dub_der2(char	*input, char n);
 int			ft_check_mul_pipe(char	*input);
 int			ft_check_der(char *str);
 int 		ft_check_pipe(char *str);
@@ -128,6 +128,15 @@ int			ft_check_der_right(char *str);
 int			ft_check_der_left(char *str);
 char		**ft_der_insert_2(char	*input, char	**str, char *c);
 void		ft_free_token(char **str);
+
+void		piping_main(t_token_lst *tokens_lst);
+void	ft_infile_error(char *infile);
+void	ft_outfile_error(char *outfile);
+void	ft_excute_error(char *cmd);
+char	*path_finder(char *cmd, t_envp_node *envp);
+void	ft_error(char *m);
+void	cmd_not_found(char **cmd);
+void	ft_error_msg(char *m);
 
 # endif
 

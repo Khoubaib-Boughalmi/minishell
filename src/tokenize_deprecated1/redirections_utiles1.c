@@ -63,7 +63,7 @@ char	**ft_der_insert_2(char	*input, char	**str, char *c)
 
 	i = 0;
 	j = 0;
-	k = ft_check_dub_der2(input, c[0]);
+	k = ft_check_dub_der2(input);
 	m = ft_check_last_der2(input);
 	res = malloc((2 * ft_count_str(str) + k + m + 1) * sizeof(char *));
 	while (str[i + 1])

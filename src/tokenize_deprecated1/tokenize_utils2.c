@@ -27,7 +27,7 @@ void	ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new)
 	}
 }
 
-int	ft_count_der(char	**str, char n)
+int	ft_count_der(char	**str)
 {
 	int	i;
 	int	j;
@@ -40,10 +40,10 @@ int	ft_count_der(char	**str, char n)
 		j = 0;
 		while (str[i][j])
 		{
-			if (str[i][j] == n)
+			if (str[i][j] == '<' || str[i][j] == '>')
 			{
 				count++;
-				while (str[i][j] == n)
+				while (str[i][j] == '<' || str[i][j] == '>')
 					j++;
 			}
 			j++;
