@@ -19,13 +19,16 @@ void expand_quotes(char **original, t_token_type token_type)
 			i++;
 			while (copy[i] && copy[i] != '\"')
 			{
-				if(copy[i] == '$')
+				if(copy[i] == '$' && ft_isdigit(copy[i+1]))
+					i += 2;
+				else if(copy[i] == '$')
 				{
 					expand_variables(original, copy + i, token_type);
-					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
+					i++;
+					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|') 
 						i++;
 				}
-				else
+				else if(copy[i] != '$')
 				{
 					cbc_str_join(original, copy[i]);
 					i++;
@@ -47,10 +50,13 @@ void expand_quotes(char **original, t_token_type token_type)
 		}
 		else
 		{
-			if(copy[i] == '$')
+			if(copy[i] == '$' && ft_isdigit(copy[i+1]))
+					i += 2;
+			else if(copy[i] == '$')
 			{
 				expand_variables(original, copy + i, token_type);
-				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'')
+				i++;
+				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$')
 					i++;
 			}
 			else
