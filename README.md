@@ -15,5 +15,5 @@
 	12-	adding exit status expansion
 ## other minor functions in utils.c
 	1-	crate a free_split function that frees a char **list
-	2-	added display_tokens function that would allow displing the list in an easy format
+	2-	added display_tokens function that would allow displing the list in an easy format 
 ## to be fixed
