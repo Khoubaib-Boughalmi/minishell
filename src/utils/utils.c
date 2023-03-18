@@ -49,3 +49,24 @@ int	check_str(char *str)
 		return (0);
 	return (1);
 }
+
+//this function find the key you are looking for in envp and creates a new string with the value of the key 
+char	*create_variable_value(char *key)
+{
+	char		*full_path;
+	t_envp_node	*envp_ptr;
+
+	envp_ptr = gstruct->envp_head;
+	full_path = NULL;
+	while (envp_ptr)
+	{
+		if(!strncmp(key, envp_ptr->key, 4))
+		{
+			full_path = (char *)malloc(sizeof(char) * ft_strlen(envp_ptr->value) + 1);
+			ft_strlcpy(full_path, envp_ptr->value, ft_strlen(envp_ptr->value) + 1);
+			break;
+		}
+		envp_ptr = envp_ptr->next;
+	}
+	return (full_path);
+}

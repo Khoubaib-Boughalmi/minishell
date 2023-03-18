@@ -83,7 +83,7 @@ void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -113,7 +113,7 @@ char		*ft_strdup_arg(char	*s);
 char		*ft_strdup_der(char	*s);
 
 char	*ft_strtrim(char const *s1, char const *set);
-int ft_check_space_pipe(char **temp);
+int 	ft_check_space_pipe(char **temp);
 char	**ft_args_split(char *str);
 char	**ft_der_insert(char	*input, char	**str, char *c);
 char	**ft_split_qotes(char *s, char c);
@@ -130,13 +130,13 @@ char		**ft_der_insert_2(char	*input, char	**str, char *c);
 void		ft_free_token(char **str);
 
 void		piping_main(t_token_lst *tokens_lst);
-void	ft_infile_error(char *infile);
-void	ft_outfile_error(char *outfile);
-void	ft_excute_error(char *cmd);
-char	*path_finder(char *cmd, t_envp_node *envp);
-void	ft_error(char *m);
-void	cmd_not_found(char **cmd);
-void	ft_error_msg(char *m);
+void		ft_infile_error(char *infile);
+void		ft_outfile_error(char *outfile);
+void		ft_excute_error(char *cmd);
+char		*path_finder(char *cmd, t_envp_node *envp);
+void		ft_error(char *m);
+void		cmd_not_found(char **cmd);
+void		ft_error_msg(char *m);
 
 # endif
 
