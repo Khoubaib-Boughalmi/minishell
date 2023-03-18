@@ -13,22 +13,26 @@
 # include "get_next_line/get_next_line.h"
 
 // AST node types
-typedef enum {
+typedef enum
+{
 	AST_COMMAND,     // a command to execute
 	AST_PIPE,        // a pipe between two commands
 	AST_REDIRECTION, // a redirection of input or output
 } t_token_type;
 
 
-typedef enum {
+typedef enum
+{
 	INPUT,
+	APPEND,
 	OUTPUT,
 	HEREDOC,
-	APPEND,
+	COMMAND,
 } t_red_type;
 
 // node structure
-typedef struct s_token {
+typedef struct s_token
+{
 	t_token_type	type; // the type of the token
 	char			**args; // the arguments for a command token
 	int				num_args; // the number of arguments for a command token
@@ -47,19 +51,28 @@ typedef struct s_envp_node
 	char				*value;
 } t_envp_node;
 
-typedef struct s_token_lst {
+typedef struct s_token_lst
+{
 	t_token				*token;
 	struct s_token_lst *next;
 } t_token_lst;
 
+typedef struct s_separated_token
+{
+	char						*value;
+	t_red_type					type;
+	struct s_separated_token	*next;
+} t_separated_token;
+
 //shared data goes here
 typedef struct s_global_struct
 {
-	char		*src_input;		//pointer to the users source input
-	t_token_lst	*tokens_head;	//linked list of tokens
-	t_envp_node	*envp_head;		//linked list of envp
-	int			sigint_listener;
-	int			exit_status;
+	char				*src_input;		//pointer to the users source input
+	t_token_lst			*tokens_head;	//linked list of tokens
+	t_envp_node			*envp_head;		//linked list of envp
+	int					exit_status;
+	int					sigint_listener;
+	t_separated_token	**seperated_token_arr;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -140,6 +153,13 @@ void		ft_error_msg(char *m);
 
 // executor stuff
 char	*create_envp_value(char *key);
+void	executor(t_token_lst *token_lst);
+void	transforming_token_lst(t_token_lst *token_lst);
+t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
+void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
+int		count_commands(t_token_lst *token_lst);
+int		count_redirections(t_token_lst *token_lst);
+
 
 # endif
 

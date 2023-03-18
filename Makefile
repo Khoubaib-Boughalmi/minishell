@@ -39,6 +39,8 @@ SRCS_MAND= 		./src/main.c								\
 				./src/expand/expand_var.c					\
 				./src/expand/expand_quotes.c				\
 				./src/expand/expand_exit.c					\
+				./src/executor/executor.c					\
+				./src/executor/utils.c						\
 				./get_next_line/get_next_line.c				\
 				./get_next_line/get_next_line_utils.c		\
 
