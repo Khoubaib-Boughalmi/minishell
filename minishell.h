@@ -138,5 +138,8 @@ void		ft_error(char *m);
 void		cmd_not_found(char **cmd);
 void		ft_error_msg(char *m);
 
+// executor stuff
+char	*create_envp_value(char *key);
+
 # endif
 
