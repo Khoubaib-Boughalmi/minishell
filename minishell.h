@@ -57,12 +57,11 @@ typedef struct s_token_lst
 	struct s_token_lst *next;
 } t_token_lst;
 
-typedef struct s_separated_token
+typedef struct s_redirection
 {
 	char						*value;
 	t_red_type					type;
-	struct s_separated_token	*next;
-} t_separated_token;
+} t_redirection;
 
 //shared data goes here
 typedef struct s_global_struct
@@ -72,7 +71,8 @@ typedef struct s_global_struct
 	t_envp_node			*envp_head;		//linked list of envp
 	int					exit_status;
 	int					sigint_listener;
-	t_separated_token	**seperated_token_arr;
+	char				**list_cmds;
+	t_redirection		**list_redirections;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
