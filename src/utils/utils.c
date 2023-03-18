@@ -51,7 +51,7 @@ int	check_str(char *str)
 }
 
 //this function find the key you are looking for in envp and creates a new string with the value of the key 
-char	*create_variable_value(char *key)
+char	*create_envp_value(char *key)
 {
 	char		*full_path;
 	t_envp_node	*envp_ptr;
