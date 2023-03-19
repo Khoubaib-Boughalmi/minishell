@@ -66,13 +66,13 @@ typedef struct s_redirection
 //shared data goes here
 typedef struct s_global_struct
 {
-	char				*src_input;		//pointer to the users source input
+	char					*src_input;		//pointer to the users source input
 	t_token_lst			*tokens_head;	//linked list of tokens
 	t_envp_node			*envp_head;		//linked list of envp
 	int					exit_status;
 	int					sigint_listener;
-	char				**list_cmds;
-	t_redirection		**list_redirections;
+	char					**list_cmds;
+	t_redirection		**list_reds;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -96,7 +96,7 @@ void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
-char		*rl_replace_line(const char *text, int clear_undo);
+// char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -155,8 +155,8 @@ void		ft_error_msg(char *m);
 char	*create_envp_value(char *key);
 void	executor(t_token_lst *token_lst);
 void	transforming_token_lst(t_token_lst *token_lst);
-t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
-void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
+// t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
+// void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
 int		count_commands(t_token_lst *token_lst);
 int		count_redirections(t_token_lst *token_lst);
 
