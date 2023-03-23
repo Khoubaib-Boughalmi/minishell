@@ -1,19 +1,13 @@
 #include "../../minishell.h"
 
-void	transforming_token_lst(t_token_lst *token_lst)
-{
-	
-	printf("num_cmd %d\n", count_commands(token_lst));
-	printf("num_red %d\n", count_redirections(token_lst));
-
-}
-
 int	create_lst_commands(t_token_lst *token_lst)
 {
 	int	i;
 	int	j;
 
 	j = -1;
+	if(gstruct->list_cmds)
+		free(gstruct->list_cmds);
 	gstruct->list_cmds = (char **)malloc(sizeof(char *) * (count_commands(token_lst) + 1));
 	if(!gstruct->list_cmds)
 		return (0);
@@ -23,14 +17,11 @@ int	create_lst_commands(t_token_lst *token_lst)
 		if(token_lst->token->type == AST_COMMAND)
 		{
 			while (token_lst->token->args[++i])
-			{
 				gstruct->list_cmds[++j] = token_lst->token->args[i]; 
-
-			}
 		}
 		token_lst = token_lst->next;
 	}
-	gstruct->list_cmds[j + 1] = 0;
+	gstruct->list_cmds[j + 1] = NULL;
 	return (1);
 }
 
@@ -39,6 +30,8 @@ int	create_lst_redirections(t_token_lst *token_lst)
 	int	i;
 
 	i = -1;
+	if(gstruct->list_reds)
+		free(gstruct->list_reds);
 	gstruct->list_reds = (t_redirection **)malloc(sizeof(t_redirection *) * (count_redirections(token_lst) + 1));
 	if(!gstruct->list_reds)
 		return (0);
@@ -54,7 +47,7 @@ int	create_lst_redirections(t_token_lst *token_lst)
 		}
 		token_lst = token_lst->next;
 	}
-	gstruct->list_reds[i + 1] = 0;
+	gstruct->list_reds[i + 1] = NULL;
 	return (1);
 }
 

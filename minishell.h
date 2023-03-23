@@ -71,7 +71,7 @@ typedef struct s_global_struct
 	int					exit_status;
 	int					sigint_listener;
 	char					**list_cmds;
-	t_redirection		**list_reds;
+	t_redirection			**list_reds;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -87,10 +87,10 @@ void		envp_lst_add_back(t_envp_node *node);
 void		envp_delete_node(int pos);
 t_envp_node	*envp_find_node(char *key, size_t len);
 void		ft_env(void);
-void		ft_export(char *key, char *value);
-void		ft_unest(char *key);
+void		ft_export(char **phrase);
+void		ft_unest(char **list_keys);
 void		ft_pwd(void);
-void		ft_echo(char *str);
+void		ft_echo(char *str, int flag);
 void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
@@ -153,7 +153,8 @@ void		ft_error_msg(char *m);
 // executor stuff
 char	*create_envp_value(char *key);
 void	executor(t_token_lst *token_lst);
-void	transforming_token_lst(t_token_lst *token_lst);
+int		create_lst_commands(t_token_lst *token_lst);
+int		create_lst_redirections(t_token_lst *token_lst);
 // t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
 // void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
 int		count_commands(t_token_lst *token_lst);

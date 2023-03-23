@@ -2,7 +2,7 @@
 
 int previous_fd = 0;
 
-void    pipelin(char **cmd)
+void    pipeline(char **cmd)
 {
     while(*cmd)
     {

@@ -1,26 +1,30 @@
 #include "../../minishell.h"
 
-void	ft_unest(char *key)
+void	ft_unest(char	**list_keys)
 {
-	t_envp_node	*ptr;
 	int			i;
+	int			j;
+	char		*key;
+	t_envp_node	*ptr;
+	char		**splited;
 
-	i = 0;
-	if(!check_str(key))
+	j = -1;
+	while (list_keys[++j])
 	{
-		gstruct->exit_status = 1;
-		return ;
-	}
-	ptr = gstruct->envp_head;
-	while (ptr)
-	{
-		if(!ft_strlcmp(ptr->key, key))
+		i = 0;
+		if(!check_str(list_keys[j]))
 		{
-			envp_delete_node(i);
+			gstruct->exit_status = 1;
 			return ;
 		}
-		ptr = ptr->next;
-		i++;
+		ptr = gstruct->envp_head;
+		while (ptr)
+		{
+			printf("keeey : %s --- %s\n", ptr->key, list_keys[j]);
+			if(!ft_strlcmp(ptr->key, list_keys[j]))
+				envp_delete_node(i);
+			i++;
+			ptr = ptr->next;
+		}
 	}
-	gstruct->exit_status = 127;
 }
