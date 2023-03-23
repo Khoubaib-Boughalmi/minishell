@@ -40,7 +40,6 @@ typedef struct s_token
 	char			*redirect_fname; // the filename to redirect to for a redirection token
 	t_red_type		red_type;
 	int				exit_status;
-	char			*com_plus;
 } t_token;
 
 
@@ -96,7 +95,7 @@ void		ft_cd(char *str);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -139,7 +138,7 @@ int 		ft_check_pipe(char *str);
 int			ft_check_mul_der(char	*input, char c);
 int			ft_check_der_right(char *str);
 int			ft_check_der_left(char *str);
-char		**ft_der_insert_2(char	*input, char	**str, char *c);
+char		**ft_der_insert_2(char	*input, char	**str, char *c, char *a);
 void		ft_free_token(char **str);
 
 void		piping_main(t_token_lst *tokens_lst);
@@ -160,6 +159,16 @@ void	transforming_token_lst(t_token_lst *token_lst);
 int		count_commands(t_token_lst *token_lst);
 int		count_redirections(t_token_lst *token_lst);
 
+//free
+void	free_token_lst();
+void	free_envp_nodes_lst();
+void	free_cmds_reds_array();
+void	free_global_struct();
+void	free_all();
 
 # endif
+
+
+
+//docker run -it --rm -v $HOME/Desktop/cursus/tmpminishell:/minishell rhub/ubuntu-gcc
 

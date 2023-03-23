@@ -31,6 +31,7 @@ int	create_lst_commands(t_token_lst *token_lst)
 		token_lst = token_lst->next;
 	}
 	gstruct->list_cmds[j + 1] = 0;
+	return (1);
 }
 
 int	create_lst_redirections(t_token_lst *token_lst)
@@ -54,6 +55,7 @@ int	create_lst_redirections(t_token_lst *token_lst)
 		token_lst = token_lst->next;
 	}
 	gstruct->list_reds[i + 1] = 0;
+	return (1);
 }
 
 void executor(t_token_lst *token_lst)
@@ -67,4 +69,7 @@ void executor(t_token_lst *token_lst)
 	create_lst_redirections(token_lst);
 	while(gstruct->list_reds[++i])
 		printf("red %s\n", gstruct->list_reds[i]->value);
+	i = -1;
+	while(gstruct->list_reds[++i])
+		printf("cmd %s\n", gstruct->list_cmds[i]);
 }

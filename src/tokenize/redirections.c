@@ -22,7 +22,6 @@ char	**ft_split_der(char	**str, char *input, char n)
 	char	**res;
 
 	i = 0;
-	k = 0;
 	j = 0;
 	res = malloc((ft_count_str(str) + ft_count_der(str, n) + 1) * sizeof(char *));
 	while (str[i])
@@ -30,23 +29,15 @@ char	**ft_split_der(char	**str, char *input, char n)
 		k = 0;
 		if (n == '>' && if_der_exe(str[i], n))
 		{
-			m = ft_check_dub_der2(str[i], n);
 			temp = ft_split_qotes(str[i], '>');
-			if (m == 1)
-				temp = ft_der_insert_2(str[i], temp, ">>");
-			else
-				temp = ft_der_insert_2(str[i], temp, ">");
+			temp = ft_der_insert_2(str[i], temp, ">>", ">");
 			while (temp[k])
 				res[j++] = ft_strdup(temp[k++]);
 		}
 		else if (n == '<' && if_der_exe(str[i], n))
 		{
-			m = ft_check_dub_der2(str[i], n);
 			temp = ft_split_qotes(str[i], '<');
-		 	if (m == 1)
-				temp = ft_der_insert_2(str[i], temp, "<<");
-			else
-				temp = ft_der_insert_2(str[i], temp, "<");
+			temp = ft_der_insert_2(str[i], temp, "<<", "<");
 			while (temp[k])
 				res[j++] = ft_strdup(temp[k++]);
 		}

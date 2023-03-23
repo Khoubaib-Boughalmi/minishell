@@ -13,8 +13,9 @@ void	sigint_hander(int sig)
 
 void	sigquit_hander(int sig)
 {
-	printf("");
+	free_all();
 }
 
 
 
+//205,558 bytes in 274 blocks

@@ -5,6 +5,8 @@ t_global_struct *gstruct; //global struct
 int	repl(void)
 {
 	char	*input;
+
+	input = NULL;
 	while (1)
 	{
 		if(gstruct->sigint_listener)
@@ -28,7 +30,8 @@ int	repl(void)
 		add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
-	}
+		// free_all();
+		}
 	return (0);
 }
 

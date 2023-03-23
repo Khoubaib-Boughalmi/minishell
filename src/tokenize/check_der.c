@@ -10,14 +10,6 @@ int	ft_check_mul_der(char	*input, char c)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] != ' ' && input[i] != '\t' && input[i] != c)
-			break ;
-		if (input[i] == c)
-			return (1);
-		i++;
-	}
-	while (input[i])
-	{
 		k = 0;
 		if (input[i] == '\'' || input[i] == '\"')
 		{

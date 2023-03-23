@@ -76,34 +76,42 @@ t_token_lst	*ft_put_intoken(char **str)
 			node->token->args = NULL;
 			node->token->num_args = 0;
 			node->token->type = AST_REDIRECTION;
-			if (ft_check_der(str[i + 1]) || !str[i + 1])
+			if (!str[i + 1])
+				node->token->redirect_fname = NULL;
+			else if (ft_check_der(str[i + 1]) || ft_check_pipe(str[i + 1]))
 				node->token->redirect_fname = NULL;
 			else{
 				tmp = ft_split_qotes(str[i + 1], ' ');
-				node->token->redirect_fname = ft_strdup(tmp[0]);
-				if (tmp[1])
+				if (!tmp[0])
+					node->token->redirect_fname = NULL;
+				else
 				{
-					k = 1;
-					node2 = malloc(sizeof(t_token_lst));
-					node2->token = malloc(sizeof(t_token));
-					node2->next = NULL;
-					while (tmp[k])
-						k++;
-					node2->token->args = malloc(k * sizeof(char*));
-					k = 1;
-					while (tmp[k])
+					node->token->redirect_fname = ft_strdup(tmp[0]);
+					if (tmp[1])
 					{
-						node2->token->args[k - 1] = ft_strdup(tmp[k]);
-						k++;
+						k = 1;
+						node2 = malloc(sizeof(t_token_lst));
+						node2->token = malloc(sizeof(t_token));
+						node2->next = NULL;
+						while (tmp[k])
+							k++;
+						node2->token->args = malloc((k) * sizeof(char*));
+						k = 1;
+						while (tmp[k])
+						{
+							node2->token->args[k - 1] = ft_strdup(tmp[k]);
+							k++;
+						}
+						node2->token->args[k - 1] = 0;
+						node2->token->num_args = k - 1;
+						node2->token->redirect_fd = NULL;
+						node2->token->redirect_fname = NULL;
+						node2->token->type = AST_COMMAND;
+						node->next = node2;
 					}
-					node2->token->num_args = k - 1;
-					node2->token->redirect_fd = NULL;
-					node2->token->redirect_fname = NULL;
-					node2->token->type = AST_COMMAND;
-					node->next = node2;
 				}
+				i++;
 			}
-			i++;
 		}
 		else
 		{
@@ -175,11 +183,8 @@ t_token_lst	*tokenize(char	*input)
 	}
 	temp = ft_split_qotes(input, '|');
 	temp = ft_pipe_insert(input, temp);
-	temp = ft_split_der(temp, input, '<');
 	temp = ft_split_der(temp, input, '>');
-	// int i = 0;
-	// while (temp[i])
-	// 	printf("%s\n",temp[i++]);
+	temp = ft_split_der(temp, input, '<');
 	token = ft_put_intoken(temp);
 	return (token);
 }

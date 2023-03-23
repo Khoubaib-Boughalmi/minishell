@@ -29,7 +29,8 @@ void	expand(t_token_lst *tokens_lst)
 				// 		tokens_lst->token->redirect_fname = tmp->value;
 				// 	}
 				// }
-				expand_quotes(&(tokens_lst->token->redirect_fname), tokens_lst->token->type);
+				if(tokens_lst->token->redirect_fname)
+					expand_quotes(&(tokens_lst->token->redirect_fname), tokens_lst->token->type);
 		}
 		tokens_lst = tokens_lst->next;
 	}
