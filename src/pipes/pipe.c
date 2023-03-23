@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include "../../minishell.h"
 
 int previous_fd = 0;
 
@@ -41,6 +38,6 @@ void    pipelin(char **cmd)
 
 int main()
 {
-    pipelin((char *[]){"cat /dev/random", "head -c 200", NULL});
+    pipelin((char *[]){"cat /dev/random", "nl", "head -c 200", NULL});
     return (0);
 }
