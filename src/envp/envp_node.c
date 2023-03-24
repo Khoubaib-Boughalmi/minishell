@@ -54,7 +54,6 @@ void envp_delete_node(int pos)
 			current = current->next;
 		}
 		previous->next = current->next;
-		printf("valueeeeeee %s %s\n",  current->key, current->value);
 		free(current->key);
 		free(current->value);
 		free(current);
