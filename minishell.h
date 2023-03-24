@@ -86,7 +86,7 @@ void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node, t_envp_node **head);
 void		envp_delete_node(int pos);
-t_envp_node	*envp_find_node(char *key, size_t len);
+t_envp_node	*envp_find_node(char *key, size_t len, t_envp_node *head);
 int			duplicate_list_export();
 void		ft_env(void);
 void		ft_export_with_args(char **phrase);

@@ -2,6 +2,30 @@
 
 //	after detecting export function being called ft_export expects to get a 2D array of key,value pairs to be export
 //	exo: 	// ft_export((char *[]){"a1=1" , "a2=2" , "a3=0", "a3=0", "a3=55", NULL});
+int	check_export_key_val(char *key, char *value)
+{
+	int	i;
+
+	i = 1;
+	if(!check_str(key))
+		return (0);
+	if(!ft_isalpha(key[0]) && key[0] != '_')
+	{
+			printf("ERROR asd: %c\n", key[i]);
+		return (0);
+	}
+	while (key[i])
+	{
+		if(key[i] != '_' && !(ft_isalnum(key[i])))
+		{
+			printf("ERROR : %c\n", key[i]);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void	ft_export_with_args(char **list_vars)
 {
 	int			i;
@@ -22,18 +46,21 @@ void	ft_export_with_args(char **list_vars)
 			gstruct->exit_status = 1;
 			return ;
 		}
-		prev_node = envp_find_node(key, ft_strlen(key));
-		if(prev_node && ft_strlcmp(prev_node->value, value))
+		if(check_export_key_val(key, value))
 		{
-			free(prev_node->value);
-			prev_node->value = value;
-		}
-		else if(!prev_node)
-		{
-			node = envp_new_node(key, value);
-			if(!node)
-				return ;
-			envp_lst_add_back(node, &(gstruct->envp_head));
+			prev_node = envp_find_node(key, ft_strlen(key), gstruct->export_head);
+			if(prev_node && ft_strlcmp(prev_node->value, value))
+			{
+				free(prev_node->value);
+				prev_node->value = value;
+			}
+			else if(!prev_node)
+			{
+				node = envp_new_node(key, value);
+				if(!node)
+					return ;
+				envp_lst_add_back(node, &(gstruct->export_head));
+			}
 		}
 		i++;
 	}

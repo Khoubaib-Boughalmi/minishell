@@ -40,10 +40,10 @@ void envp_delete_node(int pos)
 	t_envp_node	*previous;
 
 	i = -1;
-	current = gstruct->envp_head;
+	current = gstruct->export_head;
 	if(pos == 0)
 	{
-		gstruct->envp_head = gstruct->envp_head->next;
+		gstruct->export_head = gstruct->export_head->next;
 		free(current);
 	}
 	else
@@ -60,11 +60,11 @@ void envp_delete_node(int pos)
 	}
 }
 //can be used for variable expansion
-t_envp_node	*envp_find_node(char *key, size_t len)
+t_envp_node	*envp_find_node(char *key, size_t len, t_envp_node *head)
 {
 	t_envp_node *ptr;
 
-	ptr = gstruct->envp_head;
+	ptr = head;
 	if(!len)
 		return ((void *)0);
 	while (ptr)

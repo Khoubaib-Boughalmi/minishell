@@ -17,7 +17,7 @@ void	ft_unest(char	**list_keys)
 			gstruct->exit_status = 1;
 			return ;
 		}
-		ptr = gstruct->envp_head;
+		ptr = gstruct->export_head;
 		while (ptr)
 		{
 			if(!ft_strlcmp(ptr->key, list_keys[j]))
