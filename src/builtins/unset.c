@@ -20,7 +20,6 @@ void	ft_unest(char	**list_keys)
 		ptr = gstruct->envp_head;
 		while (ptr)
 		{
-			printf("keeey : %s --- %s\n", ptr->key, list_keys[j]);
 			if(!ft_strlcmp(ptr->key, list_keys[j]))
 				envp_delete_node(i);
 			i++;

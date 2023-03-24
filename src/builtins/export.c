@@ -48,17 +48,12 @@ void	ft_export(char **list_vars)
 			return ;
 		}
 		prev_node = envp_find_node(key, ft_strlen(key));
-		if(prev_node && !ft_strlcmp(prev_node->value, value))
+		if(prev_node && ft_strlcmp(prev_node->value, value))
 		{
-			printf("repeated: %s\n", value);
-		}
-		else if(prev_node && ft_strlcmp(prev_node->value, value))
-		{
-			printf("repeated: %s\n", value);
 			free(prev_node->value);
 			prev_node->value = value;
 		}
-		else
+		else if(!prev_node)
 		{
 			node = envp_new_node(key, value);
 			if(!node)
