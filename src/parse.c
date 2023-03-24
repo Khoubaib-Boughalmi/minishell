@@ -8,10 +8,10 @@ int	tokenize_expand_execute(char *input)
 	if(!tokens_lst)
 		return (0);
 	gstruct->tokens_head = tokens_lst;
-	// ft_export("", "myValue");
-	// ft_export("myKey", "");
+	// ft_export_with_args("", "myValue");
+	// ft_export_with_args("myKey", "");
 	// ft_unest("myKey");
-	// ft_export("myFile", "outfile.txt");
+	// ft_export_with_args("myFile", "outfile.txt");
 	// ft_env();
 	// display_tokens(tokens_lst);
 	// printf("~~~~~~~~~~~~~~~~\n");
@@ -20,8 +20,8 @@ int	tokenize_expand_execute(char *input)
 	// display_tokens(tokens_lst);
 	executor(tokens_lst);
 	create_lst_commands(gstruct->tokens_head);
-	ft_export((char *[]){"a1=1" , "a2=2" , "a3=0", "a3=45", "a3=0", NULL});
-	ft_export((char *[]){"a1=12" , "a2=2" , "a3=0", "a3=45", "a3=40", "a1=0", NULL});
+	ft_export_with_args((char *[]){"a1=1" , "a2=2" , "a3=0", "a3=45", "a3=0", NULL});
+	ft_export_with_args((char *[]){"a1=12" , "a2=2" , "a3=0", "a3=45", "a3=40", "a1=0", NULL});
 	ft_env();
 	printf("~~~~~~~~~~~~~~~~\n");
 	printf("~~~~~~~~~~~~~~~~\n");

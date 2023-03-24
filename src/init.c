@@ -25,9 +25,11 @@ int init_envp(char **envp)
 		node = envp_new_node(envp_split[0], envp_split[1]);
 		if(!node)
 			return (0);
-		envp_lst_add_back(node);
+		envp_lst_add_back(node, &(gstruct->envp_head));
 		free_split(envp_split);
 		i++;
 	}
+	if(!duplicate_list_export())
+		return (0);
 	return (1);
 }

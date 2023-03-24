@@ -12,8 +12,9 @@ SRCS_MAND= 		./src/main.c								\
 				./src/parse.c								\
 				./src/init.c								\
 				./src/envp/envp_node.c						\
+				./src/envp/export_node.c					\
 				./src/builtins/env.c						\
-				./src/builtins/export.c						\
+				./src/builtins/export_with_args.c			\
 				./src/builtins/unset.c						\
 				./src/builtins/pwd.c						\
 				./src/builtins/echo.c						\

@@ -18,13 +18,13 @@ t_envp_node	*envp_new_node(char *key, char *value)
 	return (node);
 }
 
-void envp_lst_add_back(t_envp_node *node)
+void envp_lst_add_back(t_envp_node *node, t_envp_node **head)
 {
 	t_envp_node	*head_copy;
 
-	head_copy = gstruct->envp_head;
-	if(gstruct->envp_head == NULL)
-		gstruct->envp_head = node;
+	head_copy = *head;
+	if(*head == NULL)
+		*head = node;
 	else
 	{
 		while (head_copy->next)

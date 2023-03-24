@@ -2,7 +2,7 @@
 
 //	after detecting export function being called ft_export expects to get a 2D array of key,value pairs to be export
 //	exo: 	// ft_export((char *[]){"a1=1" , "a2=2" , "a3=0", "a3=0", "a3=55", NULL});
-void	ft_export(char **list_vars)
+void	ft_export_with_args(char **list_vars)
 {
 	int			i;
 	char		*key;
@@ -33,9 +33,20 @@ void	ft_export(char **list_vars)
 			node = envp_new_node(key, value);
 			if(!node)
 				return ;
-			envp_lst_add_back(node);
+			envp_lst_add_back(node, &(gstruct->envp_head));
 		}
 		i++;
 	}
 }
 
+void	ft_export_no_args()
+{
+	t_envp_node	*ptr;
+	
+	ptr = gstruct->export_head;
+	while (ptr)
+	{
+		printf("declare -x %s=%s\n", ptr->key, ptr->value);
+		ptr = ptr->next;
+	}
+}

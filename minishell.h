@@ -66,10 +66,11 @@ typedef struct s_redirection
 typedef struct s_global_struct
 {
 	char					*src_input;		//pointer to the users source input
-	t_token_lst			*tokens_head;	//linked list of tokens
-	t_envp_node			*envp_head;		//linked list of envp
-	int					exit_status;
-	int					sigint_listener;
+	t_token_lst				*tokens_head;	//linked list of tokens
+	t_envp_node				*export_head;		//linked list of envp
+	t_envp_node				*envp_head;		//linked list of envp
+	int						exit_status;
+	int						sigint_listener;
 	char					**list_cmds;
 	t_redirection			**list_reds;
 } t_global_struct;
@@ -83,11 +84,13 @@ int     	init_gstruct();  // for initializing the global strcut
 int			init_envp(char **envp);
 void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
-void		envp_lst_add_back(t_envp_node *node);
+void		envp_lst_add_back(t_envp_node *node, t_envp_node **head);
 void		envp_delete_node(int pos);
 t_envp_node	*envp_find_node(char *key, size_t len);
+int			duplicate_list_export();
 void		ft_env(void);
-void		ft_export(char **phrase);
+void		ft_export_with_args(char **phrase);
+void		ft_export_no_args();
 void		ft_unest(char **list_keys);
 void		ft_pwd(void);
 void		ft_echo(char *str, int flag);
