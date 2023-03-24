@@ -22,7 +22,10 @@ void	ft_unest(char	**list_keys)
 		{
 			printf("keeey : %s --- %s\n", ptr->key, list_keys[j]);
 			if(!ft_strlcmp(ptr->key, list_keys[j]))
+			{
 				envp_delete_node(i);
+				break;
+			}
 			i++;
 			ptr = ptr->next;
 		}

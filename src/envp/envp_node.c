@@ -35,11 +35,10 @@ void envp_lst_add_back(t_envp_node *node)
 
 void envp_delete_node(int pos)
 {
-	int	i;
+	int			i;
 	t_envp_node	*current;
 	t_envp_node	*previous;
-	
-	
+
 	i = -1;
 	current = gstruct->envp_head;
 	if(pos == 0)
@@ -49,12 +48,15 @@ void envp_delete_node(int pos)
 	}
 	else
 	{
-		while (++i < pos)
+		while (current->next && ++i < pos)
 		{
 			previous = current;
 			current = current->next;
 		}
 		previous->next = current->next;
+		printf("valueeeeeee %s %s\n",  current->key, current->value);
+		free(current->key);
+		free(current->value);
 		free(current);
 	}
 }
