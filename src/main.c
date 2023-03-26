@@ -14,8 +14,6 @@ int	repl(void)
 			gstruct->sigint_listener = 0;
 			break;
 		}
-		// input = readline("$ ");
-
 		input = get_next_line(0);
 		if (!input)
 		{
