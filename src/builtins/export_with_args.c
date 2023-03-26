@@ -10,10 +10,7 @@ int	check_export_key_val(char *key, char *value)
 	if(!check_str(key))
 		return (0);
 	if(!ft_isalpha(key[0]) && key[0] != '_')
-	{
-			printf("ERROR asd: %c\n", key[i]);
 		return (0);
-	}
 	while (key[i])
 	{
 		if(key[i] != '_' && !(ft_isalnum(key[i])))

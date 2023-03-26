@@ -14,9 +14,14 @@ int	repl(void)
 			gstruct->sigint_listener = 0;
 			break;
 		}
-		input = readline("$ ");
+		// input = readline("$ ");
+
+		input = get_next_line(0);
 		if (!input)
+		{
+			free_all();
 			exit(EXIT_FAILURE);
+		}
 		if(input[0] == '\0' || input[0] == '\n')
 		{
 			free(input);
@@ -27,10 +32,9 @@ int	repl(void)
 			free(input);
 			break;
 		}
-		add_history(input);
+		// add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
-		// free_all();
 		}
 	return (0);
 }
@@ -44,7 +48,6 @@ int main(int ac, char *av[], char *envp[])
 	if(!init_gstruct())
 		return (1);
 	init_envp(envp);
-	// ft_env();
 	repl();
 	return (0);
 }
