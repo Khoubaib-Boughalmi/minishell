@@ -14,9 +14,7 @@ int	repl(void)
 			gstruct->sigint_listener = 0;
 			break;
 		}
-		// input = readline("$ ");
-
-		input = get_next_line(0);
+		input = readline("$ ");
 		if (!input)
 		{
 			free_all();
@@ -32,7 +30,7 @@ int	repl(void)
 			free(input);
 			break;
 		}
-		// add_history(input);
+		add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
 		}
