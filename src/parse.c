@@ -22,7 +22,7 @@ int	tokenize_expand_execute(char *input)
 	// create_lst_commands(gstruct->tokens_head);
 	// ft_export_with_args((char *[]){"a1=1" , "a2=2" , "a3=0", "a3=45", "a3=0", NULL});
 	ft_export_with_args((char *[]){"1a1=12" , "a2=2" , "a3=0", "a3=45", "a3=40", "1a1=0", NULL});
-	// ft_unest((char *[]){"a1" , "a3", "a3", "a5", NULL});
+	ft_unest((char *[]){"a1" , "a3", "a3", "a5", "a2", NULL});
 	// ft_env();
 	ft_export_no_args();
 	// printf("~~~~~~~~~~~~~~~~\n");
