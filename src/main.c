@@ -16,7 +16,10 @@ int	repl(void)
 		}
 		input = readline("$ ");
 		if (!input)
+		{
+			free_all();
 			exit(EXIT_FAILURE);
+		}
 		if(input[0] == '\0' || input[0] == '\n')
 		{
 			free(input);
@@ -30,7 +33,6 @@ int	repl(void)
 		add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
-		// free_all();
 		}
 	return (0);
 }
@@ -44,7 +46,6 @@ int main(int ac, char *av[], char *envp[])
 	if(!init_gstruct())
 		return (1);
 	init_envp(envp);
-	// ft_env();
 	repl();
 	return (0);
 }
