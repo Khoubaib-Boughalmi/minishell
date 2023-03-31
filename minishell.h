@@ -77,6 +77,7 @@ typedef struct s_global_struct
 	int stin;
 	int stout;
 	int ppin;
+	int ppout;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -160,8 +161,8 @@ void		ft_error_msg(char *m);
 // executor stuff
 char	*create_envp_value(char *key);
 void executor(t_token_lst *token_lst);
-int		create_lst_commands(t_token_lst *token_lst);
-int		create_lst_redirections(t_token_lst *token_lst);
+char	**create_lst_commands(t_token_lst *token_lst);
+t_redirection    **create_lst_redirections(t_token_lst *token_lst);
 // t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
 // void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
 int		count_commands(t_token_lst *token_lst);
@@ -182,8 +183,6 @@ int redirect_out_file(char *red);
 int redirect_in_file(char *red);
 int redirect_in_file_append(char *red);
 
-int	create_lst_redirections(t_token_lst *token_lst);
-int	create_lst_commands(t_token_lst *token_lst);
 void	cmd_not_found(char **cmd);
 void redirect_in_out(t_redirection **list_reds);
 int	is_builtin(char	*cmd);

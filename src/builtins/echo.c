@@ -24,8 +24,12 @@ void	ft_echo(char	**list_vars)
 		{
 			i = 2;
 			while (list_vars[i])
-				printf("%s ", list_vars[i++]);	
-			printf("\n");
+			{
+				if(list_vars[i + 1])
+					printf("%s ", list_vars[i++]);
+				else
+					printf("%s", list_vars[i++]);
+			}
 		}
 	}
 }

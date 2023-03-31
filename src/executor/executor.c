@@ -8,58 +8,59 @@ void	transforming_token_lst(t_token_lst *token_lst)
 
 }
 
-int	create_lst_commands(t_token_lst *token_lst)
+char **create_lst_commands(t_token_lst *token_lst)
 {
-	int	i;
-	int	j;
+    int        i;
+    int        j;
+    char    **lst_cmd;
 
-	j = -1;
-	gstruct->list_cmds = (char **)malloc(sizeof(char *) * (count_commands(token_lst) + 1));
-	if(!gstruct->list_cmds)
-		return (0);
-	while(token_lst && token_lst->token->type != AST_PIPE)
-	{
-		i = -1;
-		if(token_lst->token->type == AST_COMMAND)
-		{
-			while (token_lst->token->args[++i])
-			{
-				gstruct->list_cmds[++j] = token_lst->token->args[i]; 
-
-			}
-		}
-		token_lst = token_lst->next;
-	}
-	gstruct->list_cmds[j + 1] = 0;
-	return (1);
+    j = -1;
+    lst_cmd = (char **)malloc(sizeof(char *) * (count_commands(token_lst) + 1));
+    if(!lst_cmd)
+        return (0);
+    while(token_lst && token_lst->token->type != AST_PIPE)
+    {
+        i = -1;
+        if(token_lst->token->type == AST_COMMAND)
+        {
+            while (token_lst->token->args[++i])
+                lst_cmd[++j] = token_lst->token->args[i]; 
+        }
+        token_lst = token_lst->next;
+    }
+    lst_cmd[j + 1] = 0;
+    return (lst_cmd);
 }
 
-int	create_lst_redirections(t_token_lst *token_lst)
+t_redirection    **create_lst_redirections(t_token_lst *token_lst)
 {
-	int	i;
+    t_redirection    **lst_reds;
+    int                i;
 
-	i = -1;
-	gstruct->list_reds = (t_redirection **)malloc(sizeof(t_redirection *) * (count_redirections(token_lst) + 1));
-	if(!gstruct->list_reds)
-		return (0);
-	 while(token_lst && token_lst->token->type != AST_PIPE)
-	{
-		if(token_lst->token->type == AST_REDIRECTION)
-		{
-			gstruct->list_reds[++i] = (t_redirection *)malloc(sizeof(t_redirection));
-			if(!gstruct->list_reds[i])
-				return (0);
-			gstruct->list_reds[i]->value = token_lst->token->redirect_fname;
-			gstruct->list_reds[i]->type = token_lst->token->red_type;
-		}
-		token_lst = token_lst->next;
-	}
-	gstruct->list_reds[i + 1] = 0;
-	return (1);
+    i = -1;
+    lst_reds = (t_redirection **)malloc(sizeof(t_redirection *) * (count_redirections(token_lst) + 1));
+    if(!lst_reds)
+        return (0);
+     while(token_lst && token_lst->token->type != AST_PIPE)
+    {
+        if(token_lst->token->type == AST_REDIRECTION)
+        {
+            lst_reds[++i] = (t_redirection *)malloc(sizeof(t_redirection));
+            if(!lst_reds[i])
+                return (0);
+            lst_reds[i]->value = token_lst->token->redirect_fname;
+            lst_reds[i]->type = token_lst->token->red_type;
+        }
+        token_lst = token_lst->next;
+    }
+    lst_reds[i + 1] = 0;
+    return (lst_reds);
 }
+
 void executor(t_token_lst *token_lst)
 {
-
+	char **str;
+	t_redirection **list_reds;
 	int	i;
 	t_token_lst *tmp1;
 
@@ -77,23 +78,25 @@ void executor(t_token_lst *token_lst)
 		}
 		token_lst = token_lst->next;
 	}
+	dup2(gstruct->ppout, 1);
+	str = create_lst_commands(tmp1);
+	list_reds = create_lst_redirections(tmp1);
+	redirect_in_out(list_reds);
 	int a1;
 	a1 = fork();
 	if (a1 == 0)
 	{
-		create_lst_commands(tmp1);
-		create_lst_redirections(tmp1);
-		redirect_in_out(gstruct->list_reds);
-		if(is_builtin(gstruct->list_cmds[0]))
-			handle_builtin(gstruct->list_cmds);
+		if(is_builtin(str[0]))
+			handle_builtin(str);
 		else
 		{	
-			if (gstruct->list_cmds[0] && path_finder(gstruct->list_cmds[0], gstruct->envp_head))
-				execve(path_finder(gstruct->list_cmds[0], gstruct->envp_head), gstruct->list_cmds, NULL);
+			if (str[0] && path_finder(str[0], gstruct->envp_head))
+				execve(path_finder(str[0], gstruct->envp_head), str, NULL);
 			else
-				cmd_not_found(gstruct->list_cmds);
+				cmd_not_found(str);
 		}
 	}
 	waitpid(a1, NULL, 0);
+	dup2(gstruct->ppout, 1);
 	dup2(gstruct->ppin, 0);
 }
