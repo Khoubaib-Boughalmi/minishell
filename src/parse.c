@@ -7,7 +7,7 @@ int	tokenize_expand_execute(char *input)
 	tokens_lst = tokenize(input);
 	if(!tokens_lst)
 		return (0);
-	// gstruct->tokens_head = tokens_lst;
+	gstruct->tokens_head = tokens_lst;
 	// ft_export_with_args("", "myValue");
 	// ft_export_with_args("myKey", "");
 	// ft_unest("myKey");
@@ -16,7 +16,7 @@ int	tokenize_expand_execute(char *input)
 	// display_tokens(tokens_lst);
 	// printf("~~~~~~~~~~~~~~~~\n");
 	// printf("~~~~~~~~~~~~~~~~\n");
-	//expand(tokens_lst);
+	expand(tokens_lst);
 	// display_tokens(tokens_lst);
 	// executor(tokens_lst);
 	// create_lst_commands(gstruct->tokens_head);

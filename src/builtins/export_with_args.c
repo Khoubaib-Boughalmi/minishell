@@ -33,31 +33,51 @@ void	ft_export_with_args(char **list_vars)
 	t_envp_node	*prev_node;
 
 	i = 0;
+	if(list_vars_len(list_vars) == 1)
+	{
+		ft_export_no_args();
+		return ;
+	}
+	// while (list_vars[i])
+	// {
+	// 	printf("%s\n", list_vars[i]);
+	// 	i++;
+	// }
+	i=1;
 	while(list_vars[i])
 	{
-		splited = ft_split(list_vars[i], '=');
-		key = splited[0];
-		value = splited[1];
-		if(!check_str(key) || !check_str(value))
+		printf("%s\n", list_vars[i]);
+		if(char_in_str(list_vars[i], '='))
 		{
-			gstruct->exit_status = 1;
-			return ;
+			splited = ft_split(list_vars[i], '=');
+			key = splited[0];
+			value = splited[1];
+			if(!check_str(key) || !check_str(value))
+			{
+				gstruct->exit_status = 1;
+				return ;
+			}
+			if(check_export_key_val(key, value))
+			{
+				prev_node = envp_find_node(key, ft_strlen(key), gstruct->export_head);
+				if(prev_node && ft_strlcmp(prev_node->value, value))
+				{
+					free(prev_node->value);
+					prev_node->value = value;
+				}
+				else if(!prev_node)
+				{
+					node = envp_new_node(key, value);
+					if(!node)
+						return ;
+					envp_lst_add_back(node, &(gstruct->export_head));
+					envp_lst_add_back(node, &(gstruct->envp_head));
+				}
+			}
 		}
-		if(check_export_key_val(key, value))
+		else
 		{
-			prev_node = envp_find_node(key, ft_strlen(key), gstruct->export_head);
-			if(prev_node && ft_strlcmp(prev_node->value, value))
-			{
-				free(prev_node->value);
-				prev_node->value = value;
-			}
-			else if(!prev_node)
-			{
-				node = envp_new_node(key, value);
-				if(!node)
-					return ;
-				envp_lst_add_back(node, &(gstruct->export_head));
-			}
+			//just export the key only in export_head	
 		}
 		i++;
 	}

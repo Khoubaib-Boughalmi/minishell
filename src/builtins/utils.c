@@ -32,6 +32,19 @@ int	list_vars_len(char **list_cmds)
 	return (i);
 }	
 
+int	char_in_str(char *str, char c)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if(str[i] == c)
+			return (1);
+	}
+	return (0);
+}
+
 void handle_builtin(char **list_cmds)
 {
 	if(!ft_strlcmp(list_cmds[0], "cd"))
@@ -42,8 +55,8 @@ void handle_builtin(char **list_cmds)
 		ft_echo(list_cmds);
 	if(!ft_strlcmp(list_cmds[0], "env"))
 		ft_env();
-	// if(!ft_strlcmp(list_cmds[0], "export"))
-	// 	ft_export_with_args(list_cmds);
+	if(!ft_strlcmp(list_cmds[0], "export"))
+		ft_export_with_args(list_cmds);
 	// if(!ft_strlcmp(list_cmds[0], "unset"))
 	// 	ft_unest(list_cmds);
 	

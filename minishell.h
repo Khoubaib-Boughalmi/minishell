@@ -189,6 +189,7 @@ void redirect_in_out(t_redirection **list_reds);
 int	is_builtin(char	*cmd);
 void handle_builtin(char **list_cmds);
 int	list_vars_len(char **list_cmds);
+int	char_in_str(char *str, char c);
 # endif
 
 
