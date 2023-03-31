@@ -2,16 +2,10 @@
 
 void	sigint_hander(int sig)
 {
-	if(rl_line_buffer[0] == '\0')
-		printf("heeeeeeeeeeeeeeeeeeeeeeeeeeelp\n");
-
-	// gstruct->sigint_listener = 1;
-	// free(gstruct->src_input);
-	// printf("\n");
-	// rl_replace_line("", 0);
-	// rl_on_new_line();
-   //  rl_redisplay();
-	// repl();
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+    // rl_redisplay();
 }
 
 void	sigquit_hander(int sig)

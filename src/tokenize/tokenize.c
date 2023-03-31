@@ -30,14 +30,14 @@ char	*ft_strjoin_min(char *s1, char *s2)
 
 t_red_type redtype(char *str)
 {
-	if (ft_strncmp(">",str,1))
-		return (OUTPUT);
-	if (ft_strncmp("<",str,1))
-		return (INPUT);
-	if (ft_strncmp("<<",str,2))
-		return (HEREDOC);
+    if (!ft_strlcmp("<<",str))
+        return (HEREDOC);
+    else if (!ft_strlcmp(">>",str))
+        return (APPEND);
+    else if (!ft_strlcmp("<",str))
+        return (INPUT);
 	else
-		return (APPEND);
+        return (OUTPUT);
 }
 
 t_token_lst	*ft_put_intoken(char **str)
