@@ -7,6 +7,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <unistd.h>
 # include "libft/libft.h"
@@ -73,6 +74,9 @@ typedef struct s_global_struct
 	int						sigint_listener;
 	char					**list_cmds;
 	t_redirection			**list_reds;
+	int stin;
+	int stout;
+	int ppin;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -155,7 +159,7 @@ void		ft_error_msg(char *m);
 
 // executor stuff
 char	*create_envp_value(char *key);
-void	executor(t_token_lst *token_lst);
+void executor(t_token_lst *token_lst);
 int		create_lst_commands(t_token_lst *token_lst);
 int		create_lst_redirections(t_token_lst *token_lst);
 // t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
@@ -169,6 +173,19 @@ void	free_envp_nodes_lst();
 void	free_cmds_reds_array();
 void	free_global_struct();
 void	free_all();
+
+
+void    ex_main(t_token_lst *token1, t_token_lst *token2);
+
+int redirect_out_file_heredoc(char *red);
+int redirect_out_file(char *red);
+int redirect_in_file(char *red);
+int redirect_in_file_append(char *red);
+
+int	create_lst_redirections(t_token_lst *token_lst);
+int	create_lst_commands(t_token_lst *token_lst);
+void	cmd_not_found(char **cmd);
+void redirect_in_out(t_redirection **list_reds);
 
 # endif
 

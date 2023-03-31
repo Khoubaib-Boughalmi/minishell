@@ -29,7 +29,7 @@ int init_envp(char **envp)
 		free_split(envp_split);
 		i++;
 	}
-	// if(!duplicate_list_export())
-	// 	return (0);
+	if(!duplicate_list_export())
+		return (0);
 	return (1);
 }

@@ -1,0 +1,16 @@
+total 108
+drwx------  5 koby koby  4096 Mar 31 03:05 .
+drwxr-xr-x  6 koby koby  4096 Mar 31 03:00 ..
+-rw-r--r--  1 koby koby   182 Mar 30 22:03 a
+-rw-r--r--  1 koby koby  2993 Mar 30 22:03 fs
+drwx------  2 koby koby  4096 Mar 31 03:05 get_next_line
+drwx------  3 koby koby  4096 Mar 31 03:05 libft
+-rw-r--r--  1 koby koby  2377 Mar 30 22:03 Makefile
+-rwxr-xr-x  1 koby koby 52376 Mar 31 03:05 minishell
+-rw-r--r--  1 koby koby  5953 Mar 31 03:00 minishell.h
+-rw-r--r--  1 koby koby     0 Mar 31 03:05 outits.txt
+-rw-r--r--  1 koby koby    10 Mar 30 22:03 out.txt
+-rw-r--r--  1 koby koby   996 Mar 30 22:03 README.md
+drwx------ 11 koby koby  4096 Mar 31 03:05 src
+-rw-r--r--  1 koby koby   123 Mar 30 22:03 TESTCASES
+-rw-r--r--  1 koby koby    56 Mar 30 22:03 TOBEFIXED

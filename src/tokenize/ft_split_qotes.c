@@ -52,6 +52,8 @@ char	**ft_split_qotes(char *s, char c)
 	k = -1;
 	if (!s || how_mush_char(s, c) == 0)
 		return (0);
+	while (*s == ' ')
+		s++;
 	resulta = (char **)malloc(sizeof(char *) * (how_mush_char(s, c) + 1));
 	if (!resulta)
 		return (0);

@@ -33,12 +33,11 @@ int redirect_out_file_heredoc(char *red)
 
     new_str = NULL;
     pipe(pip);
-    // printf("red %s\n", red);
+    dup2(gstruct->ppin, 0);
     red = ft_strjoin(red, "\n");
     str = get_next_line(0);
     if (!str)
         return 0;
-    // str[ft_strlen(str)-1] = '\0';
     while (1)
     {
         if(!ft_strlcmp(red, str))
@@ -48,16 +47,16 @@ int redirect_out_file_heredoc(char *red)
             str[ft_strlen(str)-1] = '\0';
             expand_variables(&new_str, str, AST_COMMAND);
             if(!new_str)
-                ft_putstr_fd("\n", pip[1]);
-            else
-                ft_putstr_fd(ft_strjoin(new_str, "\n"), pip[1]);            
+             ft_putstr_fd("\n", pip[1]);
+        else
+              ft_putstr_fd(ft_strjoin(new_str, "\n"), pip[1]);            
             new_str = NULL;
         }
         else
-            ft_putstr_fd(str, pip[1]);
+         ft_putstr_fd(str, pip[1]);
         str = get_next_line(0);
     }
+    dup2(gstruct->stin, 0);
     close(pip[1]);
-
     return pip[0];
 }

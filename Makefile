@@ -46,6 +46,8 @@ SRCS_MAND= 		./src/main.c								\
 				./src/free/free.c							\
 				./get_next_line/get_next_line.c				\
 				./get_next_line/get_next_line_utils.c		\
+				./src/executor/ex_main.c					\
+				./src/executor/file_create.c				\
 
 M_OBJ 		= ${SRCS_MAND:.c=.o}
 B_OBJ 		= ${SRCS_BONUS:.c=.o}
