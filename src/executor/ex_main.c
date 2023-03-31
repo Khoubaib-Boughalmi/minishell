@@ -134,10 +134,15 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 		create_lst_commands(token1);
 		create_lst_redirections(token1);
 		redirect_in_out(gstruct->list_reds);
-		if (gstruct->list_cmds[0] && path_finder(gstruct->list_cmds[0], gstruct->envp_head))
-			execve(path_finder(gstruct->list_cmds[0], gstruct->envp_head), gstruct->list_cmds, NULL);
+		if(is_builtin(gstruct->list_cmds[0]))
+			handle_builtin(gstruct->list_cmds);
 		else
-			cmd_not_found(gstruct->list_cmds);
+		{	
+			if (gstruct->list_cmds[0] && path_finder(gstruct->list_cmds[0], gstruct->envp_head))
+				execve(path_finder(gstruct->list_cmds[0], gstruct->envp_head), gstruct->list_cmds, NULL);
+			else
+				cmd_not_found(gstruct->list_cmds);
+		}
 	}
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);

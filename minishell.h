@@ -97,8 +97,8 @@ void		ft_export_with_args(char **phrase);
 void		ft_export_no_args();
 void		ft_unest(char **list_keys);
 void		ft_pwd(void);
-void		ft_echo(char *str, int flag);
-void		ft_cd(char *str);
+void		ft_echo(char **list_vars);
+void		ft_cd(char **list_vars);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
@@ -186,7 +186,9 @@ int	create_lst_redirections(t_token_lst *token_lst);
 int	create_lst_commands(t_token_lst *token_lst);
 void	cmd_not_found(char **cmd);
 void redirect_in_out(t_redirection **list_reds);
-
+int	is_builtin(char	*cmd);
+void handle_builtin(char **list_cmds);
+int	list_vars_len(char **list_cmds);
 # endif
 
 
