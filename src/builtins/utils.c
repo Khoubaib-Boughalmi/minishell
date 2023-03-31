@@ -56,9 +56,19 @@ void handle_builtin(char **list_cmds)
 	if(!ft_strlcmp(list_cmds[0], "env"))
 		ft_env();
 	if(!ft_strlcmp(list_cmds[0], "export"))
+	{
+		// int	i = 0;
+		// while (list_cmds[i])
+		// {
+		// 	printf("%s\n", list_cmds[i]);
+		// 	i++;
+		// }
+		
 		ft_export_with_args(list_cmds);
-	// if(!ft_strlcmp(list_cmds[0], "unset"))
-	// 	ft_unest(list_cmds);
+
+	}
+	if(!ft_strlcmp(list_cmds[0], "unset"))
+		ft_unest(list_cmds);
 	
 }
 

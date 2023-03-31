@@ -8,7 +8,7 @@ void	ft_unest(char	**list_keys)
 	t_envp_node	*ptr;
 	char		**splited;
 
-	j = -1;
+	j = 0;
 	while (list_keys[++j])
 	{
 		i = 0;

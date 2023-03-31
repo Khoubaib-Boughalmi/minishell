@@ -16,7 +16,7 @@ int	tokenize_expand_execute(char *input)
 	// display_tokens(tokens_lst);
 	// printf("~~~~~~~~~~~~~~~~\n");
 	// printf("~~~~~~~~~~~~~~~~\n");
-	expand(tokens_lst);
+	// expand(tokens_lst);
 	// display_tokens(tokens_lst);
 	// executor(tokens_lst);
 	// create_lst_commands(gstruct->tokens_head);

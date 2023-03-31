@@ -144,6 +144,7 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 				cmd_not_found(gstruct->list_cmds);
 		}
 	}
+	// waitpid(a1, NULL, 0);
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	close(fd[1]);

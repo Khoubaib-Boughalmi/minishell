@@ -27,7 +27,8 @@ void	ft_export_with_args(char **list_vars)
 {
 	int			i;
 	char		*key;
-	t_envp_node *node;
+	t_envp_node *export_node;
+	t_envp_node *env_node;
 	char		*value;
 	char		**splited;
 	t_envp_node	*prev_node;
@@ -38,15 +39,9 @@ void	ft_export_with_args(char **list_vars)
 		ft_export_no_args();
 		return ;
 	}
-	// while (list_vars[i])
-	// {
-	// 	printf("%s\n", list_vars[i]);
-	// 	i++;
-	// }
 	i=1;
 	while(list_vars[i])
 	{
-		printf("%s\n", list_vars[i]);
 		if(char_in_str(list_vars[i], '='))
 		{
 			splited = ft_split(list_vars[i], '=');
@@ -67,18 +62,19 @@ void	ft_export_with_args(char **list_vars)
 				}
 				else if(!prev_node)
 				{
-					node = envp_new_node(key, value);
-					if(!node)
+					export_node = envp_new_node(key, value);
+					env_node = envp_new_node(key, value);
+					if(!export_node || !env_node)
 						return ;
-					envp_lst_add_back(node, &(gstruct->export_head));
-					envp_lst_add_back(node, &(gstruct->envp_head));
+					envp_lst_add_back(export_node, &(gstruct->export_head));
+					envp_lst_add_back(env_node, &(gstruct->envp_head));
 				}
 			}
 		}
-		else
-		{
-			//just export the key only in export_head	
-		}
+		// else
+		// {
+		// 	//just export the key only in export_head	
+		// }
 		i++;
 	}
 }
