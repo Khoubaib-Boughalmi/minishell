@@ -82,21 +82,21 @@ void executor(t_token_lst *token_lst)
 	str = create_lst_commands(tmp1);
 	list_reds = create_lst_redirections(tmp1);
 	redirect_in_out(list_reds);
-	int a1;
-	a1 = fork();
-	if (a1 == 0)
-	{
-		if(is_builtin(str[0]))
-			handle_builtin(str);
-		else
-		{	
-			if (str[0] && path_finder(str[0], gstruct->envp_head))
-				execve(path_finder(str[0], gstruct->envp_head), str, NULL);
-			else
-				cmd_not_found(str);
+	if(is_builtin(str[0]))
+		handle_builtin(str);
+	else
+	{	
+		int a1;
+		a1 = fork();
+		if (a1 == 0)
+		{
+				if (str[0] && path_finder(str[0], gstruct->envp_head))
+					execve(path_finder(str[0], gstruct->envp_head), str, NULL);
+				else
+					cmd_not_found(str);
 		}
-	}
 	waitpid(a1, NULL, 0);
+	}
 	dup2(gstruct->ppout, 1);
 	dup2(gstruct->ppin, 0);
 }
