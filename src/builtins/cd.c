@@ -9,7 +9,7 @@ void	ft_cd(char **list_vars)
 		printf("cd: too many arguments\n");
 	else 
 	{
-		if(!list_vars[1])
+		if(!list_vars[1] || !ft_strlcmp(list_vars[1], "~"))
 		{
 			home_node = envp_find_node("HOME", ft_strlen("HOME"), gstruct->envp_head);
 			if (!home_node)

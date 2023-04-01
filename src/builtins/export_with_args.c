@@ -59,6 +59,7 @@ void	ft_export_with_args(char **list_vars)
 				{
 					free(prev_node->value);
 					prev_node->value = value;
+					//!!!!!!!!!!!update the env too!!!!!!!!!!!
 				}
 				else if(!prev_node)
 				{
@@ -86,7 +87,7 @@ void	ft_export_no_args()
 	ptr = gstruct->export_head;
 	while (ptr)
 	{
-		printf("declare -x %s=%s\n", ptr->key, ptr->value);
+		printf("declare -x %s=\"%s\"\n", ptr->key, ptr->value);
 		ptr = ptr->next;
 	}
 }
