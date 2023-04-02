@@ -20,8 +20,6 @@ void	sigint_hander_executor(int sig)
 	// rl_redisplay();
 }
 
-
-
 void	sigquit_hander(int sig)
 {
 	printf("heeeeeeeeeeeeeeeeeeeeeeeeeeelp\n");

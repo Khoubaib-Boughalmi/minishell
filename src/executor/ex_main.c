@@ -145,6 +145,7 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 
     pipe(fd);		
 	gstruct->stout = dup2(fd[1], 1);
+
 	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
@@ -162,6 +163,7 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 			else
 				cmd_not_found(str);
 		}
+
 	}
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);
