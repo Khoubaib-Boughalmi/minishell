@@ -29,7 +29,14 @@ int	tokenize_expand_execute(char *input)
 	// printf("~~~~~~~~~~~~~~~~\n");
 	// ft_unest((char *[]){"a1" , "a3", "a3", "a5", NULL});
 	// ft_env();
-
+	// char **ptr = get_envp_arr();
+	// int i = 0;
+	// while (ptr[i])
+	// {
+	// 	printf("%s\n", ptr[i]);
+	// 	i++;
+	// }
+	
 	gstruct->ppin = dup(0);
 	gstruct->ppout = dup(1);
 	executor(tokens_lst);

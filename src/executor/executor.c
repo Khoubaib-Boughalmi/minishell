@@ -94,7 +94,7 @@ void executor(t_token_lst *token_lst)
 		if (a1 == 0)
 		{
 				if (str[0] && path_finder(str[0], gstruct->envp_head))
-					execve(path_finder(str[0], gstruct->envp_head), str, NULL);
+					execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 				else
 					cmd_not_found(str);
 		}

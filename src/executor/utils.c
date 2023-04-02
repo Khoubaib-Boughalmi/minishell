@@ -34,6 +34,38 @@ int	count_redirections(t_token_lst *token_lst)
 	return (count);
 }
 
+char	**get_envp_arr()
+{
+	int			i;
+	int			j;
+	int			key_len;
+	int			value_len;
+	int			len;
+	t_envp_node	*ptr;
+	char			*str;
+	char			**envp_str;
+
+	i = 0;
+	ptr = gstruct->envp_head;
+	len = envp_list_vars_len(ptr);
+	if(!len)
+		return NULL;
+	envp_str = (char **)malloc(sizeof(char *) * len + 1);
+	if(!envp_str)
+		return NULL;
+	envp_str[len] = 0;
+	while (ptr)
+	{
+		j = 0;
+		envp_str[i] = ft_strdup(ptr->key);
+		envp_str[i] = ft_strjoin(envp_str[i], "=");
+		envp_str[i] = ft_strjoin(envp_str[i], ptr->value);
+		ptr = ptr->next;
+		i++;
+	}
+	return (envp_str);
+}
+
 // t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type)
 // {
 // 	t_separated_token	*token;

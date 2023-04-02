@@ -87,6 +87,8 @@ int			tokenize_expand_execute(char *input);    // the starting point
 t_token 	*tokenize_input(void);      // for creating the array of tokens from the user input
 int     	init_gstruct();  // for initializing the global strcut
 int			init_envp(char **envp);
+int		envp_list_vars_len(t_envp_node *ptr);
+char	**get_envp_arr();
 void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node, t_envp_node **head);

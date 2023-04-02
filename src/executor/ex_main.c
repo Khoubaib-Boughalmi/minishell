@@ -46,55 +46,48 @@ char	*path_finder(char *cmd, t_envp_node *envp)
 	free_split(path);
 	return (0);
 }
-
-void red_in_last(t_redirection		**list_reds, int *fd)
+void red_in_last(t_redirection        **list_reds, int *fd)
 {
-	int i = 0;
-	int t = -1;
-	while(list_reds[i])
-	{
-		if (list_reds[i]->type == OUTPUT)
-			t = fd[i];
-		if (list_reds[i]->type == APPEND)
-			t = fd[i];
-		i++;
-	}
-	i = 0;
-	while(list_reds[i])
-	{
-		close(fd[i]);
-		i++;
-	}
-	if (t != -1)
-	{
-		dup2(t, 1);
-		close(t);
-	}
+    int i = 0;
+    int t = -1;
+    while(list_reds[i])
+    {
+        if (list_reds[i]->type == OUTPUT)
+            t = fd[i];
+        if (list_reds[i]->type == APPEND)
+            t = fd[i];
+        i++;
+    }
+    if (t != -1)
+        dup2(t, 1);
+    i = 0;
+    while(list_reds[i])
+    {
+        close(fd[i]);
+        i++;
+    }
 }
-void red_out_last(t_redirection		**list_reds, int *fd)
+void red_out_last(t_redirection        **list_reds, int *fd)
 {
-	int i = 0;
-	int t = -1;
+    int i = 0;
+    int t = -1;
 
-	while(list_reds[i])
-	{
-		if (list_reds[i]->type == INPUT)
-			t = fd[i];
-		if (list_reds[i]->type == HEREDOC)
-			t = fd[i];
-		i++;
-	}
-	i = 0;
-	while(list_reds[i])
-	{
-		close(fd[i]);
-		i++;
-	}
-	if (t != -1)
-	{
-		dup2(t, 0);
-		close(t);
-	}
+    while(list_reds[i])
+    {
+        if (list_reds[i]->type == INPUT)
+            t = fd[i];
+        if (list_reds[i]->type == HEREDOC)
+            t = fd[i];
+        i++;
+    }
+    if (t != -1)
+        dup2(t, 0);
+    i = 0;
+    while(list_reds[i])
+    {
+        close(fd[i]);
+        i++;
+    }
 }
 
 int splcount(t_redirection **list_reds)
@@ -159,7 +152,7 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 		{
 			close(fd[0]);
 			if (str[0] && path_finder(str[0], gstruct->envp_head))
-				execve(path_finder(str[0], gstruct->envp_head), str, NULL);
+				execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 			else
 				cmd_not_found(str);
 		}

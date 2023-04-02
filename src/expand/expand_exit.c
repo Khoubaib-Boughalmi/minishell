@@ -6,6 +6,11 @@ void expand_exit_status(char **original, char *copy)
 	int		i;
 
 	i = -1;
+	// if (WIFEXITED(status)) {
+   //          printf("Child exited with status %d\n", WEXITSTATUS(status));
+   //      } else {
+   //          printf("Child terminated abnormally\n");
+   //      }
 	if(gstruct->exit_status == 32512)
 		gstruct->exit_status = 127;
 	if(ft_strlen(copy) > 2)

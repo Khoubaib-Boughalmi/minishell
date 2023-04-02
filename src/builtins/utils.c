@@ -32,6 +32,19 @@ int	list_vars_len(char **list_cmds)
 	return (i);
 }	
 
+int	envp_list_vars_len(t_envp_node *ptr)
+{
+	int	i;
+
+	i = 0;
+	while(ptr)
+	{
+		ptr = ptr->next;
+		i++;
+	}
+	return (i);
+}	
+
 int	char_in_str(char *str, char c)
 {
 	int	i;
