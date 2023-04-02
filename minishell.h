@@ -77,6 +77,7 @@ typedef struct s_global_struct
 	int stin;
 	int stout;
 	int ppin;
+	int ppout;
 } t_global_struct;
 
 extern t_global_struct *gstruct;
@@ -97,11 +98,12 @@ void		ft_export_with_args(char **phrase);
 void		ft_export_no_args();
 void		ft_unest(char **list_keys);
 void		ft_pwd(void);
-void		ft_echo(char *str, int flag);
-void		ft_cd(char *str);
+void		ft_echo(char **list_vars);
+void		ft_cd(char **list_vars);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
+void	sigint_hander_executor(int sig);
 // char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
@@ -160,8 +162,8 @@ void		ft_error_msg(char *m);
 // executor stuff
 char	*create_envp_value(char *key);
 void executor(t_token_lst *token_lst);
-int		create_lst_commands(t_token_lst *token_lst);
-int		create_lst_redirections(t_token_lst *token_lst);
+char	**create_lst_commands(t_token_lst *token_lst);
+t_redirection    **create_lst_redirections(t_token_lst *token_lst);
 // t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type);
 // void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
 int		count_commands(t_token_lst *token_lst);
@@ -182,11 +184,12 @@ int redirect_out_file(char *red);
 int redirect_in_file(char *red);
 int redirect_in_file_append(char *red);
 
-int	create_lst_redirections(t_token_lst *token_lst);
-int	create_lst_commands(t_token_lst *token_lst);
 void	cmd_not_found(char **cmd);
 void redirect_in_out(t_redirection **list_reds);
-
+int	is_builtin(char	*cmd);
+void handle_builtin(char **list_cmds);
+int	list_vars_len(char **list_cmds);
+int	char_in_str(char *str, char c);
 # endif
 
 

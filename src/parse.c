@@ -16,7 +16,7 @@ int	tokenize_expand_execute(char *input)
 	// display_tokens(tokens_lst);
 	// printf("~~~~~~~~~~~~~~~~\n");
 	// printf("~~~~~~~~~~~~~~~~\n");
-	//expand(tokens_lst);
+	expand(tokens_lst);
 	// display_tokens(tokens_lst);
 	// executor(tokens_lst);
 	// create_lst_commands(gstruct->tokens_head);
@@ -31,6 +31,7 @@ int	tokenize_expand_execute(char *input)
 	// ft_env();
 
 	gstruct->ppin = dup(0);
+	gstruct->ppout = dup(1);
 	executor(tokens_lst);
 	return (1);
 }

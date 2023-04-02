@@ -2,7 +2,7 @@
 
 void	ft_pwd(void)
 {
-	char buff[4096];
+	char buff[6144];
 
 	if(getcwd(buff, sizeof(buff)))
 		printf("%s\n", buff);

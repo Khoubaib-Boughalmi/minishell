@@ -7,6 +7,8 @@ int	init_gstruct()
 	if (!gstruct)
 		return (0);
 	ft_memset(gstruct, 0, sizeof(t_global_struct));
+	gstruct->ppin = 0;
+	gstruct->ppout = 1;
 	return (1);
 }
 
