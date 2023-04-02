@@ -31,10 +31,7 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 		// while (copy[++i])
 		// {
 			if(copy[1] == '?')
-			{
-				printf("EXIT %s\n", *original);
 				expand_exit_status(original, &(copy[1]));
-			}
 			else
 			{
 				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->export_head);

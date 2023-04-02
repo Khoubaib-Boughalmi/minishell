@@ -72,6 +72,8 @@ void executor(t_token_lst *token_lst)
 	{
 		if (token_lst->token->type == AST_PIPE)
 		{
+			if (!token_lst->next)
+				return ;
 			token_lst = token_lst->next;
 			ex_main(tmp1, token_lst);
 			return ;
@@ -85,8 +87,9 @@ void executor(t_token_lst *token_lst)
 	if(is_builtin(str[0]))
 		handle_builtin(str);
 	else
-	{	
+	{
 		int a1;
+		signal(SIGINT, &sigint_hander_executor);
 		a1 = fork();
 		if (a1 == 0)
 		{
@@ -95,7 +98,10 @@ void executor(t_token_lst *token_lst)
 				else
 					cmd_not_found(str);
 		}
-	waitpid(a1, NULL, 0);
+		waitpid(a1, &gstruct->exit_status, 0);
+		close(gstruct->stin);
+		close(gstruct->stout);
+		while (wait(NULL) > 0);
 	}
 	dup2(gstruct->ppout, 1);
 	dup2(gstruct->ppin, 0);

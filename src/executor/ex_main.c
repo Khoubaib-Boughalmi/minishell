@@ -59,8 +59,17 @@ void red_in_last(t_redirection		**list_reds, int *fd)
 			t = fd[i];
 		i++;
 	}
+	i = 0;
+	while(list_reds[i])
+	{
+		close(fd[i]);
+		i++;
+	}
 	if (t != -1)
+	{
 		dup2(t, 1);
+		close(t);
+	}
 }
 void red_out_last(t_redirection		**list_reds, int *fd)
 {
@@ -75,8 +84,17 @@ void red_out_last(t_redirection		**list_reds, int *fd)
 			t = fd[i];
 		i++;
 	}
+	i = 0;
+	while(list_reds[i])
+	{
+		close(fd[i]);
+		i++;
+	}
 	if (t != -1)
+	{
 		dup2(t, 0);
+		close(t);
+	}
 }
 
 int splcount(t_redirection **list_reds)
@@ -112,7 +130,6 @@ void redirect_in_out(t_redirection **list_reds)
 
 void	cmd_not_found(char **cmd)
 {
-	write(2, "pipex: ", 7);
 	write(2, cmd[0], ft_strlen(cmd[0]));
 	write(2, ": command not found\n", 20);
 	free_split(cmd);
@@ -128,6 +145,8 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 
     pipe(fd);		
 	gstruct->stout = dup2(fd[1], 1);
+
+	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
 	redirect_in_out(list_reds);
@@ -135,19 +154,18 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 		handle_builtin(str);
 	else
 	{	
-			a1 = fork();
-			if (a1 == 0)
-			{
-				close(fd[1]);
-				close(fd[0]);
-					if (str[0] && path_finder(str[0], gstruct->envp_head))
-						execve(path_finder(str[0], gstruct->envp_head), str, NULL);
-					else
-						cmd_not_found(str);
-			}
+		a1 = fork();
+		if (a1 == 0)
+		{
+			close(fd[0]);
+			if (str[0] && path_finder(str[0], gstruct->envp_head))
+				execve(path_finder(str[0], gstruct->envp_head), str, NULL);
+			else
+				cmd_not_found(str);
+		}
+
 	}
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);
-	close(fd[1]);
 	executor(token2);
 }
