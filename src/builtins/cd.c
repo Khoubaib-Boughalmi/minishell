@@ -32,4 +32,5 @@ void	ft_cd(char **list_vars)
 			return ;
 		}
 	}
+	gstruct->exit_status = 0;
 }

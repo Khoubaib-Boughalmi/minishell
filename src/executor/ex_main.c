@@ -52,10 +52,10 @@ void red_in_last(t_redirection        **list_reds, int *fd)
     int t = -1;
     while(list_reds[i])
     {
-        if (list_reds[i]->type == OUTPUT)
-            t = fd[i];
-        if (list_reds[i]->type == APPEND)
-            t = fd[i];
+				if (list_reds[i]->type == OUTPUT)
+					t = fd[i];
+				if (list_reds[i]->type == APPEND)
+					t = fd[i];
         i++;
     }
     if (t != -1)
@@ -107,12 +107,17 @@ void redirect_in_out(t_redirection **list_reds)
 	fd = malloc(splcount(list_reds) * sizeof(int));
 	while(list_reds[i])
 	{
-		if (list_reds[i]->type == OUTPUT)
-			fd[i] = redirect_in_file(list_reds[i]->value);
-		if (list_reds[i]->type == APPEND)
-			fd[i] = redirect_in_file_append(list_reds[i]->value);
-		if (list_reds[i]->type == INPUT)
-			fd[i] = redirect_out_file(list_reds[i]->value);
+		if (char_in_str(list_reds[i]->value, '\"') && char_in_str(list_reds[i]->value, ' '))
+			printf("%s: ambiguous redirect", list_reds[i]->value);
+		else
+		{
+			if (list_reds[i]->type == OUTPUT)
+				fd[i] = redirect_in_file(list_reds[i]->value);
+			if (list_reds[i]->type == APPEND)
+				fd[i] = redirect_in_file_append(list_reds[i]->value);
+			if (list_reds[i]->type == INPUT)
+				fd[i] = redirect_out_file(list_reds[i]->value);
+		}
 		if (list_reds[i]->type == HEREDOC)
 			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
 		i++;

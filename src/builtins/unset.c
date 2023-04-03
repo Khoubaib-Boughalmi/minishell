@@ -29,4 +29,5 @@ void	ft_unest(char	**list_keys)
 			ptr = ptr->next;
 		}
 	}
+	gstruct->exit_status = 0;
 }

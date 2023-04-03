@@ -78,6 +78,7 @@ void	ft_export_with_args(char **list_vars)
 		// }
 		i++;
 	}
+	gstruct->exit_status = 0;
 }
 
 void	ft_export_no_args()
@@ -90,4 +91,5 @@ void	ft_export_no_args()
 		printf("declare -x %s=\"%s\"\n", ptr->key, ptr->value);
 		ptr = ptr->next;
 	}
+	gstruct->exit_status = 0;
 }
