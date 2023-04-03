@@ -15,5 +15,6 @@ void	ft_env(void)
 		printf("%s=%s\n", ptr->key,  ptr->value);
 		ptr = ptr->next;
 	}
+	printf("hello woooooooooooorldd\n");
 	gstruct->exit_status = 0;
 }

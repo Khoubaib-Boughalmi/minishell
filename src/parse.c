@@ -36,7 +36,6 @@ int	tokenize_expand_execute(char *input)
 	// 	printf("%s\n", ptr[i]);
 	// 	i++;
 	// }
-	
 	gstruct->ppin = dup(0);
 	gstruct->ppout = dup(1);
 	executor(tokens_lst);

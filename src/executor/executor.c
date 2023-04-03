@@ -80,6 +80,7 @@ void executor(t_token_lst *token_lst)
 		}
 		token_lst = token_lst->next;
 	}
+
 	dup2(gstruct->ppout, 1);
 	str = create_lst_commands(tmp1);
 	list_reds = create_lst_redirections(tmp1);
@@ -105,4 +106,5 @@ void executor(t_token_lst *token_lst)
 	}
 	dup2(gstruct->ppout, 1);
 	dup2(gstruct->ppin, 0);
+
 }
