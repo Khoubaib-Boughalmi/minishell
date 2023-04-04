@@ -28,10 +28,10 @@ static int	ft_return_index(const char *ptr, unsigned long *i)
 	return (sign);
 }
 
-int	ft_atoi(const char *ptr)
+long long	ft_atoi(const char *ptr)
 {
 	unsigned long	i;
-	long int		res;
+	long long	res;
 	short			sign;
 
 	res = 0;
@@ -41,10 +41,6 @@ int	ft_atoi(const char *ptr)
 	{
 		res = res * 10;
 		res += ptr[i] - '0';
-		if (res * sign > 21474483647)
-			return (-1);
-		if (res * sign < -2147483648)
-			return (0);
 		i++;
 	}
 	return (res * sign);

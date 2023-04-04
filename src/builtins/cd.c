@@ -6,7 +6,10 @@ void	ft_cd(char **list_vars)
 
 
 	if (list_vars_len(list_vars) > 2)
+	{
 		printf("cd: too many arguments\n");
+		gstruct->exit_status = 1;
+	}
 	else 
 	{
 		if(!list_vars[1] || !ft_strlcmp(list_vars[1], "~"))

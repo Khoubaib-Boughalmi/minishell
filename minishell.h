@@ -102,6 +102,7 @@ void		ft_unest(char **list_keys);
 void		ft_pwd(void);
 void		ft_echo(char **list_vars);
 void		ft_cd(char **list_vars);
+void	ft_exit(char	**list_vars);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);

@@ -20,6 +20,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/builtins/echo.c						\
 				./src/builtins/cd.c							\
 				./src/builtins/utils.c							\
+				./src/builtins/exit.c							\
 				./src/signals/sig_handler.c					\
 				./src/signals/sig_init.c					\
 				./src/utils/utils.c							\

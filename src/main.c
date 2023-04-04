@@ -25,11 +25,11 @@ int	repl(void)
 			free(input);
 			continue;
 		}
-		if (!ft_strlcmp(input, "exit"))
-		{
-			free(input);
-			break;
-		}
+		// if (!ft_strlcmp(input, "exit"))
+		// {
+		// 	free(input);
+		// 	break;
+		// }
 		add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
@@ -45,6 +45,7 @@ int main(int ac, char *av[], char *envp[])
 	sig_init(SIGQUIT, &sigquit_hander);
 	if(!init_gstruct())
 		return (1);
+	// printf("%d\n", 9223372036854775810 & 255);
 	init_envp(envp);
 	repl();
 	return (0);
