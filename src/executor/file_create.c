@@ -4,14 +4,14 @@ int redirect_in_file_append(char *red)
 {
     int fd;
 
-    fd = open(red, O_RDWR| O_CREAT| O_TRUNC, 0666);
+    fd = open(red, O_RDWR| O_CREAT| O_APPEND, 0666);
     return fd;
 }
 int redirect_in_file(char *red)
 {
     int fd;
 
-    fd = open(red, O_RDWR | O_CREAT | O_APPEND, 0666);
+    fd = open(red, O_RDWR | O_CREAT | O_TRUNC, 0666);
     return fd;
 }
 

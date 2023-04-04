@@ -12,9 +12,7 @@ void	ft_exit(char	**list_vars)
 	}
 	else if(list_vars_len(list_vars) == 2)
 	{
-		printf("str : %s\n", list_vars[1]);
 		ex_status = ft_atoi(list_vars[1]);
-		printf("nbr : %d\n", ex_status);
 		if(ex_status < 0)
 		{
 			ex_status = -ex_status + 1;
