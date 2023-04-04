@@ -14,12 +14,13 @@ int	repl(void)
 			gstruct->sigint_listener = 0;
 			break;
 		}
-		input = readline("$ ");
+		input = get_next_line(0);
 		if (!input)
 		{
 			free_all();
-			exit(EXIT_FAILURE);
+			exit(gstruct->exit_status);
 		}
+		input[strlen(input) - 1] = '\0';
 		if(input[0] == '\0' || input[0] == '\n')
 		{
 			free(input);
