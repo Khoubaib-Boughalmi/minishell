@@ -60,12 +60,6 @@ void red_in_last(t_redirection        **list_reds, int *fd)
     }
     if (t != -1)
         dup2(t, 1);
-    i = 0;
-    while(list_reds[i])
-    {
-        close(fd[i]);
-        i++;
-    }
 }
 void red_out_last(t_redirection        **list_reds, int *fd)
 {
@@ -82,12 +76,6 @@ void red_out_last(t_redirection        **list_reds, int *fd)
     }
     if (t != -1)
         dup2(t, 0);
-    i = 0;
-    while(list_reds[i])
-    {
-        close(fd[i]);
-        i++;
-    }
 }
 
 int splcount(t_redirection **list_reds)
@@ -107,6 +95,7 @@ void redirect_in_out(t_redirection **list_reds)
 	fd = malloc(splcount(list_reds) * sizeof(int));
 	while(list_reds[i])
 	{
+		//check for  echo hello > "f1 " ==>should work
 		if (char_in_str(list_reds[i]->value, '\"') && char_in_str(list_reds[i]->value, ' '))
 			printf("%s: ambiguous redirect", list_reds[i]->value);
 		else
@@ -148,20 +137,19 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
 	redirect_in_out(list_reds);
-	if(is_builtin(str[0]))
-		handle_builtin(str);
-	else
-	{	
-		a1 = fork();
-		if (a1 == 0)
+	a1 = fork();
+	if (a1 == 0)
+	{
+		close(fd[0]);
+		if(is_builtin(str[0]))
 		{
-			close(fd[0]);
-			if (str[0] && path_finder(str[0], gstruct->envp_head))
-				execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
-			else
-				cmd_not_found(str);
+			handle_builtin(str);
+			exit(0);
 		}
-
+		if (str[0] && path_finder(str[0], gstruct->envp_head))
+			execve(path_finder(str[0], gstruct->envp_head), str, NULL);
+		else
+			cmd_not_found(str);
 	}
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);

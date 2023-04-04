@@ -35,7 +35,7 @@ int redirect_out_file_heredoc(char *red)
     pipe(pip);
     dup2(gstruct->ppin, 0);
     red = ft_strjoin(red, "\n");
-    printf("%s\n", red);
+    // printf("%s\n", red);
     str = get_next_line(0);
     if (!str)
         return 0;
