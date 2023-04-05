@@ -12,6 +12,7 @@ int	repl(void)
 		if(gstruct->sigint_listener)
 		{
 			gstruct->sigint_listener = 0;
+			exit(gstruct->exit_status);
 			break;
 		}
 		input = get_next_line(0);
@@ -24,6 +25,7 @@ int	repl(void)
 		if(input[0] == '\0' || input[0] == '\n')
 		{
 			free(input);
+			exit(gstruct->exit_status);
 			continue;
 		}
 		// if (!ft_strlcmp(input, "exit"))
@@ -49,5 +51,5 @@ int main(int ac, char *av[], char *envp[])
 	// printf("%d\n", 9223372036854775810 & 255);
 	init_envp(envp);
 	repl();
-	return (0);
+	return (gstruct->exit_status);
 }

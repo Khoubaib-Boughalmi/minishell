@@ -22,7 +22,7 @@ void	ft_cd(char **list_vars)
 			}
 			if(chdir(home_node->value))
 			{
-				perror("cd failed");
+				perror("minishell: ");
 				gstruct->exit_status = 1;
 				return ;
 			}
@@ -30,7 +30,7 @@ void	ft_cd(char **list_vars)
 		}
 		if (chdir(list_vars[1]))
 		{
-			perror("cd failed");
+			perror("minishell: ");
 			gstruct->exit_status = 1;
 			return ;
 		}

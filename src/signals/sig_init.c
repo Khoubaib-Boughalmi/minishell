@@ -13,7 +13,7 @@ void	sig_init(int sig, void (*sig_handler)(int))
 	if(sig == SIGINT)
 	{
 		if(sigaction(SIGINT, &act, 0) < 0)
-			perror("sigaction error :");
+			perror("minishell :");
 	}
 	else if(sig == SIGQUIT)
 	{
