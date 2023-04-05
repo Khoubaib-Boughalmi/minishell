@@ -5,6 +5,13 @@ int redirect_in_file_append(char *red)
     int fd;
 
     fd = open(red, O_RDWR| O_CREAT| O_APPEND, 0666);
+    if (fd < 0)
+        exit(1);
+    if (access(red, W_OK))
+    {
+        //write(2, "minishell: No such file or directory\n", 38);
+        exit(1);
+    }
     return fd;
 }
 int redirect_in_file(char *red)
@@ -12,6 +19,13 @@ int redirect_in_file(char *red)
     int fd;
 
     fd = open(red, O_RDWR | O_CREAT | O_TRUNC, 0666);
+    if (fd < 0)
+        exit(1);
+    if (access(red, W_OK))
+    {
+        //write(2, "minishell: No such file or directory\n", 38);
+        exit(1);
+    }
     return fd;
 }
 
@@ -19,9 +33,18 @@ int redirect_out_file(char *red)
 {
     int fd;
 
+    if (access(red, F_OK))
+    {
+        exit(1);
+    }
     fd = open(red, O_RDWR);
-    if (!fd)
-        return 0;
+    if (fd < 0)
+        exit(1);
+    if (access(red, R_OK))
+    {
+        //write(2, "minishell: No such file or directory\n", 38);
+        exit(1);
+    }
     return fd;
 }
 

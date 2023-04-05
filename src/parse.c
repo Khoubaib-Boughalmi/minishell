@@ -31,6 +31,18 @@
 	
 // }
 
+int is_pipe(t_token_lst *tokens_lst)
+{
+	t_token_lst *tmp;
+	while (tmp)
+	{
+		if (tmp->token->type == AST_PIPE)
+			return 1;
+		tmp = tmp->next;
+	}
+	return 0;
+}
+
 int	tokenize_expand_execute(char *input)
 {
 	t_token_lst *tokens_lst;
@@ -70,6 +82,30 @@ int	tokenize_expand_execute(char *input)
 	// }
 	gstruct->ppin = dup(0);
 	gstruct->ppout = dup(1);
-	executor(tokens_lst);
+	if (is_pipe(tokens_lst))
+		executor(tokens_lst);
+	else{
+		char **str;
+		t_redirection **list_reds;
+		str = create_lst_commands(tokens_lst);
+		list_reds = create_lst_redirections(tokens_lst);
+		if(is_builtin(str[0]))
+			handle_builtin(str);
+		else
+		{
+			int a1;
+			signal(SIGINT, &sigint_hander_executor);
+			a1 = fork();
+			if (a1 == 0)
+			{
+				redirect_in_out(list_reds);
+				if (str[0] && path_finder(str[0], gstruct->envp_head))
+					execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+				else
+					cmd_not_found(str);
+			}
+			waitpid(a1, &gstruct->exit_status, 0);
+		}
+	}
 	return (1);
 }

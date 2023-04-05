@@ -16,6 +16,7 @@ int	repl(void)
 			break;
 		}
 		input = get_next_line(0);
+		// input = readline("$ ");
 		if (!input)
 		{
 			free_all();
