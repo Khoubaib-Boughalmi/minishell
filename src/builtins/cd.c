@@ -15,9 +15,10 @@ void	ft_cd(char **list_vars)
 		if(!list_vars[1] || !ft_strlcmp(list_vars[1], "~"))
 		{
 			home_node = envp_find_node("HOME", ft_strlen("HOME"), gstruct->envp_head);
+			// printf("%s", home_node->value);
 			if (!home_node)
 			{
-				printf("HOME environment variable not set\n"); //setup exit status
+				printf("minishell: cd: HOME not set\n"); //setup exit status
 				return ;
 			}
 			if(chdir(home_node->value))

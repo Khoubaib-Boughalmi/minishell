@@ -39,17 +39,17 @@ void envp_lst_add_back(t_envp_node *node, t_envp_node **head)
 	}
 }
 
-void envp_delete_node(int pos)
+void envp_delete_node(int pos, t_envp_node **head)
 {
 	int			i;
 	t_envp_node	*current;
 	t_envp_node	*previous;
 
 	i = -1;
-	current = gstruct->export_head;
+	current = *head;
 	if(pos == 0)
 	{
-		gstruct->export_head = gstruct->export_head->next;
+		*head = (*head)->next;
 		free(current);
 	}
 	else
