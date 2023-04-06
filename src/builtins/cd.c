@@ -22,7 +22,7 @@ void	ft_cd(char **list_vars)
 			}
 			if(chdir(home_node->value))
 			{
-				perror("minishell: ");
+				printf("minishell: %s: No such file or directory\n", home_node->value);
 				gstruct->exit_status = 1;
 				return ;
 			}
