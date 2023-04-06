@@ -48,8 +48,8 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 						cbc_str_join(original, tmp->value[i]);
 					// copy = tmp->value;
 				}
-				else
-					cbc_str_join(original, '$');
+				// else
+				// 	cbc_str_join(original, '$');
 			}
 		// }	
 	// }

@@ -92,7 +92,13 @@ int	tokenize_expand_execute(char *input)
 		str = create_lst_commands(tokens_lst);
 		list_reds = create_lst_redirections(tokens_lst);
 		if(is_builtin(str[0]))
+		{
+			if (redirect_in_out(list_reds))
+				return (1);
 			handle_builtin(str);
+			dup2(gstruct->ppout, 1);
+			dup2(gstruct->ppin, 0);
+		}
 		else
 		{
 			int a1;
@@ -100,7 +106,8 @@ int	tokenize_expand_execute(char *input)
 			a1 = fork();
 			if (a1 == 0)
 			{
-				redirect_in_out(list_reds);
+				if (redirect_in_out(list_reds))
+					exit(gstruct->exit_status);
 				if (str[0] && path_finder(str[0], gstruct->envp_head))
 					execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 				else

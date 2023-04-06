@@ -108,7 +108,7 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 void	sigint_hander_executor(int sig);
-char		*rl_replace_line(const char *text, int clear_undo);
+// char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -130,7 +130,7 @@ void		create_original_str(char **original);
 
 char		*ft_strdup_file(char	*s);
 char		**ft_split_der(char	**str, char *input, char n);
-void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
+void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new_token);
 int			ft_count_str(char	**str);
 char		**ft_pipe_insert(char *input, char	**str);
 int			ft_count_der(char	**str, char n);
@@ -189,7 +189,7 @@ int redirect_in_file(char *red);
 int redirect_in_file_append(char *red);
 
 void	cmd_not_found(char **cmd);
-void redirect_in_out(t_redirection **list_reds);
+int redirect_in_out(t_redirection **list_reds);
 int	is_builtin(char	*cmd);
 void handle_builtin(char **list_cmds);
 int	list_vars_len(char **list_cmds);

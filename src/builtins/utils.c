@@ -64,7 +64,6 @@ int	char_in_str(char *str, char c)
 
 void handle_builtin(char **list_cmds)
 {
-
 	if(!ft_strlcmp(list_cmds[0], "cd"))
 		ft_cd(list_cmds);
 	if(!ft_strlcmp(list_cmds[0], "pwd"))

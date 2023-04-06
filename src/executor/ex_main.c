@@ -87,7 +87,7 @@ int splcount(t_redirection **list_reds)
 	return (count);
 }
 
-void redirect_in_out(t_redirection **list_reds)
+int redirect_in_out(t_redirection **list_reds)
 {
 	int i = 0;
 	int *fd;
@@ -95,24 +95,40 @@ void redirect_in_out(t_redirection **list_reds)
 	fd = malloc(splcount(list_reds) * sizeof(int));
 	while(list_reds[i])
 	{
-		//check for  echo hello > "f1 " ==>should work
 		if (char_in_str(list_reds[i]->value, '\"') && char_in_str(list_reds[i]->value, ' '))
 			printf("%s: ambiguous redirect", list_reds[i]->value);
 		else
 		{
 			if (list_reds[i]->type == OUTPUT)
+			{
 				fd[i] = redirect_in_file(list_reds[i]->value);
+				if (fd[i] < 0)
+					return 1;
+			}
 			if (list_reds[i]->type == APPEND)
+			{
 				fd[i] = redirect_in_file_append(list_reds[i]->value);
+				if (fd[i] < 0)
+					return 1;
+			}
 			if (list_reds[i]->type == INPUT)
+			{
 				fd[i] = redirect_out_file(list_reds[i]->value);
+				if (fd[i] < 0)
+					return 1;
+			}
 		}
 		if (list_reds[i]->type == HEREDOC)
+		{
 			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
+			if (fd[i] < 0)
+				return 1;
+		}
 		i++;
 	}
 	red_in_last(list_reds, fd);
 	red_out_last(list_reds, fd);
+	return 0;
 }
 
 void	cmd_not_found(char **cmd)
@@ -145,7 +161,8 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 			handle_builtin(str);
 			exit(gstruct->exit_status);
 		}
-		redirect_in_out(list_reds);
+		if (redirect_in_out(list_reds))
+			exit(gstruct->exit_status);
 		if (str[0] && path_finder(str[0], gstruct->envp_head))
 			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 		else

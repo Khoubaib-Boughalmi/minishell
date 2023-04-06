@@ -93,7 +93,8 @@ void executor(t_token_lst *token_lst)
 			handle_builtin(str);
 			exit(gstruct->exit_status);
 		}
-		redirect_in_out(list_reds);
+		if (redirect_in_out(list_reds))
+			exit(gstruct->exit_status);
 		if (str[0] && path_finder(str[0], gstruct->envp_head))
 			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 		else

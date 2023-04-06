@@ -6,11 +6,16 @@ int redirect_in_file_append(char *red)
 
     fd = open(red, O_RDWR| O_CREAT| O_APPEND, 0666);
     if (fd < 0)
-        exit(1);
+    {
+        printf("minishell: No such file or directory\n");
+        gstruct->exit_status = 1;
+        return -1;
+    }
     if (access(red, W_OK))
     {
-        //write(2, "minishell: No such file or directory\n", 38);
-        exit(1);
+        printf("minishell: %s: Permission denied\n", red);
+        gstruct->exit_status = 1;
+        return -1;
     }
     return fd;
 }
@@ -20,11 +25,16 @@ int redirect_in_file(char *red)
 
     fd = open(red, O_RDWR | O_CREAT | O_TRUNC, 0666);
     if (fd < 0)
-        exit(1);
+    {
+        printf("minishell: No such file or directory\n");
+        gstruct->exit_status = 1;
+        return -1;
+    }
     if (access(red, W_OK))
     {
-        //write(2, "minishell: No such file or directory\n", 38);
-        exit(1);
+        printf("minishell: %s: Permission denied\n", red);
+        gstruct->exit_status = 1;
+        return -1;
     }
     return fd;
 }
@@ -33,17 +43,24 @@ int redirect_out_file(char *red)
 {
     int fd;
 
-    if (access(red, F_OK))
-    {
-        exit(1);
-    }
     fd = open(red, O_RDWR);
     if (fd < 0)
-        exit(1);
+    {
+        printf("minishell: No such file or directory\n");
+        gstruct->exit_status = 1;
+        return -1;
+    }
+    if (access(red, F_OK))
+    {
+        printf("minishell: %s: Permission denied\n", red);
+        gstruct->exit_status = 1;
+        return -1;
+    }
     if (access(red, R_OK))
     {
-        //write(2, "minishell: No such file or directory\n", 38);
-        exit(1);
+       printf("minishell: %s: Permission denied\n", red);
+       gstruct->exit_status = 1;
+       return -1;
     }
     return fd;
 }
@@ -61,7 +78,7 @@ int redirect_out_file_heredoc(char *red)
     // printf("%s\n", red);
     str = get_next_line(0);
     if (!str)
-        return 0;
+        return -1;
     while (1)
     {
         if(!ft_strlcmp(red, str))
