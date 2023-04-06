@@ -34,6 +34,8 @@
 int is_pipe(t_token_lst *tokens_lst)
 {
 	t_token_lst *tmp;
+
+	tmp = tokens_lst;
 	while (tmp)
 	{
 		if (tmp->token->type == AST_PIPE)
@@ -50,7 +52,7 @@ int	tokenize_expand_execute(char *input)
 	tokens_lst = tokenize(input);
 	if(!tokens_lst)
 		return (0);
-	// gstruct->tokens_head = tokens_lst;
+	gstruct->tokens_head = tokens_lst;
 	// ft_export_with_args("", "myValue");
 	// ft_export_with_args("myKey", "");
 	// ft_unest("myKey");

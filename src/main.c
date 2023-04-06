@@ -52,5 +52,6 @@ int main(int ac, char *av[], char *envp[])
 	// printf("%d\n", 9223372036854775810 & 255);
 	init_envp(envp);
 	repl();
+	// printf("%d\n", NULL == '\0');
 	return (gstruct->exit_status);
 }
