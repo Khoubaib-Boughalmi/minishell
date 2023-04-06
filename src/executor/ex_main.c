@@ -126,32 +126,32 @@ void	cmd_not_found(char **cmd)
 
 void    ex_main(t_token_lst *token1, t_token_lst *token2)
 {
-	int 	a1;
 	int		fd[2];
 	char **str;
 	t_redirection **list_reds;
 
     pipe(fd);		
 	gstruct->stout = dup2(fd[1], 1);
-
 	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
-	redirect_in_out(list_reds);
-	if(is_builtin(str[0]))
-		handle_builtin(str);
-	else
+	int a1;
+	signal(SIGINT, &sigint_hander_executor);
+	a1 = fork();
+	if (a1 == 0)
 	{
-		a1 = fork();
-		if (a1 == 0)
+		if(is_builtin(str[0]))
 		{
-			close(fd[0]);
-			if (str[0] && path_finder(str[0], gstruct->envp_head))
-				execve(path_finder(str[0], gstruct->envp_head), str,  get_envp_arr());
-			else
-				cmd_not_found(str);
+			handle_builtin(str);
+			exit(gstruct->exit_status);
 		}
+		redirect_in_out(list_reds);
+		if (str[0] && path_finder(str[0], gstruct->envp_head))
+			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		else
+			cmd_not_found(str);
 	}
+	waitpid(a1, &gstruct->exit_status, 0);
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);

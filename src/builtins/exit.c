@@ -8,13 +8,15 @@ void	ft_exit(char	**list_vars)
 	if (list_vars_len(list_vars) > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
-		gstruct->exit_status = 1;
+		exit(1);
 	}
 	else if(list_vars_len(list_vars) == 2)
 	{
 		ex_status = ft_atoi(list_vars[1]);
 		gstruct->exit_status = ex_status & 255;
+		exit(gstruct->exit_status);
 	}
 	else
-		gstruct->exit_status = 0;
+		exit(0);
+	// gstruct->exit_status = 0;
 }

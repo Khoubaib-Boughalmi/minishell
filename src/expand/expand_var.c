@@ -36,7 +36,7 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 				cbc_str_join(original, '$');
 			else
 			{
-				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->export_head);
+				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
 				// printf("tmp :%s\n", tmp->value);
 				if(tmp)
 				{
