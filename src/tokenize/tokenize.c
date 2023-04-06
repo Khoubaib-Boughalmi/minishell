@@ -163,22 +163,26 @@ t_token_lst	*tokenize(char	*input)
 	token = NULL;
 	if (ft_check_qoutes(input))
 	{
-		printf("qoutes problem\n");
+		printf("minishell: unexpected EOF while looking for matching\n");
+		gstruct->exit_status = 2;
 		return (0);
 	}
 	if (ft_check_mul_pipe(input))
 	{
-		printf("bash: syntax error near unexpected token `|'\n");
+		printf("minishell: syntax error near unexpected token `|'\n");
+		gstruct->exit_status = 2;
 		return (0);
 	}
 	if (ft_check_mul_der(input, '>'))
 	{
-		printf("bash: syntax error near unexpected token `>>'\n");
+		printf("minishell: syntax error near unexpected token `>>'\n");
+		gstruct->exit_status = 2;
 		return (0);
 	}
 	if (ft_check_mul_der(input, '<'))
 	{
-		printf("bash: syntax error near unexpected token `<<'\n");
+		printf("minishell: syntax error near unexpected token `<<'\n");
+		gstruct->exit_status = 2;
 		return (0);
 	}
 	temp = ft_split_qotes(input, '|');

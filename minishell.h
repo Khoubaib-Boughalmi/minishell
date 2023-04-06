@@ -12,6 +12,7 @@
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
+# include	"./libft/ft_printf/ft_printf.h"
 
 // AST node types
 typedef enum
@@ -107,7 +108,7 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 void	sigint_hander_executor(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);

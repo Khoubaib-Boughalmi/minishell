@@ -7,7 +7,7 @@ void	ft_echo(char	**list_vars)
 
 	i = 1;
 	if(!check_str(list_vars[1]))
-		printf("\n");
+		ft_printf("\n");
 	else
 	{
 		if(ft_strlcmp(list_vars[1], "-n"))
@@ -15,9 +15,9 @@ void	ft_echo(char	**list_vars)
 			while (list_vars[i])
 			{
 				if(list_vars[i + 1])
-					printf("%s ", list_vars[i++]);
+					ft_printf("%s ", list_vars[i++]);
 				else
-					printf("%s\n", list_vars[i++]);
+					ft_printf("%s\n", list_vars[i++]);
 			}
 		}
 		else
@@ -26,9 +26,9 @@ void	ft_echo(char	**list_vars)
 			while (list_vars[i])
 			{
 				if(list_vars[i + 1])
-					printf("%s ", list_vars[i++]);
+					ft_printf("%s ", list_vars[i++]);
 				else
-					printf("%s", list_vars[i++]);
+					ft_printf("%s", list_vars[i++]);
 			}
 		}
 	}
