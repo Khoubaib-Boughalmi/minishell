@@ -12,6 +12,7 @@
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
+# include	"./libft/ft_printf/ft_printf.h"
 
 // AST node types
 typedef enum
@@ -30,6 +31,12 @@ typedef enum
 	HEREDOC,
 	COMMAND,
 } t_red_type;
+typedef enum
+{
+	NOERR,
+	NOFILEERR,
+	AMBIGUOUSERR,
+} t_red_error;
 
 // node structure
 typedef struct s_token
@@ -39,8 +46,10 @@ typedef struct s_token
 	int				num_args; // the number of arguments for a command token
 	char			*redirect_fd; // the file descriptor to redirect for a redirection token
 	char			*redirect_fname; // the filename to redirect to for a redirection token
+	t_red_error	redirect_error;
 	t_red_type		red_type;
 	int				exit_status;
+
 } t_token;
 
 
@@ -60,7 +69,8 @@ typedef struct s_token_lst
 typedef struct s_redirection
 {
 	char						*value;
-	t_red_type					type;
+	t_red_type				type;
+	t_red_error				redirect_error;
 } t_redirection;
 
 //shared data goes here
@@ -87,10 +97,12 @@ int			tokenize_expand_execute(char *input);    // the starting point
 t_token 	*tokenize_input(void);      // for creating the array of tokens from the user input
 int     	init_gstruct();  // for initializing the global strcut
 int			init_envp(char **envp);
+int		envp_list_vars_len(t_envp_node *ptr);
+char	**get_envp_arr();
 void		free_split(char **list);
 t_envp_node	*envp_new_node(char *key, char *value);
 void		envp_lst_add_back(t_envp_node *node, t_envp_node **head);
-void		envp_delete_node(int pos);
+void		envp_delete_node(int pos, t_envp_node **head);
 t_envp_node	*envp_find_node(char *key, size_t len, t_envp_node *head);
 int			duplicate_list_export();
 void		ft_env(void);
@@ -100,6 +112,7 @@ void		ft_unest(char **list_keys);
 void		ft_pwd(void);
 void		ft_echo(char **list_vars);
 void		ft_cd(char **list_vars);
+void	ft_exit(char	**list_vars);
 void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
@@ -115,6 +128,7 @@ void		display_tokens(t_token_lst *token);
 void		expand(t_token_lst *tokens_lst);
 void		expand_quotes(char **original, t_token_type token_type);
 void		expand_variables(char **original, char *copy, t_token_type token_type);
+void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
@@ -126,7 +140,7 @@ void		create_original_str(char **original);
 
 char		*ft_strdup_file(char	*s);
 char		**ft_split_der(char	**str, char *input, char n);
-void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new);
+void		ft_lst_token_add_back(t_token_lst **lst, t_token_lst *new_token);
 int			ft_count_str(char	**str);
 char		**ft_pipe_insert(char *input, char	**str);
 int			ft_count_der(char	**str, char n);
@@ -185,7 +199,7 @@ int redirect_in_file(char *red);
 int redirect_in_file_append(char *red);
 
 void	cmd_not_found(char **cmd);
-void redirect_in_out(t_redirection **list_reds);
+int redirect_in_out(t_redirection **list_reds);
 int	is_builtin(char	*cmd);
 void handle_builtin(char **list_cmds);
 int	list_vars_len(char **list_cmds);

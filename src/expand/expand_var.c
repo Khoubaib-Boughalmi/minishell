@@ -32,11 +32,12 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 		// {
 			if(copy[1] == '?')
 				expand_exit_status(original, &(copy[1]));
+			else if(!copy[1] || copy[1] == ' ' || copy[1] == '|' )
+				cbc_str_join(original, '$');
 			else
 			{
-				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->export_head);
+				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
 				// printf("tmp :%s\n", tmp->value);
-
 				if(tmp)
 				{
 					// free(copy);
@@ -47,6 +48,8 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 						cbc_str_join(original, tmp->value[i]);
 					// copy = tmp->value;
 				}
+				// else
+				// 	cbc_str_join(original, '$');
 			}
 		// }	
 	// }

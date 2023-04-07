@@ -1,5 +1,4 @@
 NAME 				= minishell
-BONUS_NAME 		= checker
 CFLAGS 			= #-Wall -Wextra -Werror
 CC 				= cc
 RM 				= rm -f
@@ -20,6 +19,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/builtins/echo.c						\
 				./src/builtins/cd.c							\
 				./src/builtins/utils.c							\
+				./src/builtins/exit.c							\
 				./src/signals/sig_handler.c					\
 				./src/signals/sig_init.c					\
 				./src/utils/utils.c							\
@@ -40,6 +40,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/expand/utils.c						\
 				./src/expand/expand_var.c					\
 				./src/expand/expand_quotes.c				\
+				./src/expand/expand_quotes_red.c				\
 				./src/expand/expand_exit.c					\
 				./src/executor/executor.c					\
 				./src/executor/utils.c						\
@@ -58,7 +59,6 @@ B_OBJ 		= ${SRCS_BONUS:.c=.o}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
 		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/Desktop/readline/8.2.1/lib -I ~/Desktop/readline/8.2.1/include -o ${NAME}
-# ${BONUS_NAME}:  ${LIBFT} ${PRINTF} ${B_OBJ}
 # 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
 
 

@@ -8,4 +8,5 @@ void	ft_pwd(void)
 		printf("%s\n", buff);
 	else
 		gstruct->exit_status = 1;
+	gstruct->exit_status = 0;
 }

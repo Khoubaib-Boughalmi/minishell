@@ -7,15 +7,19 @@ int	is_builtin(char	*cmd)
 
 	i = 0;
 	
-	builtins = ft_split("echo cd export unset env pwd", ' ');
+	builtins = ft_split("cd echo exit export unset env pwd", ' ');
 	if(!builtins)
 		return (0);
+	
 	while (builtins[i])
 	{
-		if(!ft_strlcmp(builtins[i], cmd))
+		if(cmd)
 		{
-			free_split(builtins);
-			return (1);
+			if(!ft_strlcmp(builtins[i], cmd))
+			{
+				free_split(builtins);
+				return (1);
+			}
 		}
 		i++;
 	}
@@ -29,6 +33,19 @@ int	list_vars_len(char **list_cmds)
 	i = 0;
 	while(list_cmds[i])
 		i++;
+	return (i);
+}	
+
+int	envp_list_vars_len(t_envp_node *ptr)
+{
+	int	i;
+
+	i = 0;
+	while(ptr)
+	{
+		ptr = ptr->next;
+		i++;
+	}
 	return (i);
 }	
 
@@ -53,22 +70,13 @@ void handle_builtin(char **list_cmds)
 		ft_pwd();
 	if(!ft_strlcmp(list_cmds[0], "echo"))
 		ft_echo(list_cmds);
-	if(!ft_strlcmp(list_cmds[0], "env"))
-		ft_env();
 	if(!ft_strlcmp(list_cmds[0], "export"))
-	{
-		// int	i = 0;
-		// while (list_cmds[i])
-		// {
-		// 	printf("%s\n", list_cmds[i]);
-		// 	i++;
-		// }
-		
 		ft_export_with_args(list_cmds);
-
-	}
 	if(!ft_strlcmp(list_cmds[0], "unset"))
 		ft_unest(list_cmds);
+	if(!ft_strlcmp(list_cmds[0], "env"))
+		ft_env();
+	if(!ft_strlcmp(list_cmds[0], "exit"))
+		ft_exit(list_cmds);
 	
 }
-

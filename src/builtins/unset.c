@@ -22,11 +22,24 @@ void	ft_unest(char	**list_keys)
 		{
 			if(!ft_strlcmp(ptr->key, list_keys[j]))
 			{
-				envp_delete_node(i);
+				envp_delete_node(i, &gstruct->export_head);
+				break;
+			}
+			i++;
+			ptr = ptr->next;
+		}
+		i = 0;	
+		ptr = gstruct->envp_head;
+		while (ptr)
+		{
+			if(!ft_strlcmp(ptr->key, list_keys[j]))
+			{
+				envp_delete_node(i, &gstruct->envp_head);
 				break;
 			}
 			i++;
 			ptr = ptr->next;
 		}
 	}
+	gstruct->exit_status = 0;
 }

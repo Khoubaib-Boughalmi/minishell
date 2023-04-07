@@ -9,11 +9,17 @@ t_envp_node	*envp_new_node(char *key, char *value)
 	if(!node)
 		return (0);
 	node->key = (char *)malloc(ft_strlen((char *)key) + 1);
-	node->value = (char *)malloc(ft_strlen((char *)value) + 1);
+	if(value)
+		node->value = (char *)malloc(ft_strlen((char *)value) + 1);
+	else
+		node->value = (char *)malloc(sizeof(char));
 	if(!node->key || !node->value)
 		return (0);
 	ft_strlcpy(node->key, key, ft_strlen((char *)key) + 1);
-	ft_strlcpy(node->value, value, ft_strlen((char *)value) + 1);
+	if (value)
+		ft_strlcpy(node->value, value, ft_strlen((char *)value) + 1);
+	else
+		node->value[0] = '\0';
 	node->next = NULL;
 	return (node);
 }
@@ -33,17 +39,17 @@ void envp_lst_add_back(t_envp_node *node, t_envp_node **head)
 	}
 }
 
-void envp_delete_node(int pos)
+void envp_delete_node(int pos, t_envp_node **head)
 {
 	int			i;
 	t_envp_node	*current;
 	t_envp_node	*previous;
 
 	i = -1;
-	current = gstruct->export_head;
+	current = *head;
 	if(pos == 0)
 	{
-		gstruct->export_head = gstruct->export_head->next;
+		*head = (*head)->next;
 		free(current);
 	}
 	else

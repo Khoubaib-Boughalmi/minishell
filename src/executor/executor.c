@@ -50,6 +50,7 @@ t_redirection    **create_lst_redirections(t_token_lst *token_lst)
                 return (0);
             lst_reds[i]->value = token_lst->token->redirect_fname;
             lst_reds[i]->type = token_lst->token->red_type;
+				lst_reds[i]->redirect_error = token_lst->token->redirect_error;
         }
         token_lst = token_lst->next;
     }
@@ -83,26 +84,27 @@ void executor(t_token_lst *token_lst)
 	dup2(gstruct->ppout, 1);
 	str = create_lst_commands(tmp1);
 	list_reds = create_lst_redirections(tmp1);
-	redirect_in_out(list_reds);
-	if(is_builtin(str[0]))
-		handle_builtin(str);
-	else
+	int a1;
+	signal(SIGINT, &sigint_hander_executor);
+	a1 = fork();
+	if (a1 == 0)
 	{
-		int a1;
-		signal(SIGINT, &sigint_hander_executor);
-		a1 = fork();
-		if (a1 == 0)
+		if(is_builtin(str[0]))
 		{
-				if (str[0] && path_finder(str[0], gstruct->envp_head))
-					execve(path_finder(str[0], gstruct->envp_head), str, NULL);
-				else
-					cmd_not_found(str);
+			handle_builtin(str);
+			exit(gstruct->exit_status);
 		}
-		waitpid(a1, &gstruct->exit_status, 0);
-		close(gstruct->stin);
-		close(gstruct->stout);
-		while (wait(NULL) > 0);
+		if (redirect_in_out(list_reds))
+			exit(gstruct->exit_status);
+		if (str[0] && path_finder(str[0], gstruct->envp_head))
+			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		else
+			cmd_not_found(str);
 	}
+	waitpid(a1, &gstruct->exit_status, 0);
+	close(gstruct->stin);
+	close(gstruct->stout);
+	while (wait(NULL) > 0);
 	dup2(gstruct->ppout, 1);
 	dup2(gstruct->ppin, 0);
 }

@@ -6,8 +6,12 @@ void expand_exit_status(char **original, char *copy)
 	int		i;
 
 	i = -1;
-	if(gstruct->exit_status == 32512)
-		gstruct->exit_status = 127;
+	// int exit_status = WEXITSTATUS(status) & 0x7F; to get a value between 0 and 127
+	if (WIFEXITED(gstruct->exit_status)) {
+		gstruct->exit_status = WEXITSTATUS(gstruct->exit_status);
+	}
+	// if(gstruct->exit_status == 32512)
+	// 	gstruct->exit_status = 127;
 	if(ft_strlen(copy) > 2)
 	{
 		expanded_exit = ft_strjoin(ft_itoa(gstruct->exit_status), &(copy[1]));

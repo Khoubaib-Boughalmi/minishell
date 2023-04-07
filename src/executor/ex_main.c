@@ -46,55 +46,36 @@ char	*path_finder(char *cmd, t_envp_node *envp)
 	free_split(path);
 	return (0);
 }
-
-void red_in_last(t_redirection		**list_reds, int *fd)
+void red_in_last(t_redirection        **list_reds, int *fd)
 {
-	int i = 0;
-	int t = -1;
-	while(list_reds[i])
-	{
-		if (list_reds[i]->type == OUTPUT)
-			t = fd[i];
-		if (list_reds[i]->type == APPEND)
-			t = fd[i];
-		i++;
-	}
-	i = 0;
-	while(list_reds[i])
-	{
-		close(fd[i]);
-		i++;
-	}
-	if (t != -1)
-	{
-		dup2(t, 1);
-		close(t);
-	}
+    int i = 0;
+    int t = -1;
+    while(list_reds[i])
+    {
+				if (list_reds[i]->type == OUTPUT)
+					t = fd[i];
+				if (list_reds[i]->type == APPEND)
+					t = fd[i];
+        i++;
+    }
+    if (t != -1)
+        dup2(t, 1);
 }
-void red_out_last(t_redirection		**list_reds, int *fd)
+void red_out_last(t_redirection        **list_reds, int *fd)
 {
-	int i = 0;
-	int t = -1;
+    int i = 0;
+    int t = -1;
 
-	while(list_reds[i])
-	{
-		if (list_reds[i]->type == INPUT)
-			t = fd[i];
-		if (list_reds[i]->type == HEREDOC)
-			t = fd[i];
-		i++;
-	}
-	i = 0;
-	while(list_reds[i])
-	{
-		close(fd[i]);
-		i++;
-	}
-	if (t != -1)
-	{
-		dup2(t, 0);
-		close(t);
-	}
+    while(list_reds[i])
+    {
+        if (list_reds[i]->type == INPUT)
+            t = fd[i];
+        if (list_reds[i]->type == HEREDOC)
+            t = fd[i];
+        i++;
+    }
+    if (t != -1)
+        dup2(t, 0);
 }
 
 int splcount(t_redirection **list_reds)
@@ -106,7 +87,7 @@ int splcount(t_redirection **list_reds)
 	return (count);
 }
 
-void redirect_in_out(t_redirection **list_reds)
+int redirect_in_out(t_redirection **list_reds)
 {
 	int i = 0;
 	int *fd;
@@ -114,57 +95,92 @@ void redirect_in_out(t_redirection **list_reds)
 	fd = malloc(splcount(list_reds) * sizeof(int));
 	while(list_reds[i])
 	{
-		if (list_reds[i]->type == OUTPUT)
-			fd[i] = redirect_in_file(list_reds[i]->value);
-		if (list_reds[i]->type == APPEND)
-			fd[i] = redirect_in_file_append(list_reds[i]->value);
-		if (list_reds[i]->type == INPUT)
-			fd[i] = redirect_out_file(list_reds[i]->value);
-		if (list_reds[i]->type == HEREDOC)
+		if(list_reds[i]->type != HEREDOC)
+		{
+
+			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
+			{
+				printf("minishell : ambiguous redirect\n");
+				gstruct->exit_status = 1;
+			}
+			else if (list_reds[i]->redirect_error == NOFILEERR)
+			{
+				printf("minishell : No such file or directory\n");
+				gstruct->exit_status = 1;	
+			}
+			else
+			{
+				if (list_reds[i]->type == OUTPUT)
+				{
+					fd[i] = redirect_in_file(list_reds[i]->value);
+					if (fd[i] < 0)
+						return 1;
+				}
+				if (list_reds[i]->type == APPEND)
+				{
+					fd[i] = redirect_in_file_append(list_reds[i]->value);
+					if (fd[i] < 0)
+						return 1;
+				}
+				if (list_reds[i]->type == INPUT)
+				{
+					fd[i] = redirect_out_file(list_reds[i]->value);
+					if (fd[i] < 0)
+						return 1;
+				}
+			}
+		}
+		else
+		{
 			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
+			if (fd[i] < 0)
+				return 1;
+		}
 		i++;
 	}
 	red_in_last(list_reds, fd);
 	red_out_last(list_reds, fd);
+	return 0;
 }
 
 void	cmd_not_found(char **cmd)
 {
-	write(2, cmd[0], ft_strlen(cmd[0]));
-	write(2, ": command not found\n", 20);
+	// write(2, cmd[0], ft_strlen(cmd[0]));
+	write(2, "minishell : command not found\n", 31);
+	// perror("minishell :");
 	free_split(cmd);
 	exit (127);
 }
 
 void    ex_main(t_token_lst *token1, t_token_lst *token2)
 {
-	int 	a1;
 	int		fd[2];
 	char **str;
 	t_redirection **list_reds;
 
     pipe(fd);		
 	gstruct->stout = dup2(fd[1], 1);
-
 	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
-	redirect_in_out(list_reds);
-	if(is_builtin(str[0]))
-		handle_builtin(str);
-	else
-	{	
-		a1 = fork();
-		if (a1 == 0)
+	int a1;
+	signal(SIGINT, &sigint_hander_executor);
+	a1 = fork();
+	if (a1 == 0)
+	{
+		if(is_builtin(str[0]))
 		{
-			close(fd[0]);
-			if (str[0] && path_finder(str[0], gstruct->envp_head))
-				execve(path_finder(str[0], gstruct->envp_head), str, NULL);
-			else
-				cmd_not_found(str);
+			handle_builtin(str);
+			exit(gstruct->exit_status);
 		}
-
+		if (redirect_in_out(list_reds))
+			exit(gstruct->exit_status);
+		if (str[0] && path_finder(str[0], gstruct->envp_head))
+			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		else
+			cmd_not_found(str);
 	}
+	waitpid(a1, &gstruct->exit_status, 0);
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);
