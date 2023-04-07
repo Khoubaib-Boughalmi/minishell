@@ -24,13 +24,13 @@ char	*trim_str(char *str)
 	char	*new_str;
 
 	if(!str)
-		return ;
+		return NULL;
 	i = 0;
 	k = 0;
 	j = ft_strlen(str) - 1;
 	while (str[i] && str[i] == ' ')
 		i++;
-	while (j >= 0 && str[j] == ' ')
+	while (j >= 0 && j >= i && str[j] == ' ')
 		j--;
 	new_str = (char *)malloc(sizeof(char) * (j - i + 1));
 	k = 0;
@@ -40,6 +40,7 @@ char	*trim_str(char *str)
 		i++;
 		k++;
 	}
+	printf("trimed\n");
 	new_str[k] = '\0';
 	return (new_str);
 }
@@ -55,10 +56,6 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type, t_tr
 
 	tmp = NULL;
 	i = 0;
-	// if(token_type == AST_COMMAND)
-	// {
-		// while (copy[++i])
-		// {
 			if(copy[1] == '?')
 				expand_exit_status(original, &(copy[1]));
 			else if(!copy[1] || copy[1] == ' ' || copy[1] == '|' )
@@ -66,13 +63,9 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type, t_tr
 			else
 			{
 				tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
-				// printf("tmp :%s\n", tmp->value);
 				if(tmp)
 				{
-					// free(copy);
 					i = -1;
-					// printf("%s\n", tmp->value);
-					// printf("original %s\n", *original);
 					if(trim)
 					{
 						trimed = trim_str(tmp->value);
@@ -84,7 +77,6 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type, t_tr
 						while (tmp->value[++i])
 							cbc_str_join(original, tmp->value[i]);
 					}
-					// copy = tmp->value;
 				}
 				// else
 				// 	cbc_str_join(original, '$');
