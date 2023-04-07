@@ -26,7 +26,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 					i += 2;
 				else if(copy[i] == '$')
 				{
-					expand_variables(original, copy + i, token_type);
+					expand_variables(original, copy + i, token_type, NOTRIM);
 					i++;
 					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|') 
 						i++;
@@ -57,7 +57,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 					i += 2;
 			else if(copy[i] == '$')
 			{
-				expand_variables(original, copy + i, token_type);
+				expand_variables(original, copy + i, token_type, TRIM);
 				i++;
 				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$')
 					i++;
@@ -72,7 +72,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 	free(copy);
 	if((!original || !original[0]) && quotes == 1)
 		*red_error = NOFILEERR;
-	else if((!original || !original[0]) && !quotes)
+	else if(((!original || !original[0]) && !quotes) || (char_in_str(*original, ' ')))
 		*red_error = AMBIGUOUSERR;
 	else
 		*red_error = NOERR;

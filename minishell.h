@@ -37,6 +37,11 @@ typedef enum
 	NOFILEERR,
 	AMBIGUOUSERR,
 } t_red_error;
+typedef enum
+{
+	NOTRIM,
+	TRIM,
+} t_trim;
 
 // node structure
 typedef struct s_token
@@ -127,7 +132,7 @@ void		display_tokens(t_token_lst *token);
 // void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
 void		expand_quotes(char **original, t_token_type token_type);
-void		expand_variables(char **original, char *copy, t_token_type token_type);
+void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
 void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);

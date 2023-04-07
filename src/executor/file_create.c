@@ -86,7 +86,7 @@ int redirect_out_file_heredoc(char *red)
         if(str[0] == '$')
         {
             str[ft_strlen(str)-1] = '\0';
-            expand_variables(&new_str, str, AST_COMMAND);
+            expand_variables(&new_str, str, AST_COMMAND, NOTRIM);
             if(!new_str)
                 ft_putstr_fd("\n", pip[1]);
             else

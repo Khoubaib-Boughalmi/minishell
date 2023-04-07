@@ -98,18 +98,18 @@ int redirect_in_out(t_redirection **list_reds)
 		if(list_reds[i]->type != HEREDOC)
 		{
 
-			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
-			{
-				printf("minishell : ambiguous redirect\n");
-				gstruct->exit_status = 1;
-			}
-			else if (list_reds[i]->redirect_error == NOFILEERR)
-			{
-				printf("minishell : No such file or directory\n");
-				gstruct->exit_status = 1;	
-			}
-			else
-			{
+			// if (list_reds[i]->redirect_error == AMBIGUOUSERR)
+			// {
+			// 	printf("minishell : ambiguous redirect\n");
+			// 	gstruct->exit_status = 1;
+			// }
+			// else if (list_reds[i]->redirect_error == NOFILEERR)
+			// {
+			// 	printf("minishell : No such file or directory\n");
+			// 	gstruct->exit_status = 1;	
+			// }
+			// else
+			// {
 				if (list_reds[i]->type == OUTPUT)
 				{
 					fd[i] = redirect_in_file(list_reds[i]->value);
@@ -128,7 +128,7 @@ int redirect_in_out(t_redirection **list_reds)
 					if (fd[i] < 0)
 						return 1;
 				}
-			}
+			// }
 		}
 		else
 		{

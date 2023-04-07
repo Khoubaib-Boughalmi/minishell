@@ -23,7 +23,7 @@ void expand_quotes(char **original, t_token_type token_type)
 					i += 2;
 				else if(copy[i] == '$')
 				{
-					expand_variables(original, copy + i, token_type);
+					expand_variables(original, copy + i, token_type, NOTRIM);
 					i++;
 					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|') 
 						i++;
@@ -54,7 +54,7 @@ void expand_quotes(char **original, t_token_type token_type)
 					i += 2;
 			else if(copy[i] == '$')
 			{
-				expand_variables(original, copy + i, token_type);
+				expand_variables(original, copy + i, token_type, NOTRIM);
 				i++;
 				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$')
 					i++;

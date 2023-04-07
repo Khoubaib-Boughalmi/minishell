@@ -1,25 +1,54 @@
 #include "../../minishell.h"
 
 
-void	expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type)
+// void	expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type)
+// {
+// 	if(copy[*i] == '$')
+// 	{
+// 		expand_variables(original, copy + *(i), token_type);
+// 		while (copy[*i] && copy[*i] != ' ' && copy[*i] != '\"' && copy[*i] != '\'')
+// 			*i += 1;
+// 	}
+// 	else
+// 	{
+// 		cbc_str_join(original, copy[*i]);
+// 		*i += 1;
+// 	}
+// }
+
+char	*trim_str(char *str)
 {
-	if(copy[*i] == '$')
+	int	i;
+	int	j;
+	int	k;
+	char	*new_str;
+
+	if(!str)
+		return ;
+	i = 0;
+	k = 0;
+	j = ft_strlen(str) - 1;
+	while (str[i] && str[i] == ' ')
+		i++;
+	while (j >= 0 && str[j] == ' ')
+		j--;
+	new_str = (char *)malloc(sizeof(char) * (j - i + 1));
+	k = 0;
+	while (str[i] && i <= j)
 	{
-		expand_variables(original, copy + *(i), token_type);
-		while (copy[*i] && copy[*i] != ' ' && copy[*i] != '\"' && copy[*i] != '\'')
-			*i += 1;
+		new_str[k] = str[i];
+		i++;
+		k++;
 	}
-	else
-	{
-		cbc_str_join(original, copy[*i]);
-		*i += 1;
-	}
+	new_str[k] = '\0';
+	return (new_str);
 }
 
-void	expand_variables(char **original, char	*copy, t_token_type token_type)
+void	expand_variables(char **original, char	*copy, t_token_type token_type, t_trim trim)
 {
 	t_envp_node	*tmp;
 	char	*expanded_exit;
+	char	*trimed;
 
 	int			i;
 	int			j;
@@ -44,8 +73,17 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type)
 					i = -1;
 					// printf("%s\n", tmp->value);
 					// printf("original %s\n", *original);
-					while (tmp->value[++i])
-						cbc_str_join(original, tmp->value[i]);
+					if(trim)
+					{
+						trimed = trim_str(tmp->value);
+						while (trimed[++i])
+							cbc_str_join(original, trimed[i]);
+					}
+					else
+					{
+						while (tmp->value[++i])
+							cbc_str_join(original, tmp->value[i]);
+					}
 					// copy = tmp->value;
 				}
 				// else
