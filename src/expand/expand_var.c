@@ -40,7 +40,6 @@ char	*trim_str(char *str)
 		i++;
 		k++;
 	}
-	printf("trimed\n");
 	new_str[k] = '\0';
 	return (new_str);
 }
