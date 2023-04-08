@@ -22,7 +22,6 @@ typedef enum
 	AST_REDIRECTION, // a redirection of input or output
 } t_token_type;
 
-
 typedef enum
 {
 	INPUT,
@@ -31,17 +30,25 @@ typedef enum
 	HEREDOC,
 	COMMAND,
 } t_red_type;
+
 typedef enum
 {
 	NOERR,
-	NOFILEERR,
+	FILEERR,
 	AMBIGUOUSERR,
 } t_red_error;
+
 typedef enum
 {
 	NOTRIM,
 	TRIM,
 } t_trim;
+
+typedef enum
+{
+	NOAMBG,
+	AMBG,
+} t_ambg;
 
 // node structure
 typedef struct s_token
@@ -122,7 +129,7 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 void	sigint_hander_executor(int sig);
-char		*rl_replace_line(const char *text, int clear_undo);
+// char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -134,6 +141,7 @@ void		expand(t_token_lst *tokens_lst);
 void		expand_quotes(char **original, t_token_type token_type);
 void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
 void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
+t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
@@ -209,6 +217,7 @@ int	is_builtin(char	*cmd);
 void handle_builtin(char **list_cmds);
 int	list_vars_len(char **list_cmds);
 int	char_in_str(char *str, char c);
+int two_d_array_len(char **arr);
 # endif
 
 

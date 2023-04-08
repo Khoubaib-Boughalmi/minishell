@@ -6,7 +6,9 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 	int	j = 0;
 	int	quotes;
 	char	*copy;
+	int flag;
 
+	flag = 0;
 	quotes = 0;
 	copy = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
 	ft_strlcpy(copy, *original, ft_strlen(*original) + 1);
@@ -26,7 +28,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 					i += 2;
 				else if(copy[i] == '$')
 				{
-					expand_variables(original, copy + i, token_type, NOTRIM);
+					*red_error = expand_variables_redirect(original, copy + i, NOTRIM, NOAMBG);
 					i++;
 					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|') 
 						i++;
@@ -57,7 +59,13 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 					i += 2;
 			else if(copy[i] == '$')
 			{
-				expand_variables(original, copy + i, token_type, TRIM);
+				flag = 1;
+				*red_error = expand_variables_redirect(original, copy + i, TRIM, AMBG);
+				if(*red_error == AMBIGUOUSERR)
+				{
+					gstruct->exit_status = 1;
+					return ;
+				}
 				i++;
 				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$')
 					i++;
@@ -65,15 +73,15 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 			else
 			{
 				cbc_str_join(original, copy[i]);
-				i++;	
+				i++;	 
 			}
 		}
 	}
 	free(copy);
-	if((!original || !original[0]) && quotes == 1)
-		*red_error = NOFILEERR;
-	else if(((!original || !original[0]) && !quotes) || (char_in_str(*original, ' ')))
+	if((!original || !original[0]) && flag == 1)
 		*red_error = AMBIGUOUSERR;
-	else
-		*red_error = NOERR;
+	// else if(((!original || !original[0]) && !quotes) || (char_in_str(*original, ' ')))
+	// 	*red_error = AMBIGUOUSERR;
+	// else
+	// 	*red_error = NOERR;
 }

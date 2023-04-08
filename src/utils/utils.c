@@ -24,6 +24,17 @@ int	is_part_of_list(char c, char *list)
 	return (0);
 }
 
+int two_d_array_len(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if(!arr)
+		return (0);
+	while (arr[i])
+		i++;
+	return (i);
+}
 
 int	ft_strlcmp(const char *s1, const char *s2)
 {

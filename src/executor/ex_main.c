@@ -104,7 +104,7 @@ int redirect_in_out(t_redirection **list_reds)
 				gstruct->exit_status = 1;
 				return (1);
 			}
-			else if (list_reds[i]->redirect_error == NOFILEERR)
+			else if (list_reds[i]->redirect_error == FILEERR)
 			{
 				printf("minishell : No such file or directory\n");
 				gstruct->exit_status = 1;	

@@ -1,0 +1,5 @@
+inside the double quotes : donnot check for ambiguous redirections AKA:
+        + dont check for empty space
+        + dont trim variable name
+        + if the variable doesnt exists and the original is null ==> NSF
+        
