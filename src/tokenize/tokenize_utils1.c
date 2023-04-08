@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize_utils1.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/07 21:13:13 by rennatiq          #+#    #+#             */
+/*   Updated: 2023/04/07 21:13:14 by rennatiq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int	ft_count_str(char	**str)
@@ -56,20 +68,16 @@ char	**ft_pipe_insert(char	*input, char	**str)
 	j = 0;
 	m = ft_check_last_pipe(input);
 	res = malloc((2 * ft_count_str(str) + m + 1) * sizeof(char *));
+	if (input[0] == '|')
+		res[j++] = ft_strdup("|");
 	while (str[i + 1])
 	{
-		res[j] = ft_strdup(str[i]);
-		j++;
-		res[j] = ft_strdup("|");
-		j++;
-		i++;
+		res[j++] = ft_strdup(str[i++]);
+		res[j++] = ft_strdup("|");
 	}
 	res[j] = ft_strdup(str[i]);
 	if (m != 0)
-	{
-		j++;
-		res[j] = ft_strdup("|");
-	}
+		res[++j] = ft_strdup("|");
 	j++;
 	res[j] = 0;
 	ft_free_token(str);

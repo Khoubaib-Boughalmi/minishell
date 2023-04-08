@@ -58,6 +58,8 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 			}
 			if(copy[i] == '\'')
 				i++;
+			has_alpha = 0;
+			has_space = 0;
 		}
 		else
 		{

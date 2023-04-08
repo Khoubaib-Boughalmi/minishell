@@ -36,7 +36,6 @@ int	repl(void)
 		// add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
-		// exit(gstruct->exit_status);
 		}
 	return (gstruct->exit_status);
 }

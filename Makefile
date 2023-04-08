@@ -30,12 +30,13 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/tokenize_utils2.c			\
 				./src/tokenize/tokenize.c					\
 				./src/tokenize/check_der.c					\
-				./src/tokenize/qoute_check.c				\
 				./src/tokenize/check_pipe_dub.c				\
 				./src/tokenize/ft_split_qotes.c				\
 				./src/tokenize/redirections_utiles1.c		\
 				./src/tokenize/redirections.c				\
 				./src/tokenize/redirections_utiles2.c		\
+				./src/tokenize/token_insert.c				\
+				./src/tokenize/rediraction_insert.c			\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
 				./src/expand/expand_var.c					\
@@ -59,7 +60,7 @@ B_OBJ 		= ${SRCS_BONUS:.c=.o}
 	${CC} -c $< -o $@ ${CFLAGS}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
-		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/.brew/opt/readline/lib -I ~/.brew/opt/readline/include -o ${NAME} 
+		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/Desktop/readline/8.2.1/lib -I ~/Desktop/readline/8.2.1/include -o ${NAME}
 # 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
 
 

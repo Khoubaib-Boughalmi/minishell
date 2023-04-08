@@ -195,7 +195,8 @@ t_redirection    **create_lst_redirections(t_token_lst *token_lst);
 // void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
 int		count_commands(t_token_lst *token_lst);
 int		count_redirections(t_token_lst *token_lst);
-
+t_token_lst	*ft_put_intoken(char **str);
+t_red_type	redtype(char *str);
 //free
 void	free_token_lst();
 void	free_envp_nodes_lst();
@@ -219,6 +220,7 @@ int	list_vars_len(char **list_cmds);
 int	char_in_str(char *str, char c);
 int two_d_array_len(char **arr);
 char	*trim_str(char *str);
+int	ft_cout_red(char *input, char c);
 # endif
 
 
