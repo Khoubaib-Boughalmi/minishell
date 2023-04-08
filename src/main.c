@@ -27,7 +27,6 @@ int	repl(void)
 		{
 			free(input);
 			exit(gstruct->exit_status);
-			continue;
 		}
 		// if (!ft_strlcmp(input, "exit"))
 		// {
@@ -37,8 +36,9 @@ int	repl(void)
 		// add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
+		// exit(gstruct->exit_status);
 		}
-	return (0);
+	return (gstruct->exit_status);
 }
 
 int main(int ac, char *av[], char *envp[])

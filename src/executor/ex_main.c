@@ -100,13 +100,13 @@ int redirect_in_out(t_redirection **list_reds)
 
 			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
 			{
-				printf("minishell : ambiguous redirect\n");
+				ft_printf("minishell : ambiguous redirect\n");
 				gstruct->exit_status = 1;
 				return (1);
 			}
 			else if (list_reds[i]->redirect_error == FILEERR)
 			{
-				printf("minishell : No such file or directory\n");
+				ft_printf("minishell : No such file or directory\n");
 				gstruct->exit_status = 1;	
 				return (1);
 			}

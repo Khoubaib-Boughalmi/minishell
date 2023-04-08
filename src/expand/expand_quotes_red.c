@@ -7,7 +7,12 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 	int	quotes;
 	char	*copy;
 	int flag;
+	int has_space;
+	int has_alpha;
 
+
+	has_space = 0;
+	has_alpha = 0;
 	flag = 0;
 	quotes = 0;
 	copy = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
@@ -28,7 +33,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 					i += 2;
 				else if(copy[i] == '$')
 				{
-					*red_error = expand_variables_redirect(original, copy + i, NOTRIM, NOAMBG);
+					*red_error = expand_variables_redirect(original, copy + i, NOTRIM, NOAMBG, &has_space, &has_alpha);
 					i++;
 					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|') 
 						i++;
@@ -36,6 +41,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 				else if(copy[i] != '$')
 				{
 					cbc_str_join(original, copy[i]);
+					has_alpha = 1;
 					i++;
 				}
 			}
@@ -60,19 +66,33 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 			else if(copy[i] == '$')
 			{
 				flag = 1;
-				*red_error = expand_variables_redirect(original, copy + i, TRIM, AMBG);
+				*red_error = expand_variables_redirect(original, copy + i, TRIM, AMBG, &has_space, &has_alpha);
 				if(*red_error == AMBIGUOUSERR)
 				{
 					gstruct->exit_status = 1;
 					return ;
 				}
+				if(has_alpha && has_space)
+				{
+					*red_error = AMBIGUOUSERR;
+					gstruct->exit_status = 1;
+					return ;
+				}
+				has_alpha = 1;
 				i++;
 				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$')
 					i++;
 			}
 			else
 			{
+				if(has_space)
+				{
+					*red_error = AMBIGUOUSERR;
+					gstruct->exit_status = 1;
+					return ;
+				}
 				cbc_str_join(original, copy[i]);
+				// has_alpha = 1;
 				i++;	 
 			}
 		}
