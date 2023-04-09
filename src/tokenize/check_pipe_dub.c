@@ -45,6 +45,8 @@ int	ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst)
 	t_token_lst *tmp;
 
 	tmp = tokens_lst;
+	if (tmp->token->type == AST_PIPE)
+		return 1;
 	while (tmp)
 	{
 		if (tmp->token->type == AST_REDIRECTION)
