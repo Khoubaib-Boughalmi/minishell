@@ -37,6 +37,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/redirections_utiles2.c		\
 				./src/tokenize/token_insert.c				\
 				./src/tokenize/rediraction_insert.c			\
+				./src/tokenize/syntax_errors.c				\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
 				./src/expand/expand_var.c					\

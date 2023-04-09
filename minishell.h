@@ -168,7 +168,7 @@ char	**ft_split_qotes(char *s, char c);
 
 
 int			ft_check_dub_der2(char	*input, char n);
-int			ft_check_mul_pipe(char	*input);
+int			ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst);
 int			ft_check_der(char *str);
 int 		ft_check_pipe(char *str);
 int			ft_check_mul_der(char	*input, char c);
@@ -221,6 +221,7 @@ int	char_in_str(char *str, char c);
 int two_d_array_len(char **arr);
 char	*trim_str(char *str);
 int	ft_cout_red(char *input, char c);
+int syntax_errors(char *input);
 # endif
 
 

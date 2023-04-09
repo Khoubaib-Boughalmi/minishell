@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:01:29 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/07 17:38:00 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/04/09 01:29:47 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,30 +40,6 @@ char	*ft_strjoin_min(char *s1, char *s2)
 	return (str);
 }
 
-int	ft_check_qoutes(char *input)
-{
-	int		i;
-	char	n;
-
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] == '\'' || input[i] == '\"')
-		{
-			n = input[i];
-			i++;
-			while (!input[i] || input[i] != n)
-			{
-				i++;
-				if (!input[i])
-					return (1);
-			}
-		}
-		i++;
-	}
-	return (0);
-}
-
 t_red_type	redtype(char *str)
 {
 	if (!ft_strlcmp("<<", str))
@@ -83,6 +59,8 @@ t_token_lst	*tokenize(char	*input)
 
 	token = NULL;
 	temp = ft_split_qotes(input, '|');
+	if (!temp || !temp[0])
+		return 0;
 	temp = ft_pipe_insert(input, temp);
 	temp = ft_split_der(temp, input, '>');
 	temp = ft_split_der(temp, input, '<');
