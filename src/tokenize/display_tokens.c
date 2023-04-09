@@ -10,7 +10,7 @@ void	display_tokens(t_token_lst *tokens_lst)
 		i = 0;
 		if(tokens_lst->token->args)
 		{
-			if(tokens_lst->token->type == AST_COMMAND)
+			if (tokens_lst->token->type == AST_COMMAND)
 			{
 				printf("COMMAND: ");
 				while (tokens_lst->token->args[i] != 0)
@@ -19,7 +19,7 @@ void	display_tokens(t_token_lst *tokens_lst)
 					i++;
 				}
 			}
-			else if(tokens_lst->token->type == AST_PIPE)
+			else if (tokens_lst->token->type == AST_PIPE)
 			{
 				printf("PIPE: ");
 				while (tokens_lst->token->args[i] != 0)
@@ -27,7 +27,6 @@ void	display_tokens(t_token_lst *tokens_lst)
 					printf("%s ", tokens_lst->token->args[i]);
 					i++;
 				}
-
 			}			
 		}
 		if (tokens_lst->token->type == AST_REDIRECTION) 

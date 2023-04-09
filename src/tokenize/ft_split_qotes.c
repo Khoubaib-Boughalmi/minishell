@@ -63,12 +63,12 @@ char	**ft_split_qotes(char *s, char c)
 			k = i;
 		if (s[i] == '\'' || s[i] == '\"')
 		{
-			n = s[i];
-			i++;
+			n = s[i++];
 			while (!s[i] || (s[i] != n && s[i] != n))
 				i++;
 		}
-		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0 && j < how_mush_char(s, c) -1)
+		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0
+				&& j < how_mush_char(s, c) -1)
 		{
 			resulta[j++] = make_word(s, k, i);
 			k = -1;

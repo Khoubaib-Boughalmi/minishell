@@ -50,6 +50,7 @@ t_redirection    **create_lst_redirections(t_token_lst *token_lst)
                 return (0);
             lst_reds[i]->value = token_lst->token->redirect_fname;
             lst_reds[i]->type = token_lst->token->red_type;
+			lst_reds[i]->redirect_error = token_lst->token->redirect_error;
         }
         token_lst = token_lst->next;
     }

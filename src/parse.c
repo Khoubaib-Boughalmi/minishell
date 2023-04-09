@@ -49,9 +49,18 @@ int	tokenize_expand_execute(char *input)
 {
 	t_token_lst *tokens_lst;
 
+    if (syntax_errors(input))
+    {
+        gstruct->exit_status = 2;
+        return 1;
+    }
 	tokens_lst = tokenize(input);
-	if(!tokens_lst)
-		return (0);
+    if (!tokens_lst || ft_check_mul_pipe(input, tokens_lst))
+    {
+        ft_putstr_fd("minishell: syntax error\n", 2);
+        gstruct->exit_status = 2;
+        return 1;
+    }
 	gstruct->tokens_head = tokens_lst;
 	// ft_export_with_args("", "myValue");
 	// ft_export_with_args("myKey", "");

@@ -4,9 +4,9 @@ void	sigint_hander(int sig)
 {    
 	(void)sig;
 	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	// rl_on_new_line();
+	// rl_replace_line("", 0);
+	// rl_redisplay();
 }
 
 void	sigint_hander_executor(int sig)
@@ -15,8 +15,8 @@ void	sigint_hander_executor(int sig)
 	dup2(gstruct->ppout, 1);
 	dup2(gstruct->ppin, 0);
 	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
+	// rl_on_new_line();
+	// rl_replace_line("", 0);
 	// rl_redisplay();
 }
 

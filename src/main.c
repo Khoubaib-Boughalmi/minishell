@@ -27,18 +27,18 @@ int	repl(void)
 		{
 			free(input);
 			exit(gstruct->exit_status);
-			continue;
+
 		}
 		// if (!ft_strlcmp(input, "exit"))
 		// {
 		// 	free(input);
 		// 	break;
 		// }
-		add_history(input);
+		// add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
 		}
-	return (0);
+	return (gstruct->exit_status);
 }
 
 int main(int ac, char *av[], char *envp[])

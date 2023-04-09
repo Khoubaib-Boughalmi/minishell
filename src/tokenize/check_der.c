@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_der.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/08 00:31:59 by rennatiq          #+#    #+#             */
+/*   Updated: 2023/04/09 01:30:55 by rennatiq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int	ft_check_mul_der(char	*input, char c)
@@ -22,14 +34,13 @@ int	ft_check_mul_der(char	*input, char c)
 		}
 		if (input[i] == c)
 		{
-			j = i + 1;
+			j = i;
 			while (input[j])
 			{
-				if (input[j] == c)
+				if (input[j++] == c)
 					k++;
 				else
 					break ;
-				j++;
 			}
 		}
 		if (k > 1)
@@ -98,7 +109,7 @@ char	**ft_der_insert(char	*input, char	**str, char *c)
 
 	j = 0;
 	i = 0;
-	k = ft_check_dub_der(input , c[0]);
+	k = ft_check_dub_der(input, c[0]);
 	m = ft_check_last_der(input, c[0]);
 	res = malloc((2 * ft_count_str_der(str) + k + m + 1) * sizeof(char *));
 	while (str[i + 1])
@@ -128,10 +139,9 @@ char	**ft_der_insert(char	*input, char	**str, char *c)
 			else
 				res[j] = ft_strdup("<<");
 		}
-        res[j] = ft_strdup(c);
+		res[j] = ft_strdup(c);
 	}
 	j++;
 	res[j] = 0;
-	//ft_free(str);
 	return (res);
 }

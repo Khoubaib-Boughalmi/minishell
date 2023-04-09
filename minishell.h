@@ -22,7 +22,6 @@ typedef enum
 	AST_REDIRECTION, // a redirection of input or output
 } t_token_type;
 
-
 typedef enum
 {
 	INPUT,
@@ -32,6 +31,25 @@ typedef enum
 	COMMAND,
 } t_red_type;
 
+typedef enum
+{
+	NOERR,
+	FILEERR,
+	AMBIGUOUSERR,
+} t_red_error;
+
+typedef enum
+{
+	NOTRIM,
+	TRIM,
+} t_trim;
+
+typedef enum
+{
+	NOAMBG,
+	AMBG,
+} t_ambg;
+
 // node structure
 typedef struct s_token
 {
@@ -40,8 +58,10 @@ typedef struct s_token
 	int				num_args; // the number of arguments for a command token
 	char			*redirect_fd; // the file descriptor to redirect for a redirection token
 	char			*redirect_fname; // the filename to redirect to for a redirection token
+	t_red_error	redirect_error;
 	t_red_type		red_type;
 	int				exit_status;
+
 } t_token;
 
 
@@ -61,7 +81,8 @@ typedef struct s_token_lst
 typedef struct s_redirection
 {
 	char						*value;
-	t_red_type					type;
+	t_red_type				type;
+	t_red_error				redirect_error;
 } t_redirection;
 
 //shared data goes here
@@ -108,7 +129,7 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 void	sigint_hander_executor(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -118,7 +139,9 @@ void		display_tokens(t_token_lst *token);
 // void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
 void		expand_quotes(char **original, t_token_type token_type);
-void		expand_variables(char **original, char *copy, t_token_type token_type);
+void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
+void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
+t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, int *has_space, int *has_alpha);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
@@ -145,7 +168,7 @@ char	**ft_split_qotes(char *s, char c);
 
 
 int			ft_check_dub_der2(char	*input, char n);
-int			ft_check_mul_pipe(char	*input);
+int			ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst);
 int			ft_check_der(char *str);
 int 		ft_check_pipe(char *str);
 int			ft_check_mul_der(char	*input, char c);
@@ -172,7 +195,8 @@ t_redirection    **create_lst_redirections(t_token_lst *token_lst);
 // void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type);
 int		count_commands(t_token_lst *token_lst);
 int		count_redirections(t_token_lst *token_lst);
-
+t_token_lst	*ft_put_intoken(char **str);
+t_red_type	redtype(char *str);
 //free
 void	free_token_lst();
 void	free_envp_nodes_lst();
@@ -194,6 +218,10 @@ int	is_builtin(char	*cmd);
 void handle_builtin(char **list_cmds);
 int	list_vars_len(char **list_cmds);
 int	char_in_str(char *str, char c);
+int two_d_array_len(char **arr);
+char	*trim_str(char *str);
+int	ft_cout_red(char *input, char c);
+int syntax_errors(char *input);
 # endif
 
 

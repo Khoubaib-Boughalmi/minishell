@@ -31,8 +31,8 @@ void	expand(t_token_lst *tokens_lst)
 				// 		tokens_lst->token->redirect_fname = tmp->value;
 				// 	}
 				// }
-				if(tokens_lst->token->redirect_fname)
-					expand_quotes(&(tokens_lst->token->redirect_fname), tokens_lst->token->type);
+				if(tokens_lst->token->redirect_fname && tokens_lst->token->red_type != HEREDOC)
+					expand_quotes_red(&(tokens_lst->token->redirect_fname), tokens_lst->token->type, &(tokens_lst->token->redirect_error));
 		}
 		tokens_lst = tokens_lst->next;
 	}

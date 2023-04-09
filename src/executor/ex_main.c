@@ -95,30 +95,44 @@ int redirect_in_out(t_redirection **list_reds)
 	fd = malloc(splcount(list_reds) * sizeof(int));
 	while(list_reds[i])
 	{
-		if (char_in_str(list_reds[i]->value, '\"') && char_in_str(list_reds[i]->value, ' '))
-			printf("%s: ambiguous redirect", list_reds[i]->value);
-		else
+		if(list_reds[i]->type != HEREDOC)
 		{
-			if (list_reds[i]->type == OUTPUT)
+
+			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
 			{
-				fd[i] = redirect_in_file(list_reds[i]->value);
-				if (fd[i] < 0)
-					return 1;
+				ft_printf("minishell : ambiguous redirect\n");
+				gstruct->exit_status = 1;
+				return (1);
 			}
-			if (list_reds[i]->type == APPEND)
+			else if (list_reds[i]->redirect_error == FILEERR)
 			{
-				fd[i] = redirect_in_file_append(list_reds[i]->value);
-				if (fd[i] < 0)
-					return 1;
+				ft_printf("minishell : No such file or directory\n");
+				gstruct->exit_status = 1;	
+				return (1);
 			}
-			if (list_reds[i]->type == INPUT)
+			else
 			{
-				fd[i] = redirect_out_file(list_reds[i]->value);
-				if (fd[i] < 0)
-					return 1;
+				if (list_reds[i]->type == OUTPUT)
+				{
+					fd[i] = redirect_in_file(list_reds[i]->value);
+					if (fd[i] < 0)
+						return 1;
+				}
+				if (list_reds[i]->type == APPEND)
+				{
+					fd[i] = redirect_in_file_append(list_reds[i]->value);
+					if (fd[i] < 0)
+						return 1;
+				}
+				if (list_reds[i]->type == INPUT)
+				{
+					fd[i] = redirect_out_file(list_reds[i]->value);
+					if (fd[i] < 0)
+						return 1;
+				}
 			}
 		}
-		if (list_reds[i]->type == HEREDOC)
+		else
 		{
 			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
 			if (fd[i] < 0)

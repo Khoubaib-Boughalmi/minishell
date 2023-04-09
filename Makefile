@@ -30,16 +30,20 @@ SRCS_MAND= 		./src/main.c								\
 				./src/tokenize/tokenize_utils2.c			\
 				./src/tokenize/tokenize.c					\
 				./src/tokenize/check_der.c					\
-				./src/tokenize/qoute_check.c				\
 				./src/tokenize/check_pipe_dub.c				\
 				./src/tokenize/ft_split_qotes.c				\
 				./src/tokenize/redirections_utiles1.c		\
 				./src/tokenize/redirections.c				\
 				./src/tokenize/redirections_utiles2.c		\
+				./src/tokenize/token_insert.c				\
+				./src/tokenize/rediraction_insert.c			\
+				./src/tokenize/syntax_errors.c				\
 				./src/expand/expand.c						\
 				./src/expand/utils.c						\
 				./src/expand/expand_var.c					\
+				./src/expand/expand_var_redirect.c			\
 				./src/expand/expand_quotes.c				\
+				./src/expand/expand_quotes_red.c			\
 				./src/expand/expand_exit.c					\
 				./src/executor/executor.c					\
 				./src/executor/utils.c						\
