@@ -17,6 +17,7 @@ void	ft_exit(char	**list_vars)
 			if(!ft_isdigit(list_vars[1][i]))
 			{
 				printf("minishell: exit: %s: numeric argument required\n", list_vars[1]);
+
 				exit(255);
 			}
 			i++;
@@ -38,5 +39,4 @@ void	ft_exit(char	**list_vars)
 		gstruct->exit_status = WEXITSTATUS(gstruct->exit_status);
 		exit(gstruct->exit_status);
 	}
-	// gstruct->exit_status = 0;
 }

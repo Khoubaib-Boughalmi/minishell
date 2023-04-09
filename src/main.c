@@ -27,6 +27,7 @@ int	repl(void)
 		{
 			free(input);
 			exit(gstruct->exit_status);
+
 		}
 		// if (!ft_strlcmp(input, "exit"))
 		// {

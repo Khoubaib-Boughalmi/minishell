@@ -58,6 +58,7 @@ t_token_lst	*tokenize(char	*input)
 	char		**temp;
 
 	token = NULL;
+
 	temp = ft_split_qotes(input, '|');
 	if (!temp || !temp[0])
 		return 0;
