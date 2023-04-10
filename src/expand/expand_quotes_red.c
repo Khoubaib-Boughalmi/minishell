@@ -7,11 +7,12 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 	int	quotes;
 	char	*copy;
 	int flag;
-	int has_space;
+	t_space has_space;
 	int has_alpha;
 
 
-	has_space = 0;
+	has_space.space_l = 0;
+	has_space.space_r = 0;
 	has_alpha = 0;
 	flag = 0;
 	quotes = 0;
@@ -40,10 +41,19 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 				}
 				else if(copy[i] != '$')
 				{
-					cbc_str_join(original, copy[i]);
 					has_alpha = 1;
+					if(has_space.space_r && has_alpha)
+					{
+						*red_error = AMBIGUOUSERR;
+						gstruct->exit_status = 1;
+						return ;
+					}
+					cbc_str_join(original, copy[i]);
 					i++;
+					has_space.space_l = 0;
+					has_space.space_r = 0;
 				}
+
 			}
 			if(copy[i] == '\"')
 				i++;
@@ -58,8 +68,9 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 			}
 			if(copy[i] == '\'')
 				i++;
-			has_alpha = 0;
-			has_space = 0;
+			// has_alpha = 0;
+			has_space.space_l = 0;
+			has_space.space_r = 0;
 		}
 		else
 		{
@@ -74,7 +85,7 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 					gstruct->exit_status = 1;
 					return ;
 				}
-				if(has_alpha && has_space)
+				if(has_alpha && has_space.space_l)
 				{
 					*red_error = AMBIGUOUSERR;
 					gstruct->exit_status = 1;
@@ -87,14 +98,16 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 			}
 			else
 			{
-				if(has_space)
+				has_alpha = 1;
+				if(has_space.space_r && has_alpha)
 				{
 					*red_error = AMBIGUOUSERR;
 					gstruct->exit_status = 1;
 					return ;
 				}
+				has_space.space_l = 0;
+				has_space.space_r = 0;
 				cbc_str_join(original, copy[i]);
-				// has_alpha = 1;
 				i++;	 
 			}
 		}

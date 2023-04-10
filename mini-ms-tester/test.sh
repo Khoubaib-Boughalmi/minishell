@@ -49,7 +49,7 @@ exports () {
 	export whitespace_center="white space"
 	export whitespace_right="whitespace "
 
-	export empty=""
+	export empt=""
 	export space=" "
 
 	export minishell_path=$minishell_path

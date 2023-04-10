@@ -50,6 +50,12 @@ typedef enum
 	AMBG,
 } t_ambg;
 
+typedef struct s_space
+{
+	int	space_l;
+	int	space_r;
+} t_space;
+
 // node structure
 typedef struct s_token
 {
@@ -141,7 +147,7 @@ void		expand(t_token_lst *tokens_lst);
 void		expand_quotes(char **original, t_token_type token_type);
 void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
 void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
-t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, int *has_space, int *has_alpha);
+t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, t_space *has_space, int *has_alpha);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);

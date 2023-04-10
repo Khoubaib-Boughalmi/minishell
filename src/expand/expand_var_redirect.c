@@ -28,7 +28,7 @@ char	*trim_str(char *str)
 	return (new_str);
 }
 
-t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, int *has_space, int *has_alpha)
+t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, t_space *has_space, int *has_alpha)
 {
 	t_envp_node	*tmp;
 	char	*expanded_exit;
@@ -49,8 +49,10 @@ t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, 
 			tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
 			if(tmp)
 			{
-				if(char_in_str(tmp->value, ' '))
-					*has_space = 1;
+				if(tmp->value[0] == ' ')
+					has_space->space_l = 1;
+				else if(tmp->value[ft_strlen(tmp->value) - 1] == ' ')
+					has_space->space_r = 1; 
 				if(AMBG_VAL == AMBG)
 				{
 					splited = ft_split(tmp->value, ' ');

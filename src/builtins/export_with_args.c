@@ -73,6 +73,12 @@ void	ft_export_with_args(char **list_vars)
 							prev_node_envp->value = ft_strdup(value);
 						}
 					}
+					else if(prev_node_export && !prev_node_export->value)
+					{
+						prev_node_export->value = ft_strdup(value);
+						env_node = envp_new_node(key, value);
+						envp_lst_add_back(env_node, &(gstruct->envp_head));
+					}
 					else if(!prev_node_export)
 					{
 						export_node = envp_new_node(key, value);
@@ -94,8 +100,8 @@ void	ft_export_with_args(char **list_vars)
 					prev_node_envp = envp_find_node(key, ft_strlen(key), gstruct->envp_head);
 					if(!prev_node_export)
 					{
-						export_node = envp_new_node(key, NULL);
-						env_node = envp_new_node(key, NULL);
+						export_node = envp_new_node(key, "");
+						env_node = envp_new_node(key, "");
 						if(!export_node || !env_node)
 							return ;
 						envp_lst_add_back(export_node, &(gstruct->export_head));
@@ -105,20 +111,37 @@ void	ft_export_with_args(char **list_vars)
 					{
 						if(prev_node_export->value)
 							free(prev_node_export->value);
-						if(prev_node_envp->value)
-							free(prev_node_envp->value);
 						prev_node_export->value = (char *)malloc(sizeof(char));
 						prev_node_export->value[0] = '\0';
-						prev_node_envp->value = (char *)malloc(sizeof(char));
-						prev_node_envp->value[0] = '\0';
+						if(prev_node_envp)
+						{
+							if(prev_node_envp->value)
+								free(prev_node_envp->value);
+							prev_node_envp->value = (char *)malloc(sizeof(char));
+							prev_node_envp->value[0] = '\0';
+						}
+						else
+						{
+							env_node = envp_new_node(key, "");
+							envp_lst_add_back(env_node, &(gstruct->envp_head));
+						}
 					}
 				}
 			}
 		}
 		else
-		{	
-				if(!check_export_key_val(list_vars[i], value))
-					gstruct->exit_status = 1;
+		{
+			if(!check_export_key_val(list_vars[i], value))
+			{
+				gstruct->exit_status = 1;
+				return ;
+			}
+			prev_node_export = envp_find_node(list_vars[i], ft_strlen(list_vars[i]), gstruct->export_head);
+			if(!prev_node_export)
+			{
+				export_node = envp_new_node(list_vars[i], NULL);
+				envp_lst_add_back(export_node, &(gstruct->export_head));
+			}
 		}
 		i++;
 	}
@@ -135,22 +158,23 @@ void	ft_export_no_args()
 	while (ptr)
 	{
 		i = 0;
-		if(ptr->value[0])
+		if(ptr->value && ptr->value[0])
 		{
-			printf("declare -x %s=\"", ptr->key);
+			ft_printf("declare -x %s=\"", ptr->key);
 			while (ptr->value[i])
 			{
 				if(ptr->value[i] == '\"' || ptr->value[i] == '$')
-					printf("\\%c", ptr->value[i]);
+					ft_printf("\\%c", ptr->value[i]);
 				else
-					printf("%c", ptr->value[i]);
+					ft_printf("%c", ptr->value[i]);
 				i++;
 			}
-			printf("\"\n");
-			// printf("declare -x %s=\"%s\"\n", ptr->key, ptr->value);
+			ft_printf("\"\n");
 		}
-		else
-			printf("declare -x %s=\"\"\n", ptr->key);
+		else if(ptr->value && !ptr->value[0])
+			ft_printf("declare -x %s=\"\"\n", ptr->key);
+		else if(!ptr->value)
+			ft_printf("declare -x %s\n", ptr->key);
 		ptr = ptr->next;
 	}
 	gstruct->exit_status = 0;
