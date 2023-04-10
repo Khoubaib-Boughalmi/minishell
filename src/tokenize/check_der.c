@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:31:59 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/09 01:30:55 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:56:23 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_check_mul_der(char	*input, char c)
 					break ;
 			}
 		}
-		if (k > 1)
+		if (k > 2)
 			return (1);
 		i++;
 	}

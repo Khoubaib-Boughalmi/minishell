@@ -147,11 +147,11 @@ int redirect_in_out(t_redirection **list_reds)
 
 void	cmd_not_found(char **cmd)
 {
-	// write(2, cmd[0], ft_strlen(cmd[0]));
-	write(2, "minishell : command not found\n", 31);
-	// perror("minishell :");
+	dup2(gstruct->ppout, 1);
+	ft_putstr_fd("minishell : command not found\n", 1);
 	free_split(cmd);
-	exit (127);
+	gstruct->exit_status = 127;
+	exit (gstruct->exit_status);
 }
 
 void    ex_main(t_token_lst *token1, t_token_lst *token2)
@@ -170,19 +170,18 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 	a1 = fork();
 	if (a1 == 0)
 	{
+		if (redirect_in_out(list_reds))
+			exit(gstruct->exit_status);
 		if(is_builtin(str[0]))
 		{
 			handle_builtin(str);
 			exit(gstruct->exit_status);
 		}
-		if (redirect_in_out(list_reds))
-			exit(gstruct->exit_status);
 		if (str[0] && path_finder(str[0], gstruct->envp_head))
 			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 		else
 			cmd_not_found(str);
 	}
-	waitpid(a1, &gstruct->exit_status, 0);
 	gstruct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);

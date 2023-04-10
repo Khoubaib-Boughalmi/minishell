@@ -127,13 +127,28 @@ void	ft_export_with_args(char **list_vars)
 
 void	ft_export_no_args()
 {
+	int			i;
 	t_envp_node	*ptr;
 	
+	i = 0;
 	ptr = gstruct->export_head;
 	while (ptr)
 	{
+		i = 0;
 		if(ptr->value[0])
-			printf("declare -x %s=\"%s\"\n", ptr->key, ptr->value);
+		{
+			printf("declare -x %s=\"", ptr->key);
+			while (ptr->value[i])
+			{
+				if(ptr->value[i] == '\"' || ptr->value[i] == '$')
+					printf("\\%c", ptr->value[i]);
+				else
+					printf("%c", ptr->value[i]);
+				i++;
+			}
+			printf("\"\n");
+			// printf("declare -x %s=\"%s\"\n", ptr->key, ptr->value);
+		}
 		else
 			printf("declare -x %s=\"\"\n", ptr->key);
 		ptr = ptr->next;

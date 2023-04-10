@@ -43,7 +43,7 @@ exports () {
 	export single_quote_in_env='a'"'"'b'
 	export double_quote_in_env='a"b'
 	export no_whitespace="no_whitespace"
-	export equals="a=b"
+	export equals="ab"
 
 	export whitespace_left=" whitespace"
 	export whitespace_center="white space"

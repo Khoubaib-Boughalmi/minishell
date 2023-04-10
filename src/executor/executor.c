@@ -89,19 +89,23 @@ void executor(t_token_lst *token_lst)
 	a1 = fork();
 	if (a1 == 0)
 	{
+		if (redirect_in_out(list_reds))
+			exit(gstruct->exit_status);
 		if(is_builtin(str[0]))
 		{
 			handle_builtin(str);
 			exit(gstruct->exit_status);
 		}
-		if (redirect_in_out(list_reds))
-			exit(gstruct->exit_status);
 		if (str[0] && path_finder(str[0], gstruct->envp_head))
 			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
 		else
 			cmd_not_found(str);
 	}
 	waitpid(a1, &gstruct->exit_status, 0);
+	if(WIFEXITED(gstruct->exit_status))
+		gstruct->exit_status = WEXITSTATUS(gstruct->exit_status);
+	else if (WIFSIGNALED(gstruct->exit_status))
+		gstruct->exit_status = WTERMSIG(gstruct->exit_status) + 127;
 	close(gstruct->stin);
 	close(gstruct->stout);
 	while (wait(NULL) > 0);

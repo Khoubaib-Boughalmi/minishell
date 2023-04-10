@@ -35,8 +35,5 @@ void	ft_exit(char	**list_vars)
 		exit(gstruct->exit_status);
 	}
 	else
-	{
-		gstruct->exit_status = WEXITSTATUS(gstruct->exit_status);
 		exit(gstruct->exit_status);
-	}
 }

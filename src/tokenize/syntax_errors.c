@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 23:07:39 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/09 05:41:41 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/04/10 07:55:03 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int syntax_errors(char *input)
 		ft_putstr_fd("minishell: unexpected EOF while looking for matching\n", 2);
 		return (1);
 	}
-	if (ft_check_mul_der(input, '>') != 0 || ft_check_mul_der(input, '<') != 0)
+	if (ft_check_mul_der(input, '>') || ft_check_mul_der(input, '<'))
 	{
 		ft_putstr_fd("minishell: syntax error\n", 2);
 		return (1);
