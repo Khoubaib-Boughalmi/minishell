@@ -26,17 +26,17 @@ static int	how_mush_char(char *s, char c)
 
 static char	*make_word(const char *s, int k, int i)
 {
-	char	*resulta;
+	char	*result;
 	int		j;
 
 	j = 0;
-	resulta = malloc((i - k + 1) * sizeof(char));
-	if (!resulta)
+	result = malloc((i - k + 1) * sizeof(char));
+	if (!result)
 		return (0);
 	while (k < i)
-		resulta[j++] = s[k++];
-	resulta[j] = '\0';
-	return (resulta);
+		result[j++] = s[k++];
+	result[j] = '\0';
+	return (result);
 }
 
 char	**ft_split_qotes(char *s, char c)
@@ -45,7 +45,7 @@ char	**ft_split_qotes(char *s, char c)
 	int		j;
 	int		k;
 	char	n;
-	char	**resulta;
+	char	**result;
 
 	j = 0;
 	i = -1;
@@ -54,8 +54,8 @@ char	**ft_split_qotes(char *s, char c)
 		return (0);
 	while (*s == ' ')
 		s++;
-	resulta = (char **)malloc(sizeof(char *) * (how_mush_char(s, c) + 1));
-	if (!resulta)
+	result = (char **)malloc(sizeof(char *) * (how_mush_char(s, c) + 1));
+	if (!result)
 		return (0);
 	while (++i <= ft_strlen(s))
 	{
@@ -70,10 +70,10 @@ char	**ft_split_qotes(char *s, char c)
 		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0
 				&& j < how_mush_char(s, c) -1)
 		{
-			resulta[j++] = make_word(s, k, i);
+			result[j++] = make_word(s, k, i);
 			k = -1;
 		}
 	}
-	resulta[j] = 0;
-	return (resulta);
+	result[j] = 0;
+	return (result);
 }

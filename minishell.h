@@ -135,7 +135,7 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 void	sigint_hander_executor(int sig);
-char		*rl_replace_line(const char *text, int clear_undo);
+// char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -146,7 +146,7 @@ void		display_tokens(t_token_lst *token);
 void		expand(t_token_lst *tokens_lst);
 void		expand_quotes(char **original, t_token_type token_type);
 void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
-void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
+void		expand_quotes_red(char **original);
 void		expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
@@ -229,9 +229,9 @@ char	*trim_str(char *str);
 int	ft_cout_red(char *input, char c);
 int syntax_errors(char *input);
 
-void    expand_redirection_fname(t_token *token);
-void    expand_redirection_vars(char **original, char *copy);
-char	**split_redirection_word(char *s, char c);
+void		expand_redirection_fname(t_token *token);
+int		expand_redirection_vars(char **original, char *copy);
+char		**split_redirection_word(char *s, char c);
 
 # endif
 

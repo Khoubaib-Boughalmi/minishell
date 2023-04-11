@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void expand_quotes_red(char **original, t_token_type token_type, t_red_error *red_error)
+void depr_expand_quotes_red(char **original, t_token_type token_type, t_red_error *red_error)
 {
 	int	i = 0;
 	int	j = 0;

@@ -13,13 +13,30 @@ void    expand_redirection_fname(t_token *token)
 	ft_memset(token->redirect_fname, 0, ft_strlen(token->redirect_fname));
 	free(token->redirect_fname);
 	token->redirect_fname = NULL;
-    expand_redirection_vars(&(token->redirect_fname), copy);
-    split_words = ft_split_qotes(token->redirect_fname, ' ');
-    if(split_words[1])
+    if(expand_redirection_vars(&(token->redirect_fname), copy))
     {
         token->redirect_error = AMBIGUOUSERR;
         gstruct->exit_status = 1;
     }
     else
-        token->redirect_error = NOERR;
+    {
+        split_words = ft_split_qotes(token->redirect_fname, ' ');
+        if(split_words[1])
+        {
+            token->redirect_error = AMBIGUOUSERR;
+            gstruct->exit_status = 1;
+        }
+        else
+        {
+            token->redirect_error = NOERR;
+            char *rd_fname_copy = ft_strdup(token->redirect_fname);
+            free(token->redirect_fname);
+            token->redirect_fname = trim_str(rd_fname_copy);
+            expand_quotes_red(&(token->redirect_fname));
+            free(rd_fname_copy);
+        }
+        free_split(split_words);
+    }
+    free(copy);
 }
+// echo hello > $USER"hello ''$USER'' world"$USER
