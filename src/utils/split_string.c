@@ -52,6 +52,14 @@ static char	*ft_copy(char const *s, char *list, int *i)
 	return (ptr);
 }
 
+static char	**ft_free(char **ptr, int k)
+{
+	while (k--)
+		free(ptr[k]);
+	free(ptr);
+	return (NULL);
+}
+
 char	**ft_split_string(char const *s, char* list)
 {
 	int		i;

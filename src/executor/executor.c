@@ -97,7 +97,19 @@ void executor(t_token_lst *token_lst)
 			exit(gstruct->exit_status);
 		}
 		if (str[0] && path_finder(str[0], gstruct->envp_head))
+		{
+			if (access(path_finder(str[0], gstruct->envp_head), F_OK) < 0)
+			{
+				ft_printf("minishell: No such file or directory\n");
+				exit(127);
+			}
+			if (access(path_finder(str[0], gstruct->envp_head), X_OK) < 0)
+			{
+				ft_printf("minishell: %s: Permission denied\n", str[0]);
+				exit(126);
+			}
 			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		}
 		else
 			cmd_not_found(str);
 	}

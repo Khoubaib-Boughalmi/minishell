@@ -27,9 +27,14 @@ char	*path_finder(char *cmd, t_envp_node *envp)
 	char	*tmp2;
 	int		i;
 
+	if (ft_strnstr(cmd, "/", ft_strlen(cmd)))
+		return (cmd);
 	path = get_paths(envp);
 	if (!path)
-		return (0);
+	{
+		ft_printf("minishell: No such file or directory\n");
+		exit(127);
+	}
 	i = -1;
 	while (path[++i])
 	{
@@ -52,10 +57,10 @@ void red_in_last(t_redirection        **list_reds, int *fd)
     int t = -1;
     while(list_reds[i])
     {
-				if (list_reds[i]->type == OUTPUT)
-					t = fd[i];
-				if (list_reds[i]->type == APPEND)
-					t = fd[i];
+		if (list_reds[i]->type == OUTPUT)
+			t = fd[i];
+		if (list_reds[i]->type == APPEND)
+			t = fd[i];
         i++;
     }
     if (t != -1)
@@ -93,11 +98,22 @@ int redirect_in_out(t_redirection **list_reds)
 	int *fd;
 
 	fd = malloc(splcount(list_reds) * sizeof(int));
+	while (list_reds[i])
+	{
+		if (list_reds[i]->type == HEREDOC)
+		{
+			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
+			if (fd[i] < 0)
+				return 1;
+		}
+		i++;
+	}
+	i = 0;
 	while(list_reds[i])
 	{
 		if(list_reds[i]->type != HEREDOC)
 		{
-
+			
 			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
 			{
 				ft_printf("minishell : ambiguous redirect\n");
@@ -132,14 +148,9 @@ int redirect_in_out(t_redirection **list_reds)
 				}
 			}
 		}
-		else
-		{
-			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
-			if (fd[i] < 0)
-				return 1;
-		}
 		i++;
 	}
+	
 	red_in_last(list_reds, fd);
 	red_out_last(list_reds, fd);
 	return 0;
@@ -178,7 +189,19 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 			exit(gstruct->exit_status);
 		}
 		if (str[0] && path_finder(str[0], gstruct->envp_head))
+		{
+			if (access(path_finder(str[0], gstruct->envp_head), F_OK) < 0)
+			{
+				ft_printf("minishell: No such file or directory\n");
+				exit(127);
+			}
+			if (access(path_finder(str[0], gstruct->envp_head), X_OK) < 0)
+			{
+				ft_printf("minishell: %s: Permission denied\n", str[0]);
+				exit(126);
+			}
 			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		}
 		else
 			cmd_not_found(str);
 	}

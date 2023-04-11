@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 23:07:39 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/10 07:55:03 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/04/10 17:03:14 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ int	ft_check_qoutes(char *input)
 	return (0);
 }
 
+int	ft_check_pipes(char *input)
+{
+	int		i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] != ' ' && input[i] != '\t' && input[i] != '|')
+			break ;
+		if (input[i] == '|')
+			return (1);
+		i++;
+	}
+	return 0;
+}
+
 int syntax_errors(char *input)
 {
     if (ft_check_qoutes(input))
@@ -44,6 +60,11 @@ int syntax_errors(char *input)
 		return (1);
 	}
 	if (ft_check_mul_der(input, '>') || ft_check_mul_der(input, '<'))
+	{
+		ft_putstr_fd("minishell: syntax error\n", 2);
+		return (1);
+	}
+	if (ft_check_pipes(input))
 	{
 		ft_putstr_fd("minishell: syntax error\n", 2);
 		return (1);

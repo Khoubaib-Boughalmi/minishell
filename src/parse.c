@@ -82,14 +82,18 @@ int	tokenize_expand_execute(char *input)
         return 1;
     }
 	tokens_lst = tokenize(input);
-    if (!tokens_lst || ft_check_mul_pipe(input, tokens_lst))
+	if (!tokens_lst)
+	 	return 1;
+    if (ft_check_mul_pipe(input, tokens_lst))
     {
         ft_putstr_fd("minishell: syntax error\n", 2);
         gstruct->exit_status = 2;
         return 1;
     }
 	gstruct->tokens_head = tokens_lst;
+	// ft_export_with_args("", "myValue");
 	expand(tokens_lst);
+	// clean_expand_args(tokens_lst);
 	gstruct->ppin = dup(0);
 	gstruct->ppout = dup(1);
 	if (is_pipe(tokens_lst))
@@ -112,30 +116,28 @@ int	tokenize_expand_execute(char *input)
 				{
 					exit(gstruct->exit_status);
 				}
-				if (str[0][0] == '/')
-				{
-					dup2(gstruct->ppout, 1);
-					dup2(gstruct->ppin, 0);
-					if (access(str[0], F_OK))
-					{
-						ft_printf("minishell: %s: No such file or directory\n", str[0]);
-						exit(127);
-					}
-					else
-					{
-						ft_printf("minishell: %s: is a directory\n", str[0]);
-						exit(126);
-					}
-				}
 				if (is_builtin(str[0]))
 				{
 					handle_builtin(str);
 					exit(gstruct->exit_status);
 				}
 				else if (str[0] && path_finder(str[0], gstruct->envp_head))
+				{
+					if (access(path_finder(str[0], gstruct->envp_head), F_OK) < 0)
+					{
+						ft_printf("minishell: No such file or directory\n");
+						exit(127);
+					}
+					if (access(path_finder(str[0], gstruct->envp_head), X_OK) < 0)
+					{
+						ft_printf("minishell: %s: Permission denied\n", str[0]);
+						exit(126);
+					}
 					execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
-				else
+				}
+				else if (str[0])
 					cmd_not_found(str);
+				exit (0);
 			}
 			waitpid(a1, &gstruct->exit_status, 0);
 			if(WIFEXITED(gstruct->exit_status))

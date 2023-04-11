@@ -22,12 +22,12 @@ int	repl(void)
 			free_all();
 			exit(gstruct->exit_status);
 		}
-		input[strlen(input) - 1] = '\0';
-		if(input[0] == '\0' || input[0] == '\n')
+		if (input[strlen(input) - 1] == '\n')
+			input[strlen(input) - 1] = '\0';
+		if (input[0] == '\0')
 		{
 			free(input);
-			exit(gstruct->exit_status);
-
+			continue ;
 		}
 		// if (!ft_strlcmp(input, "exit"))
 		// {
