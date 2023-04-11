@@ -28,7 +28,7 @@ char	*trim_str(char *str)
 	return (new_str);
 }
 
-t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, t_space *has_space, int *has_alpha)
+void	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL)
 {
 	t_envp_node	*tmp;
 	char	*expanded_exit;
@@ -49,33 +49,27 @@ t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, 
 			tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
 			if(tmp)
 			{
-				if(tmp->value[0] == ' ')
-					has_space->space_l = 1;
-				else if(tmp->value[ft_strlen(tmp->value) - 1] == ' ')
-					has_space->space_r = 1; 
-				if(AMBG_VAL == AMBG)
-				{
-					splited = ft_split(tmp->value, ' ');
-					if(two_d_array_len(splited) > 1)
-					{
-						free(splited);
-						return (AMBIGUOUSERR);
-					}
-				}
+				// if(AMBG_VAL == AMBG)
+				// {
+				// 	splited = ft_split(tmp->value, ' ');
+				// 	if(two_d_array_len(splited) > 1)
+				// 	{
+				// 		free(splited);
+				// 		return (AMBIGUOUSERR);
+				// 	}
+				// }
 				i = -1;
-				if(trim)
-				{
-					trimed = trim_str(tmp->value);
-					if(ft_strlen(trimed))
-						*has_alpha = 1;
-					while (trimed[++i])
-						cbc_str_join(original, trimed[i]);
-				}
-				else
-				{
+				// if(trim)
+				// {
+				// 	trimed = trim_str(tmp->value);
+				// 	while (trimed[++i])
+				// 		cbc_str_join(original, trimed[i]);
+				// }
+				// else
+				// {
 					while (tmp->value[++i])
 						cbc_str_join(original, tmp->value[i]);
-				}
+				// }
 			}
 			// else
 			// 	cbc_str_join(original, '$');
@@ -94,5 +88,5 @@ t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, 
 	// 			}
 	// 		}
 	// }
-	return (NOERR);
+	// return (NOERR);
 }

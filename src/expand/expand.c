@@ -21,7 +21,8 @@ void	expand(t_token_lst *tokens_lst)
 		else if(tokens_lst->token->type == AST_REDIRECTION)
 		{
 				if(tokens_lst->token->redirect_fname && tokens_lst->token->red_type != HEREDOC)
-					expand_quotes_red(&(tokens_lst->token->redirect_fname), tokens_lst->token->type, &(tokens_lst->token->redirect_error));
+					expand_redirection_fname(tokens_lst->token);
+				// expand_quotes_red(&(tokens_lst->token->redirect_fname), tokens_lst->token->type, &(tokens_lst->token->redirect_error));
 		}
 		tokens_lst = tokens_lst->next;
 	}

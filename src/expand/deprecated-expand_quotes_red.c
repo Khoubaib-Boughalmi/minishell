@@ -120,3 +120,8 @@ void expand_quotes_red(char **original, t_token_type token_type, t_red_error *re
 	// else
 	// 	*red_error = NOERR;
 }
+
+/*
+	1/ .. > $space_r"foo" = expand vars =>hello "foo boo" = split with space (only words outside of the quotes) => [hello, "foo boo"] ==> AMBIGUOUS
+	2/ .. > $1_word_space_l_r'foo' = expand vars =>     hello    'foo' ==> [hello, foo] ==> AMBIGUOUS
+*/
