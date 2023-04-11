@@ -30,13 +30,17 @@ void    expand_redirection_fname(t_token *token)
         {
             token->redirect_error = NOERR;
             char *rd_fname_copy = ft_strdup(token->redirect_fname);
-            free(token->redirect_fname);
+            if(token->redirect_fname)
+                free(token->redirect_fname);
             token->redirect_fname = trim_str(rd_fname_copy);
             expand_quotes_red(&(token->redirect_fname));
-            free(rd_fname_copy);
+            if(rd_fname_copy)
+                free(rd_fname_copy);
         }
-        free_split(split_words);
+        if(split_words)
+            free_split(split_words);
     }
-    free(copy);
+    if(copy)
+        free(copy);
 }
 // echo hello > $USER"hello ''$USER'' world"$USER
