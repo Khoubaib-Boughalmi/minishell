@@ -132,15 +132,15 @@ void	ft_export_with_args(char **list_vars)
 		else
 		{
 			if(!check_export_key_val(list_vars[i], value))
-			{
 				gstruct->exit_status = 1;
-				return ;
-			}
-			prev_node_export = envp_find_node(list_vars[i], ft_strlen(list_vars[i]), gstruct->export_head);
-			if(!prev_node_export)
+			else
 			{
-				export_node = envp_new_node(list_vars[i], NULL);
-				envp_lst_add_back(export_node, &(gstruct->export_head));
+				prev_node_export = envp_find_node(list_vars[i], ft_strlen(list_vars[i]), gstruct->export_head);
+				if(!prev_node_export)
+				{
+					export_node = envp_new_node(list_vars[i], NULL);
+					envp_lst_add_back(export_node, &(gstruct->export_head));
+				}
 			}
 		}
 		i++;

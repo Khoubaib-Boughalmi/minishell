@@ -232,7 +232,6 @@ int syntax_errors(char *input);
 
 void		expand_redirection_fname(t_token *token);
 int		expand_redirection_vars(char **original, char *copy);
-char		**split_redirection_word(char *s, char c);
 
 # endif
 

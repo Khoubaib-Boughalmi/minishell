@@ -47,7 +47,6 @@ SRCS_MAND= 		./src/main.c								\
 				./src/expand/expand_redirections_fname.c	\
 				./src/expand/expand_exit.c					\
 				./src/expand/expand_redirection_vars.c		\
-				./src/expand/split_redirection_word.c		\
 				./src/executor/executor.c					\
 				./src/executor/utils.c						\
 				./src/free/free_global_struct.c				\
