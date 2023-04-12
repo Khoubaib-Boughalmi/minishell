@@ -76,32 +76,61 @@ int redirect_out_file_heredoc(char *red)
     int pip[2];
     char *str;
     char    *new_str;
+    char    *red_cpy;
+	char	*str_join;
+    int		i;
+    int		j;
 
+	j = 0;
     new_str = NULL;
     pipe(pip);
     dup2(gstruct->ppin, 0);
     red = ft_strjoin(red, "\n");
+    red_cpy = ft_strdup(red);
+    expand_quotes_red(&red_cpy);
     str = get_next_line(0);
     if (!str)
         return -1;
     while (1)
     {
-        if(!ft_strlcmp(red, str))
+		i = 0;
+        if(!ft_strlcmp(red_cpy, str))
             break;
-        if(str[0] == '$')
-        {
-            str[ft_strlen(str)-1] = '\0';
-            expand_variables(&new_str, str, AST_COMMAND, NOTRIM);
-            if(!new_str)
-                ft_putstr_fd("\n", pip[1]);
-            else
-                ft_putstr_fd(ft_strjoin(new_str, "\n"), pip[1]);
-            new_str = NULL;
-        }
-        else
-            ft_putstr_fd(str, pip[1]);
+		if(char_in_str(str, '$') && !char_in_str(red, '\"') && !char_in_str(red, '\''))
+		{
+			while (str[i])
+			{
+				if(str[i] == '$')
+				{
+					str[ft_strlen(str)-1] = '\0';
+					expand_variables(&new_str, str + i, AST_COMMAND, NOTRIM);
+					if(new_str)
+                    {
+						j = 0;
+						while (new_str[j])
+						{
+							ft_putchar_fd(new_str[j], pip[1]);
+							j++;
+						}
+						i += get_variable_len(str + i + 1);
+					}
+					free(new_str);
+					new_str = NULL;
+				}
+				else
+					ft_putchar_fd(str[i], pip[1]);
+                i++;
+			}
+            ft_putchar_fd('\n', pip[1]);
+		}
+		else
+			ft_putstr_fd(str, pip[1]);
+		free(str);
+		str = NULL;
         str = get_next_line(0);
     }
+    if(red_cpy)
+        free(red_cpy);
     close(pip[1]);
     dup2(gstruct->stin, 0);
     return pip[0];
