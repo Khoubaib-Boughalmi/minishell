@@ -39,7 +39,7 @@ TESTS_PASSED=0
 TOTAL_NTESTS=0
 
 exports () {
-	export empty=" "
+	export empty=""
 	export dollar_in_env='a$b'
 	export single_quote_in_env='a'"'"'b'
 	export double_quote_in_env='a"b'

@@ -24,7 +24,7 @@ int init_envp(char **envp)
 	while (envp[i])
 	{
 		envp_split = ft_split(envp[i], '=');
-		node = envp_new_node(envp_split[0], envp_split[1]);
+		node = envp_new_node(envp_split[0], envp_split[1], ENVP);
 		if(!node)
 			return (0);
 		envp_lst_add_back(node, &(gstruct->envp_head));

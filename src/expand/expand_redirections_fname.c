@@ -1,25 +1,38 @@
 #include "../../minishell.h"
 
-int is_skippable(char   *str)
+
+char *ft_split_data(char *str)
 {
     int i;
+    int start;
+    int end = ft_strlen(str);
 
     i = 0;
-    if(!str)
-        return (0);
-    if(!str[i])
-        return (0);
+    start = 0;
+    i = 0;
     while (str[i])
     {
-        if(str[i] == '\"' || str[i] == '\'')
-        {
-            if (str[i] != str[i + 1])
-                return 1;
-        }
+        if (str[i] && (str[i] != '\"' && str[i] != '\''))
+            break;
+        if (str[i + 1] && (str[i] == '\"' || str[i] == '\'') && str[i + 1] == str[i])
+            start = i + 2;
+        i++;
         i++;
     }
-    
-    return (0);
+    int j;
+    j = ft_strlen(str);
+    i = 0;
+    while (j > 0)
+    {
+        if (str[j] && (str[j] != '\"' || str[j] != '\''))
+            break;
+        if (str[j - 1] && (str[j] == '\"' || str[j] == '\'') && str[j - 1] == str[j])
+            end = j - 1;
+        j--;
+    }
+    char *tmp;
+    tmp = ft_substr(str, start, end - start);
+    return tmp;
 }
 
 // int split_words_len(char **arr)
@@ -39,6 +52,7 @@ void    expand_redirection_fname(t_token *token)
 	char	*copy;
     char    **split_words;
     char    *split_words_str;
+    char *tmp;
 
     i = 0;
     copy = (char *)malloc(sizeof(char) * ft_strlen(token->redirect_fname) + 1);
@@ -67,20 +81,20 @@ void    expand_redirection_fname(t_token *token)
             int count = 0;
             while (split_words[k])
             {
-                if (!is_skippable(split_words[k]))
+                tmp = ft_split_data(split_words[k]);
+                if (!tmp || tmp[0] == '\0')
                     count++;
                 k++;
             }
-            if(count <= k)
+            if (count < k - 1)
             {
-                // ft_printf("IAUYIUYEIUYQWIUEYIQUWE\n");
                 token->redirect_error = AMBIGUOUSERR;
-                gstruct->exit_status = 1; 
+                gstruct->exit_status = 1;
             }
+            expand_quotes_red(&(token->redirect_fname));
         }
-        //     expand_quotes_red(&(token->redirect_fname));
-        // else
-        // {
+        else
+        {
             char *rd_fname_copy = ft_strdup(token->redirect_fname);
             if(token->redirect_fname)
                 free(token->redirect_fname);
@@ -88,7 +102,7 @@ void    expand_redirection_fname(t_token *token)
             expand_quotes_red(&(token->redirect_fname));
             if(rd_fname_copy)
                 free(rd_fname_copy);
-        // }
+        }
         if(split_words)
             free_split(split_words);
         }

@@ -116,7 +116,7 @@ int expand_redirection_vars(char **original, char *copy)
                 {
                     //this is too general make a case for when inside double quotes and outside
                     vars = 1;
-                    expand_variables_redirect(original, copy + i, NOTRIM, NOAMBG);
+                    expand_variables_redirect(original, copy + i, TRIM, NOAMBG);
                     i++;
                     while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|' && copy[i] != '-') 
                         i++;

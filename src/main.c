@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
+/*   Updated: 2023/04/13 20:28:41 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-t_global_struct *gstruct; //global struct
+t_global_struct	*gstruct;
 
 int	repl(void)
 {
@@ -26,11 +38,6 @@ int	repl(void)
 			free(input);
 			continue ;
 		}
-		// if (!ft_strlcmp(input, "exit"))
-		// {
-		// 	free(input);
-		// 	break;
-		// }
 		add_history(input);
 		tokenize_expand_execute(input); //tokenization etc
 		free(input);
@@ -46,9 +53,7 @@ int main(int ac, char *av[], char *envp[])
 	sig_init(SIGQUIT, &sigquit_hander);
 	if(!init_gstruct())
 		return (1);
-	// printf("%d\n", 9223372036854775810 & 255);
 	init_envp(envp);
 	repl();
-	// printf("%d\n", NULL == '\0');
 	return (gstruct->exit_status);
 }

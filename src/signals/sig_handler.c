@@ -21,10 +21,7 @@ void	sigint_hander_executor(int sig)
 }
 
 void	sigquit_hander(int sig)
-{
-	printf("heeeeeeeeeeeeeeeeeeeeeeeeeeelp\n");
-	free_all();
-}
+{}
 
 
 

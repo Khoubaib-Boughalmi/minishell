@@ -76,13 +76,13 @@ void	ft_export_with_args(char **list_vars)
 					else if(prev_node_export && !prev_node_export->value)
 					{
 						prev_node_export->value = ft_strdup(value);
-						env_node = envp_new_node(key, value);
+						env_node = envp_new_node(key, value, EXPORT);
 						envp_lst_add_back(env_node, &(gstruct->envp_head));
 					}
 					else if(!prev_node_export)
 					{
-						export_node = envp_new_node(key, value);
-						env_node = envp_new_node(key, value);
+						export_node = envp_new_node(key, value, EXPORT);
+						env_node = envp_new_node(key, value, EXPORT);
 						if(!export_node || !env_node)
 							return ;
 						envp_lst_add_back(export_node, &(gstruct->export_head));
@@ -100,8 +100,8 @@ void	ft_export_with_args(char **list_vars)
 					prev_node_envp = envp_find_node(key, ft_strlen(key), gstruct->envp_head);
 					if(!prev_node_export)
 					{
-						export_node = envp_new_node(key, "");
-						env_node = envp_new_node(key, "");
+						export_node = envp_new_node(key, "", EXPORT);
+						env_node = envp_new_node(key, "", EXPORT);
 						if(!export_node || !env_node)
 							return ;
 						envp_lst_add_back(export_node, &(gstruct->export_head));
@@ -122,7 +122,7 @@ void	ft_export_with_args(char **list_vars)
 						}
 						else
 						{
-							env_node = envp_new_node(key, "");
+							env_node = envp_new_node(key, "", EXPORT);
 							envp_lst_add_back(env_node, &(gstruct->envp_head));
 						}
 					}
@@ -138,7 +138,7 @@ void	ft_export_with_args(char **list_vars)
 				prev_node_export = envp_find_node(list_vars[i], ft_strlen(list_vars[i]), gstruct->export_head);
 				if(!prev_node_export)
 				{
-					export_node = envp_new_node(list_vars[i], NULL);
+					export_node = envp_new_node(list_vars[i], NULL, EXPORT);
 					envp_lst_add_back(export_node, &(gstruct->export_head));
 				}
 			}

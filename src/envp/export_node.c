@@ -11,7 +11,7 @@ int	duplicate_list_export()
 	envp_ptr = gstruct->envp_head;
 	while (envp_ptr)
 	{
-		node = envp_new_node(envp_ptr->key, envp_ptr->value);
+		node = envp_new_node(envp_ptr->key, envp_ptr->value, ENVP);
 		envp_lst_add_back(node, &(gstruct->export_head));
 		envp_ptr = envp_ptr->next;
 	}

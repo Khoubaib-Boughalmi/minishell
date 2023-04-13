@@ -50,6 +50,12 @@ typedef enum
 	AMBG,
 } t_ambg;
 
+typedef enum
+{
+	ENVP,
+	EXPORT,
+} t_envp;
+
 typedef struct s_space
 {
 	int	space_l;
@@ -90,28 +96,28 @@ typedef struct s_redirection
 	char						*value;
 	t_red_type				type;
 	t_red_error				redirect_error;
-} t_redirection;
+}	t_redirection;
 
 //shared data goes here
 typedef struct s_global_struct
 {
-	char					*src_input;		//pointer to the users source input
-	t_token_lst				*tokens_head;	//linked list of tokens
-	t_envp_node				*export_head;		//linked list of envp
-	t_envp_node				*envp_head;		//linked list of envp
+	char					*src_input;
+	t_token_lst				*tokens_head;
+	t_envp_node				*export_head;
+	t_envp_node				*envp_head;
 	int						exit_status;
 	int						sigint_listener;
 	char					**list_cmds;
 	t_redirection			**list_reds;
-	int stin;
-	int stout;
-	int ppin;
-	int ppout;
-} t_global_struct;
+	int						stin;
+	int						stout;
+	int						ppin;
+	int						ppout;
+}	t_global_struct;
 
-extern t_global_struct *gstruct;
+extern t_global_struct	*gstruct;
 
-int     	repl(void);                 // the starting point :  repl = read-eval-print loop
+int     	repl(void);            
 int			tokenize_expand_execute(char *input);    // the starting point
 t_token 	*tokenize_input(void);      // for creating the array of tokens from the user input
 int     	init_gstruct();  // for initializing the global strcut
@@ -119,7 +125,7 @@ int			init_envp(char **envp);
 int		envp_list_vars_len(t_envp_node *ptr);
 char	**get_envp_arr();
 void		free_split(char **list);
-t_envp_node	*envp_new_node(char *key, char *value);
+t_envp_node	*envp_new_node(char *key, char *value, t_envp envp_val);
 void		envp_lst_add_back(t_envp_node *node, t_envp_node **head);
 void		envp_delete_node(int pos, t_envp_node **head);
 t_envp_node	*envp_find_node(char *key, size_t len, t_envp_node *head);
