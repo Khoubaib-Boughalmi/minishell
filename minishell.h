@@ -126,7 +126,7 @@ int			duplicate_list_export();
 void		ft_env(void);
 void		ft_export_with_args(char **phrase);
 void		ft_export_no_args();
-void		ft_unest(char **list_keys);
+void		ft_unset(char **list_keys);
 void		ft_pwd(void);
 void		ft_echo(char **list_vars);
 void		ft_cd(char **list_vars);

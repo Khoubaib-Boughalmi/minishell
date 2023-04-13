@@ -1,36 +1,5 @@
 #include "../minishell.h"
 
-// void 	clean_expand_args(t_token_lst *tokens_lst)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	k;
-
-// 	while (tokens_lst)
-// 	{
-// 		if(tokens_lst->token->type == AST_COMMAND)
-// 		{
-// 			i = 0;
-// 			while(tokens_lst->token->args[i])
-// 			{
-// 				if(!ft_strlcmp(tokens_lst->token->args[i], "$"))
-// 				{
-// 					free(tokens_lst->token->args[i]);
-// 					j = i;
-// 					while (tokens_lst->token->args[j])
-// 					{
-// 						tokens_lst->token->args[j] = tokens_lst->token->args[j + 1];
-// 						j++;
-// 					}
-// 				}
-// 				i++;
-// 			}
-// 		}
-// 		tokens_lst = tokens_lst->next;
-// 	}
-	
-// }
-
 int is_pipe(t_token_lst *tokens_lst)
 {
 	t_token_lst *tmp;

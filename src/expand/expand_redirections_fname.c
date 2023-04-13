@@ -49,13 +49,17 @@ void    expand_redirection_fname(t_token *token)
 	token->redirect_fname = NULL;
     if(expand_redirection_vars(&(token->redirect_fname), copy))
     {
-        // ft_printf("1\n");
+        // ft_printf("IAUYIUYEIUYQWIUEYIQUWE\n");
         token->redirect_error = AMBIGUOUSERR;
         gstruct->exit_status = 1;
     }
     else
     {
+        // ft_printf("asdszdsd;\n");
         i = 0;
+        if(token->redirect_fname)
+        {
+
         split_words = ft_split_qotes(token->redirect_fname, ' ');
         if(split_words[1])
         {
@@ -69,11 +73,12 @@ void    expand_redirection_fname(t_token *token)
             }
             if(count <= k)
             {
+                // ft_printf("IAUYIUYEIUYQWIUEYIQUWE\n");
                 token->redirect_error = AMBIGUOUSERR;
                 gstruct->exit_status = 1; 
             }
-        //     expand_quotes_red(&(token->redirect_fname));
         }
+        //     expand_quotes_red(&(token->redirect_fname));
         // else
         // {
             char *rd_fname_copy = ft_strdup(token->redirect_fname);
@@ -86,6 +91,7 @@ void    expand_redirection_fname(t_token *token)
         // }
         if(split_words)
             free_split(split_words);
+        }
     }
     if(copy)
         free(copy);

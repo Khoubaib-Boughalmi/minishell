@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void	ft_unest(char	**list_keys)
+void	ft_unset(char	**list_keys)
 {
 	int			i;
 	int			j;

@@ -73,7 +73,7 @@ void handle_builtin(char **list_cmds)
 	if(!ft_strlcmp(list_cmds[0], "export"))
 		ft_export_with_args(list_cmds);
 	if(!ft_strlcmp(list_cmds[0], "unset"))
-		ft_unest(list_cmds);
+		ft_unset(list_cmds);
 	if(!ft_strlcmp(list_cmds[0], "env"))
 		ft_env();
 	if(!ft_strlcmp(list_cmds[0], "exit"))
