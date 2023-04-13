@@ -15,15 +15,12 @@ int	repl(void)
 			exit(gstruct->exit_status);
 			break;
 		}
-		// input = get_next_line(0);
 		input = readline("$ ");
 		if (!input)
 		{
 			free_all();
 			exit(gstruct->exit_status);
 		}
-		// if (input[strlen(input) - 1] == '\n')
-		// 	input[strlen(input) - 1] = '\0';
 		if (input[0] == '\0')
 		{
 			free(input);

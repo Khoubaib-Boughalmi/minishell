@@ -1,6 +1,6 @@
 #include "../../minishell.h"
 
-void expand_quotes(char **original, t_token_type token_type)
+void expand_quotes(char **original, t_token_type token_type, int *to_trim)
 {
 	int	i = 0;
 	int	j = 0;
@@ -23,6 +23,7 @@ void expand_quotes(char **original, t_token_type token_type)
 					i += 2;
 				else if(copy[i] == '$')
 				{
+					*to_trim = 0;
 					expand_variables(original, copy + i, token_type, NOTRIM);
 					i++;
 					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|' && copy[i] != '-')
@@ -54,7 +55,11 @@ void expand_quotes(char **original, t_token_type token_type)
 				i += 2;
 			else if(copy[i] == '$')
 			{
-				expand_variables(original, copy + i, token_type, NOTRIM);
+				*to_trim = 1;
+				if(i)
+					expand_variables(original, copy + i, token_type, NOTRIM);
+				else
+					expand_variables(original, copy + i, token_type, TRIM);
 				i++;
 				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '-')
 					i++;				

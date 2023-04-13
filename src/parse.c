@@ -60,9 +60,8 @@ int	tokenize_expand_execute(char *input)
         return 1;
     }
 	gstruct->tokens_head = tokens_lst;
-	// ft_export_with_args("", "myValue");
 	expand(tokens_lst);
-	// clean_expand_args(tokens_lst);
+	// display_tokens(tokens_lst);
 	gstruct->ppin = dup(0);
 	gstruct->ppout = dup(1);
 	if (is_pipe(tokens_lst))

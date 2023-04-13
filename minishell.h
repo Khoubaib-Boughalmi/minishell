@@ -67,6 +67,7 @@ typedef struct s_token
 	t_red_error	redirect_error;
 	t_red_type		red_type;
 	int				exit_status;
+	int				to_trim;
 
 } t_token;
 
@@ -144,7 +145,7 @@ int			ft_check_pipe(char *str);
 void		display_tokens(t_token_lst *token);
 // void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
-void		expand_quotes(char **original, t_token_type token_type);
+void		expand_quotes(char **original, t_token_type token_type, int	*to_trim);
 void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
 void		expand_quotes_red(char **original);
 void expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL);
@@ -232,7 +233,7 @@ int syntax_errors(char *input);
 
 void		expand_redirection_fname(t_token *token);
 int		expand_redirection_vars(char **original, char *copy);
-
+char	*epur_str(char *str);
 # endif
 
 

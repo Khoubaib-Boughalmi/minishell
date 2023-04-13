@@ -23,7 +23,7 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type, t_tr
 					i = -1;
 					if(trim)
 					{
-						trimed = trim_str(tmp->value);
+						trimed = epur_str(tmp->value);
 						while (trimed[++i])
 							cbc_str_join(original, trimed[i]);
 					}
@@ -36,18 +36,4 @@ void	expand_variables(char **original, char	*copy, t_token_type token_type, t_tr
 				// else
 				// 	cbc_str_join(original, '$');
 			}
-		// }	
-	// }
-		// else if(tokens_lst->token->type == AST_REDIRECTION)
-		// {
-		// 		if(tokens_lst->token->redirect_fname[0] == '$')
-		// 		{
-		// 			tmp = envp_find_node(&(tokens_lst->token->redirect_fname[1]));
-		// 			if(tmp)
-		// 			{
-		// 				free(tokens_lst->token->redirect_fname);
-		// 				tokens_lst->token->redirect_fname = tmp->value;
-		// 			}
-		// 		}
-		// }
 }
