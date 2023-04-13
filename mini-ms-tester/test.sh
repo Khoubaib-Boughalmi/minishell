@@ -39,19 +39,16 @@ TESTS_PASSED=0
 TOTAL_NTESTS=0
 
 exports () {
+	export empty=" "
 	export dollar_in_env='a$b'
 	export single_quote_in_env='a'"'"'b'
 	export double_quote_in_env='a"b'
 	export no_whitespace="no_whitespace"
 	export equals="ab"
-
 	export whitespace_left=" whitespace"
 	export whitespace_center="white space"
 	export whitespace_right="whitespace "
-
-	export empty=""
 	export space=" "
-
 	export minishell_path=$minishell_path
 }
 
