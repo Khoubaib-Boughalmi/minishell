@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:42:31 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/14 16:43:33 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:22:59 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	sigint_hander(int sig)
 {
 	(void)sig;
-	printf("\n");
+    ft_printf("\n");
+    rl_on_new_line();
+    // rl_replace_line("", 0);
+    rl_redisplay();
 }
 
 void	sigint_hander_executor(int sig)
@@ -23,9 +26,14 @@ void	sigint_hander_executor(int sig)
 	(void)sig;
 	dup2(g_struct->ppout, 1);
 	dup2(g_struct->ppin, 0);
-	printf("\n");
+	(void)sig;
+    ft_printf("\n");
+    rl_on_new_line();
+    // rl_replace_line("", 0);
+    // rl_redisplay();
 }
 
 void	sigquit_hander(int sig)
 {
+	
 }

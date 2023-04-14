@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_string.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/14 16:47:59 by kboughal          #+#    #+#             */
+/*   Updated: 2023/04/14 16:48:39 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../minishell.h"
 
@@ -52,7 +63,7 @@ static char	*ft_copy(char const *s, char *list, int *i)
 	return (ptr);
 }
 
-char	**ft_split_string(char const *s, char* list)
+char	**ft_split_string(char const *s, char *list)
 {
 	int		i;
 	int		k;

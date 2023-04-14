@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cbc_str_join.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/14 16:47:06 by kboughal          #+#    #+#             */
+/*   Updated: 2023/04/14 16:47:39 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	create_original_str(char **original)
 {
-	char *tmp;
+	char	*tmp;
 
-	if(!(*original))
+	if (!(*original))
 	{
 		*original = (char *)malloc(sizeof(char) * 3);
 		ft_memset(*original, 0, 3);
@@ -22,9 +34,9 @@ void	create_original_str(char **original)
 	}
 }
 
-void cbc_str_join(char **original, char c)
+void	cbc_str_join(char **original, char c)
 {
-	if(!*original || !(ft_strlen(*original) % 2))
-		create_original_str(original);	
+	if (!*original || !(ft_strlen(*original) % 2))
+		create_original_str(original);
 	(*original)[ft_strlen(*original)] = c;
 }

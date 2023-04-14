@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/14 16:37:19 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:10:39 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char *av[], char *envp[])
 	(void) ac;
 	(void) av;
 	sig_init(SIGINT, &sigint_hander);
-	sig_init(SIGQUIT, &sigquit_hander);
+	signal(SIGQUIT, SIG_IGN);
 	if (!init_g_struct())
 		return (1);
 	init_envp(envp);

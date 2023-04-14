@@ -101,7 +101,7 @@ int	tokenize_expand_execute(char *input)
 						ft_printf("minishell: %s: Permission denied\n", str[0]);
 						exit(126);
 					}
-					
+					signal(SIGQUIT, SIG_DFL);
 					execve(path_finder(str[0], g_struct->envp_head), str, get_envp_arr());
 				}
 				else if (str[0])
