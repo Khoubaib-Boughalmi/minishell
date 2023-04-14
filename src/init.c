@@ -15,7 +15,6 @@ int	init_gstruct()
 int init_envp(char **envp)
 {
 	t_envp_node	*node;
-	char		**envp_split;
 	int			i;
 
 	i = 0;
@@ -23,12 +22,10 @@ int init_envp(char **envp)
 		return (0);
 	while (envp[i])
 	{
-		envp_split = ft_split(envp[i], '=');
-		node = envp_new_node(envp_split[0], envp_split[1], ENVP);
+		node = envp_new_node(get_key(envp[i]), get_value(envp[i]), ENVP);
 		if(!node)
 			return (0);
 		envp_lst_add_back(node, &(gstruct->envp_head));
-		free_split(envp_split);
 		i++;
 	}
 	if(!duplicate_list_export())

@@ -241,6 +241,8 @@ void		expand_redirection_fname(t_token *token);
 int		expand_redirection_vars(char **original, char *copy);
 char	*epur_str(char *str);
 char	*join_multiple_args(char **args);
+char	*get_key(char *str);
+char	*get_value(char *str);
 # endif
 
 
