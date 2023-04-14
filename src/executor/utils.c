@@ -66,6 +66,25 @@ char	**get_envp_arr()
 	return (envp_str);
 }
 
+
+char	*join_multiple_args(char **args)
+{
+	int		i;
+	char	*new_str;
+
+	i = 0;
+	new_str = (char *)malloc(sizeof(char));
+	if(!new_str)
+		return (NULL);
+	new_str[0] = '\0';
+	while (args[i])
+	{
+		new_str = ft_strjoin(args[i], new_str);
+		i++;
+	}
+	return (new_str);
+}
+
 // t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type)
 // {
 // 	t_separated_token	*token;

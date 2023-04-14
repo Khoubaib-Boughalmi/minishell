@@ -240,6 +240,7 @@ int syntax_errors(char *input);
 void		expand_redirection_fname(t_token *token);
 int		expand_redirection_vars(char **original, char *copy);
 char	*epur_str(char *str);
+char	*join_multiple_args(char **args);
 # endif
 
 

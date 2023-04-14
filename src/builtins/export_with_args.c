@@ -26,6 +26,64 @@ int	check_export_key_val(char *key, char *value)
 	return (1);
 }
 
+char	*get_key(char *str)
+{
+	int		i;
+	int		len;
+	char	*key;
+
+	i = 0;
+	len = 0;
+	while (str[len] && str[len] != '=')
+		len++;
+	if(len)
+	{
+		key = (char *)malloc(sizeof(char) * (len + 1));
+		if(!key)
+			return (NULL);
+		while (str[i] && str[i] != '=')
+		{
+			key[i] = str[i];
+			i++;
+		}
+		key[i] = '\0';
+	}
+	return (key);
+}
+
+char	*get_value(char *str)
+{
+	int		i;
+	int		j;
+	char	*value;
+
+	i = 0;
+	j = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (str[i] == '=')
+		i++;
+	if(str[i])
+	{
+		value = (char *)malloc(sizeof(char) * (ft_strlen(&str[i]) + 1));
+		if(!value)
+			return (NULL);
+		while (str[i])
+		{
+			value[j] = str[i];
+			j++;
+			i++;
+		}
+		value[i] = '\0';
+	}
+	else
+	{
+		value = (char *)malloc(sizeof(char));
+		value[0] = '\0';
+	}
+	return (value);
+}
+
 void	ft_export_with_args(char **list_vars)
 {
 	int			i;
@@ -36,6 +94,7 @@ void	ft_export_with_args(char **list_vars)
 	char		**splited;
 	t_envp_node	*prev_node_export;
 	t_envp_node	*prev_node_envp;
+	char		*joined_values;
 
 	i = 0;
 	prev_node_export = NULL;
@@ -49,9 +108,9 @@ void	ft_export_with_args(char **list_vars)
 	{
 		if(char_in_str(list_vars[i], '='))
 		{
-			splited = ft_split(list_vars[i], '=');
-			key = splited[0];
-			value = splited[1];
+			// splited = ft_split(list_vars[i], '=');
+			key = get_key(list_vars[i]);
+			value = get_value(list_vars[i]);
 			if(!check_str(key))
 			{
 				gstruct->exit_status = 1;
