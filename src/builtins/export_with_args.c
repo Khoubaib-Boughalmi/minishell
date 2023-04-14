@@ -18,7 +18,7 @@ int	check_export_key_val(char *key, char *value)
 		if(key[i] != '_' && !(ft_isalnum(key[i])))
 		{
 			printf("minishell: not a valid identifier\n");
-			gstruct->exit_status = 1;
+			g_struct->exit_status = 1;
 			return (0);
 		}
 		i++;
@@ -113,15 +113,15 @@ void	ft_export_with_args(char **list_vars)
 			value = get_value(list_vars[i]);
 			if(!check_str(key))
 			{
-				gstruct->exit_status = 1;
+				g_struct->exit_status = 1;
 				return ;
 			}
 			if(value)
 			{
 				if(check_export_key_val(key, value))
 				{
-					prev_node_export = envp_find_node(key, ft_strlen(key), gstruct->export_head);
-					prev_node_envp = envp_find_node(key, ft_strlen(key), gstruct->envp_head);				
+					prev_node_export = envp_find_node(key, ft_strlen(key), g_struct->export_head);
+					prev_node_envp = envp_find_node(key, ft_strlen(key), g_struct->envp_head);				
 					if(prev_node_export && prev_node_export->value && ft_strlcmp(prev_node_export->value, value))
 					{
 						free(prev_node_export->value);
@@ -136,7 +136,7 @@ void	ft_export_with_args(char **list_vars)
 					{
 						prev_node_export->value = ft_strdup(value);
 						env_node = envp_new_node(key, value, EXPORT);
-						envp_lst_add_back(env_node, &(gstruct->envp_head));
+						envp_lst_add_back(env_node, &(g_struct->envp_head));
 					}
 					else if(!prev_node_export)
 					{
@@ -144,27 +144,27 @@ void	ft_export_with_args(char **list_vars)
 						env_node = envp_new_node(key, value, EXPORT);
 						if(!export_node || !env_node)
 							return ;
-						envp_lst_add_back(export_node, &(gstruct->export_head));
-						envp_lst_add_back(env_node, &(gstruct->envp_head));
+						envp_lst_add_back(export_node, &(g_struct->export_head));
+						envp_lst_add_back(env_node, &(g_struct->envp_head));
 					}
 				}
 				else
-					gstruct->exit_status = 1;
+					g_struct->exit_status = 1;
 			}
 			else
 			{
 				if(check_export_key_val(key, value))
 				{
-					prev_node_export = envp_find_node(key, ft_strlen(key), gstruct->export_head);
-					prev_node_envp = envp_find_node(key, ft_strlen(key), gstruct->envp_head);
+					prev_node_export = envp_find_node(key, ft_strlen(key), g_struct->export_head);
+					prev_node_envp = envp_find_node(key, ft_strlen(key), g_struct->envp_head);
 					if(!prev_node_export)
 					{
 						export_node = envp_new_node(key, "", EXPORT);
 						env_node = envp_new_node(key, "", EXPORT);
 						if(!export_node || !env_node)
 							return ;
-						envp_lst_add_back(export_node, &(gstruct->export_head));
-						envp_lst_add_back(env_node, &(gstruct->envp_head));
+						envp_lst_add_back(export_node, &(g_struct->export_head));
+						envp_lst_add_back(env_node, &(g_struct->envp_head));
 					}
 					else
 					{
@@ -182,7 +182,7 @@ void	ft_export_with_args(char **list_vars)
 						else
 						{
 							env_node = envp_new_node(key, "", EXPORT);
-							envp_lst_add_back(env_node, &(gstruct->envp_head));
+							envp_lst_add_back(env_node, &(g_struct->envp_head));
 						}
 					}
 				}
@@ -191,20 +191,20 @@ void	ft_export_with_args(char **list_vars)
 		else
 		{
 			if(!check_export_key_val(list_vars[i], value))
-				gstruct->exit_status = 1;
+				g_struct->exit_status = 1;
 			else
 			{
-				prev_node_export = envp_find_node(list_vars[i], ft_strlen(list_vars[i]), gstruct->export_head);
+				prev_node_export = envp_find_node(list_vars[i], ft_strlen(list_vars[i]), g_struct->export_head);
 				if(!prev_node_export)
 				{
 					export_node = envp_new_node(list_vars[i], NULL, EXPORT);
-					envp_lst_add_back(export_node, &(gstruct->export_head));
+					envp_lst_add_back(export_node, &(g_struct->export_head));
 				}
 			}
 		}
 		i++;
 	}
-	// gstruct->exit_status = 0;
+	// g_struct->exit_status = 0;
 }
 
 void	ft_export_no_args()
@@ -213,7 +213,7 @@ void	ft_export_no_args()
 	t_envp_node	*ptr;
 	
 	i = 0;
-	ptr = gstruct->export_head;
+	ptr = g_struct->export_head;
 	while (ptr)
 	{
 		i = 0;
@@ -236,5 +236,5 @@ void	ft_export_no_args()
 			ft_printf("declare -x %s\n", ptr->key);
 		ptr = ptr->next;
 	}
-	gstruct->exit_status = 0;
+	g_struct->exit_status = 0;
 }

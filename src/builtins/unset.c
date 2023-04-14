@@ -14,32 +14,32 @@ void	ft_unset(char	**list_keys)
 		i = 0;
 		if(!check_str(list_keys[j]))
 		{
-			gstruct->exit_status = 1;
+			g_struct->exit_status = 1;
 			return ;
 		}
-		ptr = gstruct->export_head;
+		ptr = g_struct->export_head;
 		while (ptr)
 		{
 			if(!ft_strlcmp(ptr->key, list_keys[j]))
 			{
-				envp_delete_node(i, &gstruct->export_head);
+				envp_delete_node(i, &g_struct->export_head);
 				break;
 			}
 			i++;
 			ptr = ptr->next;
 		}
 		i = 0;	
-		ptr = gstruct->envp_head;
+		ptr = g_struct->envp_head;
 		while (ptr)
 		{
 			if(!ft_strlcmp(ptr->key, list_keys[j]))
 			{
-				envp_delete_node(i, &gstruct->envp_head);
+				envp_delete_node(i, &g_struct->envp_head);
 				break;
 			}
 			i++;
 			ptr = ptr->next;
 		}
 	}
-	gstruct->exit_status = 0;
+	g_struct->exit_status = 0;
 }

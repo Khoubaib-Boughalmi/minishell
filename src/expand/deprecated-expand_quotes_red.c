@@ -45,7 +45,7 @@ void depr_expand_quotes_red(char **original, t_token_type token_type, t_red_erro
 					if(has_space.space_r && has_alpha)
 					{
 						*red_error = AMBIGUOUSERR;
-						gstruct->exit_status = 1;
+						g_struct->exit_status = 1;
 						return ;
 					}
 					cbc_str_join(original, copy[i]);
@@ -82,13 +82,13 @@ void depr_expand_quotes_red(char **original, t_token_type token_type, t_red_erro
 				*red_error = expand_variables_redirect(original, copy + i, TRIM, AMBG, &has_space, &has_alpha);
 				if(*red_error == AMBIGUOUSERR)
 				{
-					gstruct->exit_status = 1;
+					g_struct->exit_status = 1;
 					return ;
 				}
 				if(has_alpha && has_space.space_l)
 				{
 					*red_error = AMBIGUOUSERR;
-					gstruct->exit_status = 1;
+					g_struct->exit_status = 1;
 					return ;
 				}
 				has_alpha = 1;
@@ -102,7 +102,7 @@ void depr_expand_quotes_red(char **original, t_token_type token_type, t_red_erro
 				if(has_space.space_r && has_alpha)
 				{
 					*red_error = AMBIGUOUSERR;
-					gstruct->exit_status = 1;
+					g_struct->exit_status = 1;
 					return ;
 				}
 				has_space.space_l = 0;

@@ -7,20 +7,20 @@ int redirect_in_file_append(char *red)
     if (!red)
     {
         ft_printf("minishell: No such file or directory\n");
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     fd = open(red, O_RDWR| O_CREAT| O_APPEND, 0666);
     if (access(red, W_OK))
     {
         ft_printf("minishell: %s: Permission denied\n", red);
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     if (fd < 0)
     {
         ft_printf("minishell: No such file or directory\n");
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     return fd;
@@ -32,20 +32,20 @@ int redirect_in_file(char *red)
     if (!red)
     {
         ft_printf("minishell: No such file or directory\n");
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     fd = open(red, O_RDWR | O_CREAT | O_TRUNC, 0666);
     if (access(red, W_OK))
     {
         ft_printf("minishell: %s: Permission denied\n", red);
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     if (fd < 0)
     {
         ft_printf("minishell: No such file or directory\n");
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     return fd;
@@ -59,13 +59,13 @@ int redirect_out_file(char *red)
     if (access(red, F_OK))
     {
         ft_printf("minishell: No such file or directory\n");
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
         return -1;
     }
     if (access(red, R_OK))
     {
        ft_printf("minishell: %s: Permission denied\n", red);
-       gstruct->exit_status = 1;
+       g_struct->exit_status = 1;
        return -1;
     }
     return fd;
@@ -84,7 +84,7 @@ int redirect_out_file_heredoc(char *red)
 	j = 0;
     new_str = NULL;
     pipe(pip);
-    dup2(gstruct->ppin, 0);
+    dup2(g_struct->ppin, 0);
     red = ft_strjoin(red, "\n");
     red_cpy = ft_strdup(red);
     expand_quotes_red(&red_cpy);
@@ -132,6 +132,6 @@ int redirect_out_file_heredoc(char *red)
     if(red_cpy)
         free(red_cpy);
     close(pip[1]);
-    dup2(gstruct->stin, 0);
+    dup2(g_struct->stin, 0);
     return pip[0];
 }

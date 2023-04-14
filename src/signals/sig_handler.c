@@ -12,8 +12,8 @@ void	sigint_hander(int sig)
 void	sigint_hander_executor(int sig)
 {    
 	(void)sig;
-	dup2(gstruct->ppout, 1);
-	dup2(gstruct->ppin, 0);
+	dup2(g_struct->ppout, 1);
+	dup2(g_struct->ppin, 0);
 	printf("\n");
 	// rl_on_new_line();
 	// rl_replace_line("", 0);

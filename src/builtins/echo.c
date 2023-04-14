@@ -52,5 +52,5 @@ void	ft_echo(char	**list_vars)
 			}
 		}
 	}
-	gstruct->exit_status = 0;
+	g_struct->exit_status = 0;
 }

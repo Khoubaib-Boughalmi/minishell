@@ -117,13 +117,13 @@ int redirect_in_out(t_redirection **list_reds)
 			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
 			{
 				ft_printf("minishell : ambiguous redirect\n");
-				gstruct->exit_status = 1;
+				g_struct->exit_status = 1;
 				return (1);
 			}
 			else if (list_reds[i]->redirect_error == FILEERR)
 			{
 				ft_printf("minishell : No such file or directory\n");
-				gstruct->exit_status = 1;	
+				g_struct->exit_status = 1;	
 				return (1);
 			}
 			else
@@ -158,11 +158,11 @@ int redirect_in_out(t_redirection **list_reds)
 
 void	cmd_not_found(char **cmd)
 {
-	dup2(gstruct->ppout, 1);
+	dup2(g_struct->ppout, 1);
 	ft_putstr_fd("minishell : command not found\n", 1);
 	free_split(cmd);
-	gstruct->exit_status = 127;
-	exit (gstruct->exit_status);
+	g_struct->exit_status = 127;
+	exit (g_struct->exit_status);
 }
 
 void    ex_main(t_token_lst *token1, t_token_lst *token2)
@@ -172,7 +172,7 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 	t_redirection **list_reds;
 
     pipe(fd);		
-	gstruct->stout = dup2(fd[1], 1);
+	g_struct->stout = dup2(fd[1], 1);
 	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
@@ -182,30 +182,30 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 	if (a1 == 0)
 	{
 		if (redirect_in_out(list_reds))
-			exit(gstruct->exit_status);
+			exit(g_struct->exit_status);
 		if(is_builtin(str[0]))
 		{
 			handle_builtin(str);
-			exit(gstruct->exit_status);
+			exit(g_struct->exit_status);
 		}
-		if (str[0] && path_finder(str[0], gstruct->envp_head))
+		if (str[0] && path_finder(str[0], g_struct->envp_head))
 		{
-			if (access(path_finder(str[0], gstruct->envp_head), F_OK) < 0)
+			if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
 			{
 				ft_printf("minishell: No such file or directory\n");
 				exit(127);
 			}
-			if (access(path_finder(str[0], gstruct->envp_head), X_OK) < 0)
+			if (access(path_finder(str[0], g_struct->envp_head), X_OK) < 0)
 			{
 				ft_printf("minishell: %s: Permission denied\n", str[0]);
 				exit(126);
 			}
-			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+			execve(path_finder(str[0], g_struct->envp_head), str, get_envp_arr());
 		}
 		else
 			cmd_not_found(str);
 	}
-	gstruct->stin = dup2(fd[0], 0);
+	g_struct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);
 }

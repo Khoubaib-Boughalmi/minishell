@@ -46,7 +46,7 @@ char	**get_envp_arr()
 	char			**envp_str;
 
 	i = 0;
-	ptr = gstruct->envp_head;
+	ptr = g_struct->envp_head;
 	len = envp_list_vars_len(ptr);
 	if(!len)
 		return NULL;
@@ -106,12 +106,12 @@ char	*join_multiple_args(char **args)
 // 	t_separated_token	*command_lst;
 // 	t_separated_token	*redirection_lst;
 
-// 	command_lst = gstruct->seperated_token_arr[0];
-// 	redirection_lst = gstruct->seperated_token_arr[1];
+// 	command_lst = g_struct->seperated_token_arr[0];
+// 	redirection_lst = g_struct->seperated_token_arr[1];
 // 	if(sep_token_type == COMMAND)
 // 	{
-// 		if(!gstruct->seperated_token_arr[0])
-// 			gstruct->seperated_token_arr[0] = token;
+// 		if(!g_struct->seperated_token_arr[0])
+// 			g_struct->seperated_token_arr[0] = token;
 // 		else
 // 		{
 // 			while (command_lst->next)
@@ -121,8 +121,8 @@ char	*join_multiple_args(char **args)
 // 	}
 // 	else
 // 	{
-// 		if(!gstruct->seperated_token_arr[1])
-// 			gstruct->seperated_token_arr[1] = token;
+// 		if(!g_struct->seperated_token_arr[1])
+// 			g_struct->seperated_token_arr[1] = token;
 // 		else
 // 		{
 // 			while (redirection_lst->next)

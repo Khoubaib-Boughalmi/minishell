@@ -46,7 +46,7 @@ void	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg 
 		cbc_str_join(original, '$');
 	else
 	{
-		tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
+		tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), g_struct->envp_head);
 		if(tmp && tmp->value)
 		{
 			i = -1;

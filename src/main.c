@@ -6,13 +6,13 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/13 20:28:41 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/04/14 16:37:19 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_global_struct	*gstruct;
+t_global_struct	*g_struct;
 
 int	repl(void)
 {
@@ -21,17 +21,11 @@ int	repl(void)
 	input = NULL;
 	while (1)
 	{
-		if(gstruct->sigint_listener)
-		{
-			gstruct->sigint_listener = 0;
-			exit(gstruct->exit_status);
-			break;
-		}
 		input = readline("$ ");
 		if (!input)
 		{
 			free_all();
-			exit(gstruct->exit_status);
+			exit(g_struct->exit_status);
 		}
 		if (input[0] == '\0')
 		{
@@ -39,21 +33,21 @@ int	repl(void)
 			continue ;
 		}
 		add_history(input);
-		tokenize_expand_execute(input); //tokenization etc
+		tokenize_expand_execute(input);
 		free(input);
-		}
-	return (gstruct->exit_status);
+	}
+	return (g_struct->exit_status);
 }
 
-int main(int ac, char *av[], char *envp[])
+int	main(int ac, char *av[], char *envp[])
 {
 	(void) ac;
 	(void) av;
 	sig_init(SIGINT, &sigint_hander);
 	sig_init(SIGQUIT, &sigquit_hander);
-	if(!init_gstruct())
+	if (!init_g_struct())
 		return (1);
 	init_envp(envp);
 	repl();
-	return (gstruct->exit_status);
+	return (g_struct->exit_status);
 }

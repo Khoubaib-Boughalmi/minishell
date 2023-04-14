@@ -30,9 +30,9 @@ void	ft_exit(char	**list_vars)
 	else if(list_vars_len(list_vars) == 2)
 	{
 		ex_status = ft_atoi(list_vars[1]);
-		gstruct->exit_status = ex_status & 255;
-		exit(gstruct->exit_status);
+		g_struct->exit_status = ex_status & 255;
+		exit(g_struct->exit_status);
 	}
 	else
-		exit(gstruct->exit_status);
+		exit(g_struct->exit_status);
 }

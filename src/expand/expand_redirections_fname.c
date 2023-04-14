@@ -65,7 +65,7 @@ void    expand_redirection_fname(t_token *token)
     {
         // ft_printf("IAUYIUYEIUYQWIUEYIQUWE\n");
         token->redirect_error = AMBIGUOUSERR;
-        gstruct->exit_status = 1;
+        g_struct->exit_status = 1;
     }
     else
     {
@@ -89,7 +89,7 @@ void    expand_redirection_fname(t_token *token)
             if (count < k - 1)
             {
                 token->redirect_error = AMBIGUOUSERR;
-                gstruct->exit_status = 1;
+                g_struct->exit_status = 1;
             }
             expand_quotes_red(&(token->redirect_fname));
         }

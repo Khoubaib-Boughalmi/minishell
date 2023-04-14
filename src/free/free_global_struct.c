@@ -7,7 +7,7 @@ void	free_token_lst()
 	t_token_lst	*current;
 
 	i = -1;
-	current = gstruct->tokens_head;
+	current = g_struct->tokens_head;
 	if(!current)
 		return;
 	ptr = current->next;
@@ -33,7 +33,7 @@ void	free_envp_lst()
 	t_envp_node	*current;
 
 	i = -1;
-	current = gstruct->envp_head;
+	current = g_struct->envp_head;
 	if(!current)
 		return;
 	ptr = current->next;
@@ -56,7 +56,7 @@ void	free_export_lst()
 	t_envp_node	*current;
 
 	i = -1;
-	current = gstruct->export_head;
+	current = g_struct->export_head;
 	if(!current)
 		return;
 	ptr = current->next;
@@ -76,18 +76,18 @@ void	free_cmds_reds_array()
 	int	i;
 
 	i = -1;
-	if(gstruct->list_cmds)
-		free_split(gstruct->list_cmds);
+	if(g_struct->list_cmds)
+		free_split(g_struct->list_cmds);
 }
 
 void	free_global_struct()
 {
-	free(gstruct->src_input);
+	free(g_struct->src_input);
 	free_token_lst();
 	free_cmds_reds_array();
 	free_envp_lst();
 	free_export_lst();
-	free(gstruct);
+	free(g_struct);
 }
 
 //  total heap usage: 675 allocs, 401 frees, 228,710 bytes allocated

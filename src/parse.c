@@ -47,7 +47,7 @@ int	tokenize_expand_execute(char *input)
 
 	if (syntax_errors(input))
     {
-        gstruct->exit_status = 2;
+        g_struct->exit_status = 2;
         return 1;
     }
 	tokens_lst = tokenize(input);
@@ -56,14 +56,14 @@ int	tokenize_expand_execute(char *input)
     if (ft_check_mul_pipe(input, tokens_lst))
     {
         ft_putstr_fd("minishell: syntax error\n", 2);
-        gstruct->exit_status = 2;
+        g_struct->exit_status = 2;
         return 1;
     }
-	gstruct->tokens_head = tokens_lst;
+	g_struct->tokens_head = tokens_lst;
 	expand(tokens_lst);
 	// display_tokens(tokens_lst);
-	gstruct->ppin = dup(0);
-	gstruct->ppout = dup(1);
+	g_struct->ppin = dup(0);
+	g_struct->ppout = dup(1);
 	if (is_pipe(tokens_lst))
 		executor(tokens_lst);
 	else{
@@ -82,37 +82,37 @@ int	tokenize_expand_execute(char *input)
 			{
 				if (redirect_in_out(list_reds))
 				{
-					exit(gstruct->exit_status);
+					exit(g_struct->exit_status);
 				}
 				if (is_builtin(str[0]))
 				{
 					handle_builtin(str);
-					exit(gstruct->exit_status);
+					exit(g_struct->exit_status);
 				}
-				else if (str[0] && path_finder(str[0], gstruct->envp_head))
+				else if (str[0] && path_finder(str[0], g_struct->envp_head))
 				{
-					if (access(path_finder(str[0], gstruct->envp_head), F_OK) < 0)
+					if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
 					{
 						ft_printf("minishell: No such file or directory\n");
 						exit(127);
 					}
-					if (access(path_finder(str[0], gstruct->envp_head), X_OK) < 0)
+					if (access(path_finder(str[0], g_struct->envp_head), X_OK) < 0)
 					{
 						ft_printf("minishell: %s: Permission denied\n", str[0]);
 						exit(126);
 					}
 					
-					execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+					execve(path_finder(str[0], g_struct->envp_head), str, get_envp_arr());
 				}
 				else if (str[0])
 					cmd_not_found(str);
 				exit (0);
 			}
-			waitpid(a1, &gstruct->exit_status, 0);
-			if(WIFEXITED(gstruct->exit_status))
-				gstruct->exit_status = WEXITSTATUS(gstruct->exit_status);
-			else if (WIFSIGNALED(gstruct->exit_status))
-				gstruct->exit_status = WTERMSIG(gstruct->exit_status) + 127;
+			waitpid(a1, &g_struct->exit_status, 0);
+			if(WIFEXITED(g_struct->exit_status))
+				g_struct->exit_status = WEXITSTATUS(g_struct->exit_status);
+			else if (WIFSIGNALED(g_struct->exit_status))
+				g_struct->exit_status = WTERMSIG(g_struct->exit_status) + 127;
 		}
 	}
 	return (1);

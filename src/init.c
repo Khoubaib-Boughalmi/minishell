@@ -1,14 +1,13 @@
 #include "../minishell.h"
 
-int	init_gstruct()
+int	init_g_struct()
 {
-	//initialize everything with 0
-	gstruct = (t_global_struct *)malloc(sizeof(t_global_struct));
-	if (!gstruct)
+	g_struct = (t_global_struct *)malloc(sizeof(t_global_struct));
+	if (!g_struct)
 		return (0);
-	ft_memset(gstruct, 0, sizeof(t_global_struct));
-	gstruct->ppin = 0;
-	gstruct->ppout = 1;
+	ft_memset(g_struct, 0, sizeof(t_global_struct));
+	g_struct->ppin = 0;
+	g_struct->ppout = 1;
 	return (1);
 }
 
@@ -25,7 +24,7 @@ int init_envp(char **envp)
 		node = envp_new_node(get_key(envp[i]), get_value(envp[i]), ENVP);
 		if(!node)
 			return (0);
-		envp_lst_add_back(node, &(gstruct->envp_head));
+		envp_lst_add_back(node, &(g_struct->envp_head));
 		i++;
 	}
 	if(!duplicate_list_export())

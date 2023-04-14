@@ -67,7 +67,7 @@ char	*create_envp_value(char *key)
 	char		*full_path;
 	t_envp_node	*envp_ptr;
 
-	envp_ptr = gstruct->envp_head;
+	envp_ptr = g_struct->envp_head;
 	full_path = NULL;
 	while (envp_ptr)
 	{
