@@ -89,9 +89,7 @@ int redirect_out_file_heredoc(char *red)
     red_cpy = ft_strdup(red);
     expand_quotes_red(&red_cpy);
     str = get_next_line(0);
-    if (!str)
-        return -1;
-    while (1)
+    while (str)
     {
 		i = 0;
         if(!ft_strlcmp(red_cpy, str))

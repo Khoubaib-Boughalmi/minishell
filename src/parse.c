@@ -86,6 +86,7 @@ int	tokenize_expand_execute(char *input)
 				}
 				if (is_builtin(str[0]))
 				{
+					// str = ft_skip(str, tokens_lst);
 					handle_builtin(str);
 					exit(g_struct->exit_status);
 				}
@@ -102,9 +103,10 @@ int	tokenize_expand_execute(char *input)
 						exit(126);
 					}
 					signal(SIGQUIT, SIG_DFL);
+					
 					execve(path_finder(str[0], g_struct->envp_head), str, get_envp_arr());
 				}
-				else if (str[0])
+				else if (str && !list_reds[0])
 					cmd_not_found(str);
 				exit (0);
 			}

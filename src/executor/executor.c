@@ -15,7 +15,7 @@ char **create_lst_commands(t_token_lst *token_lst)
     char    **lst_cmd;
 
     j = -1;
-    lst_cmd = (char **)malloc(sizeof(char *) * (count_commands(token_lst) + 1));
+    lst_cmd = (char **)malloc(sizeof(char *) * (token_lst->token->num_args + 1));
     if(!lst_cmd)
         return (0);
     while(token_lst && token_lst->token->type != AST_PIPE)
@@ -23,8 +23,12 @@ char **create_lst_commands(t_token_lst *token_lst)
         i = -1;
         if(token_lst->token->type == AST_COMMAND)
         {
-            while (token_lst->token->args[++i])
+            while (++i < token_lst->token->num_args)
+			{
+				if (token_lst->token->args[i] == NULL)
+					i++;
                 lst_cmd[++j] = token_lst->token->args[i]; 
+			}
         }
         token_lst = token_lst->next;
     }
