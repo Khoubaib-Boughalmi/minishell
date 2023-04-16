@@ -1,7 +1,7 @@
 #include "../../minishell.h"
 
 
-t_envp_node	*envp_new_node(char *key, char *value)
+t_envp_node	*envp_new_node(char *key, char *value, t_envp envp_val)
 {
 	t_envp_node	*node;
 
@@ -9,16 +9,28 @@ t_envp_node	*envp_new_node(char *key, char *value)
 	if(!node)
 		return (0);
 	node->key = (char *)malloc(ft_strlen((char *)key) + 1);
-	if(value)
+	if(value && ft_strlen(value) > 0)
 		node->value = (char *)malloc(ft_strlen((char *)value) + 1);
-	else
+	else if(value && ft_strlen(value) == 0)
 		node->value = (char *)malloc(sizeof(char));
-	if(!node->key || !node->value)
+	if(!value)
+	{
+		if(envp_val == ENVP)
+		{
+			node->value =  (char *)malloc(sizeof(char));
+			node->value[0] = '\0';
+		}
+		else
+		{
+			node->value =  NULL;
+		}
+	}
+	if(!node->key)
 		return (0);
 	ft_strlcpy(node->key, key, ft_strlen((char *)key) + 1);
-	if (value)
+	if (value && ft_strlen(value) > 0)
 		ft_strlcpy(node->value, value, ft_strlen((char *)value) + 1);
-	else
+	else if(value && ft_strlen(value) == 0)
 		node->value[0] = '\0';
 	node->next = NULL;
 	return (node);

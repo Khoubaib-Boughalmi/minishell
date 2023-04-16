@@ -15,7 +15,7 @@ char **create_lst_commands(t_token_lst *token_lst)
     char    **lst_cmd;
 
     j = -1;
-    lst_cmd = (char **)malloc(sizeof(char *) * (count_commands(token_lst) + 1));
+    lst_cmd = (char **)malloc(sizeof(char *) * (token_lst->token->num_args + 1));
     if(!lst_cmd)
         return (0);
     while(token_lst && token_lst->token->type != AST_PIPE)
@@ -23,8 +23,12 @@ char **create_lst_commands(t_token_lst *token_lst)
         i = -1;
         if(token_lst->token->type == AST_COMMAND)
         {
-            while (token_lst->token->args[++i])
+            while (++i < token_lst->token->num_args)
+			{
+				if (token_lst->token->args[i] == NULL)
+					i++;
                 lst_cmd[++j] = token_lst->token->args[i]; 
+			}
         }
         token_lst = token_lst->next;
     }
@@ -81,7 +85,7 @@ void executor(t_token_lst *token_lst)
 		}
 		token_lst = token_lst->next;
 	}
-	dup2(gstruct->ppout, 1);
+	dup2(g_struct->ppout, 1);
 	str = create_lst_commands(tmp1);
 	list_reds = create_lst_redirections(tmp1);
 	int a1;
@@ -89,22 +93,38 @@ void executor(t_token_lst *token_lst)
 	a1 = fork();
 	if (a1 == 0)
 	{
+		if (redirect_in_out(list_reds))
+			exit(g_struct->exit_status);
 		if(is_builtin(str[0]))
 		{
 			handle_builtin(str);
-			exit(gstruct->exit_status);
+			exit(g_struct->exit_status);
 		}
-		if (redirect_in_out(list_reds))
-			exit(gstruct->exit_status);
-		if (str[0] && path_finder(str[0], gstruct->envp_head))
-			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		if (str[0] && path_finder(str[0], g_struct->envp_head))
+		{
+			if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
+			{
+				ft_printf("minishell: No such file or directory\n");
+				exit(127);
+			}
+			if (access(path_finder(str[0], g_struct->envp_head), X_OK) < 0)
+			{
+				ft_printf("minishell: %s: Permission denied\n", str[0]);
+				exit(126);
+			}
+			execve(path_finder(str[0], g_struct->envp_head), str, get_envp_arr());
+		}
 		else
 			cmd_not_found(str);
 	}
-	waitpid(a1, &gstruct->exit_status, 0);
-	close(gstruct->stin);
-	close(gstruct->stout);
+	waitpid(a1, &g_struct->exit_status, 0);
+	if(WIFEXITED(g_struct->exit_status))
+		g_struct->exit_status = WEXITSTATUS(g_struct->exit_status);
+	else if (WIFSIGNALED(g_struct->exit_status))
+		g_struct->exit_status = WTERMSIG(g_struct->exit_status) + 127;
+	close(g_struct->stin);
+	close(g_struct->stout);
 	while (wait(NULL) > 0);
-	dup2(gstruct->ppout, 1);
-	dup2(gstruct->ppin, 0);
+	dup2(g_struct->ppout, 1);
+	dup2(g_struct->ppin, 0);
 }

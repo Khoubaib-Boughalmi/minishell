@@ -1,1 +1,2 @@
-env | sort
+export empty=""
+export | sort

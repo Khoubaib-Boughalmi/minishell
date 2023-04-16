@@ -28,7 +28,7 @@ char	*trim_str(char *str)
 	return (new_str);
 }
 
-t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, int *has_space, int *has_alpha)
+void	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL)
 {
 	t_envp_node	*tmp;
 	char	*expanded_exit;
@@ -40,57 +40,18 @@ t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, 
 
 	tmp = NULL;
 	i = 0;
-		if(copy[1] == '?')
-			expand_exit_status(original, &(copy[1]));
-		else if(!copy[1] || copy[1] == ' ' || copy[1] == '|' )
-			cbc_str_join(original, '$');
-		else
+	if(copy[1] == '?')
+		expand_exit_status(original, &(copy[1]));
+	else if(!copy[1] || copy[1] == ' ' || copy[1] == '|' )
+		cbc_str_join(original, '$');
+	else
+	{
+		tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), g_struct->envp_head);
+		if(tmp && tmp->value)
 		{
-			tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), gstruct->envp_head);
-			if(tmp)
-			{
-				if(char_in_str(tmp->value, ' '))
-					*has_space = 1;
-				if(AMBG_VAL == AMBG)
-				{
-					splited = ft_split(tmp->value, ' ');
-					if(two_d_array_len(splited) > 1)
-					{
-						free(splited);
-						return (AMBIGUOUSERR);
-					}
-				}
-				i = -1;
-				if(trim)
-				{
-					trimed = trim_str(tmp->value);
-					if(ft_strlen(trimed))
-						*has_alpha = 1;
-					while (trimed[++i])
-						cbc_str_join(original, trimed[i]);
-				}
-				else
-				{
-					while (tmp->value[++i])
-						cbc_str_join(original, tmp->value[i]);
-				}
-			}
-			// else
-			// 	cbc_str_join(original, '$');
+			i = -1;
+			while (tmp->value[++i])
+				cbc_str_join(original, tmp->value[i]);
 		}
-	// }	
-// }
-	// else if(tokens_lst->token->type == AST_REDIRECTION)
-	// {
-	// 		if(tokens_lst->token->redirect_fname[0] == '$')
-	// 		{
-	// 			tmp = envp_find_node(&(tokens_lst->token->redirect_fname[1]));
-	// 			if(tmp)
-	// 			{
-	// 				free(tokens_lst->token->redirect_fname);
-	// 				tokens_lst->token->redirect_fname = tmp->value;
-	// 			}
-	// 		}
-	// }
-	return (NOERR);
+	}
 }

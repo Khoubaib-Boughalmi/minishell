@@ -27,9 +27,14 @@ char	*path_finder(char *cmd, t_envp_node *envp)
 	char	*tmp2;
 	int		i;
 
+	if (ft_strnstr(cmd, "/", ft_strlen(cmd)))
+		return (cmd);
 	path = get_paths(envp);
 	if (!path)
-		return (0);
+	{
+		ft_printf("minishell: No such file or directory\n");
+		exit(127);
+	}
 	i = -1;
 	while (path[++i])
 	{
@@ -52,10 +57,10 @@ void red_in_last(t_redirection        **list_reds, int *fd)
     int t = -1;
     while(list_reds[i])
     {
-				if (list_reds[i]->type == OUTPUT)
-					t = fd[i];
-				if (list_reds[i]->type == APPEND)
-					t = fd[i];
+		if (list_reds[i]->type == OUTPUT)
+			t = fd[i];
+		if (list_reds[i]->type == APPEND)
+			t = fd[i];
         i++;
     }
     if (t != -1)
@@ -93,21 +98,32 @@ int redirect_in_out(t_redirection **list_reds)
 	int *fd;
 
 	fd = malloc(splcount(list_reds) * sizeof(int));
+	while (list_reds[i])
+	{
+		if (list_reds[i]->type == HEREDOC)
+		{
+			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
+			if (fd[i] < 0)
+				return 1;
+		}
+		i++;
+	}
+	i = 0;
 	while(list_reds[i])
 	{
 		if(list_reds[i]->type != HEREDOC)
 		{
-
+			
 			if (list_reds[i]->redirect_error == AMBIGUOUSERR)
 			{
 				ft_printf("minishell : ambiguous redirect\n");
-				gstruct->exit_status = 1;
+				g_struct->exit_status = 1;
 				return (1);
 			}
 			else if (list_reds[i]->redirect_error == FILEERR)
 			{
 				ft_printf("minishell : No such file or directory\n");
-				gstruct->exit_status = 1;	
+				g_struct->exit_status = 1;	
 				return (1);
 			}
 			else
@@ -132,14 +148,9 @@ int redirect_in_out(t_redirection **list_reds)
 				}
 			}
 		}
-		else
-		{
-			fd[i] = redirect_out_file_heredoc(list_reds[i]->value);
-			if (fd[i] < 0)
-				return 1;
-		}
 		i++;
 	}
+	
 	red_in_last(list_reds, fd);
 	red_out_last(list_reds, fd);
 	return 0;
@@ -147,11 +158,11 @@ int redirect_in_out(t_redirection **list_reds)
 
 void	cmd_not_found(char **cmd)
 {
-	// write(2, cmd[0], ft_strlen(cmd[0]));
-	write(2, "minishell : command not found\n", 31);
-	// perror("minishell :");
+	dup2(g_struct->ppout, 1);
+	ft_putstr_fd("minishell : command not found\n", 1);
 	free_split(cmd);
-	exit (127);
+	g_struct->exit_status = 127;
+	exit (g_struct->exit_status);
 }
 
 void    ex_main(t_token_lst *token1, t_token_lst *token2)
@@ -161,7 +172,7 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 	t_redirection **list_reds;
 
     pipe(fd);		
-	gstruct->stout = dup2(fd[1], 1);
+	g_struct->stout = dup2(fd[1], 1);
 	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
@@ -170,20 +181,31 @@ void    ex_main(t_token_lst *token1, t_token_lst *token2)
 	a1 = fork();
 	if (a1 == 0)
 	{
+		if (redirect_in_out(list_reds))
+			exit(g_struct->exit_status);
 		if(is_builtin(str[0]))
 		{
 			handle_builtin(str);
-			exit(gstruct->exit_status);
+			exit(g_struct->exit_status);
 		}
-		if (redirect_in_out(list_reds))
-			exit(gstruct->exit_status);
-		if (str[0] && path_finder(str[0], gstruct->envp_head))
-			execve(path_finder(str[0], gstruct->envp_head), str, get_envp_arr());
+		if (str[0] && path_finder(str[0], g_struct->envp_head))
+		{
+			if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
+			{
+				ft_printf("minishell: No such file or directory\n");
+				exit(127);
+			}
+			if (access(path_finder(str[0], g_struct->envp_head), X_OK) < 0)
+			{
+				ft_printf("minishell: %s: Permission denied\n", str[0]);
+				exit(126);
+			}
+			execve(path_finder(str[0], g_struct->envp_head), str, get_envp_arr());
+		}
 		else
 			cmd_not_found(str);
 	}
-	waitpid(a1, &gstruct->exit_status, 0);
-	gstruct->stin = dup2(fd[0], 0);
+	g_struct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);
 }

@@ -9,30 +9,21 @@ void	expand(t_token_lst *tokens_lst)
 	int			j;
 
 	tmp = NULL;
-	//ft_env();
 	while (tokens_lst)
 	{
 		i = -1;
 		if(tokens_lst->token->type == AST_COMMAND)
 		{
-			// ====> previously used to handle ambigious redirection
-			// while (tokens_lst->token->args[++i] && ft_strlcmp(tokens_lst->token->args[0], "export"))
 			while (tokens_lst->token->args[++i])
-				expand_quotes(&(tokens_lst->token->args[i]), tokens_lst->token->type);
+			{
+				printf("i: %d\n", i);
+				expand_quotes(&(tokens_lst->token->args[i]), tokens_lst->token->type, &tokens_lst->token->to_trim, &(tokens_lst->token->args), &i);
+			}
 		}
 		else if(tokens_lst->token->type == AST_REDIRECTION)
 		{
-				// if(tokens_lst->token->redirect_fname[0] == '$')
-				// {
-				// 	tmp = envp_find_node(&(tokens_lst->token->redirect_fname[1]), 0);
-				// 	if(tmp)
-				// 	{
-				// 		free(tokens_lst->token->redirect_fname);
-				// 		tokens_lst->token->redirect_fname = tmp->value;
-				// 	}
-				// }
 				if(tokens_lst->token->redirect_fname && tokens_lst->token->red_type != HEREDOC)
-					expand_quotes_red(&(tokens_lst->token->redirect_fname), tokens_lst->token->type, &(tokens_lst->token->redirect_error));
+					expand_redirection_fname(tokens_lst->token);
 		}
 		tokens_lst = tokens_lst->next;
 	}

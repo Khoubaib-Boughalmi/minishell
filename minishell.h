@@ -9,6 +9,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+#include <stdio.h>
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
@@ -42,6 +43,7 @@ typedef enum
 {
 	NOTRIM,
 	TRIM,
+	SPECIAL,
 } t_trim;
 
 typedef enum
@@ -49,6 +51,18 @@ typedef enum
 	NOAMBG,
 	AMBG,
 } t_ambg;
+
+typedef enum
+{
+	ENVP,
+	EXPORT,
+} t_envp;
+
+typedef struct s_space
+{
+	int	space_l;
+	int	space_r;
+} t_space;
 
 // node structure
 typedef struct s_token
@@ -61,6 +75,7 @@ typedef struct s_token
 	t_red_error	redirect_error;
 	t_red_type		red_type;
 	int				exit_status;
+	int				to_trim;
 
 } t_token;
 
@@ -83,36 +98,36 @@ typedef struct s_redirection
 	char						*value;
 	t_red_type				type;
 	t_red_error				redirect_error;
-} t_redirection;
+}	t_redirection;
 
 //shared data goes here
 typedef struct s_global_struct
 {
-	char					*src_input;		//pointer to the users source input
-	t_token_lst				*tokens_head;	//linked list of tokens
-	t_envp_node				*export_head;		//linked list of envp
-	t_envp_node				*envp_head;		//linked list of envp
+	char					*src_input;
+	t_token_lst				*tokens_head;
+	t_envp_node				*export_head;
+	t_envp_node				*envp_head;
 	int						exit_status;
 	int						sigint_listener;
 	char					**list_cmds;
 	t_redirection			**list_reds;
-	int stin;
-	int stout;
-	int ppin;
-	int ppout;
-} t_global_struct;
+	int						stin;
+	int						stout;
+	int						ppin;
+	int						ppout;
+}	t_global_struct;
 
-extern t_global_struct *gstruct;
+extern t_global_struct	*g_struct;
 
-int     	repl(void);                 // the starting point :  repl = read-eval-print loop
+int     	repl(void);            
 int			tokenize_expand_execute(char *input);    // the starting point
 t_token 	*tokenize_input(void);      // for creating the array of tokens from the user input
-int     	init_gstruct();  // for initializing the global strcut
+int     	init_g_struct();  // for initializing the global strcut
 int			init_envp(char **envp);
 int		envp_list_vars_len(t_envp_node *ptr);
 char	**get_envp_arr();
 void		free_split(char **list);
-t_envp_node	*envp_new_node(char *key, char *value);
+t_envp_node	*envp_new_node(char *key, char *value, t_envp envp_val);
 void		envp_lst_add_back(t_envp_node *node, t_envp_node **head);
 void		envp_delete_node(int pos, t_envp_node **head);
 t_envp_node	*envp_find_node(char *key, size_t len, t_envp_node *head);
@@ -120,7 +135,7 @@ int			duplicate_list_export();
 void		ft_env(void);
 void		ft_export_with_args(char **phrase);
 void		ft_export_no_args();
-void		ft_unest(char **list_keys);
+void		ft_unset(char **list_keys);
 void		ft_pwd(void);
 void		ft_echo(char **list_vars);
 void		ft_cd(char **list_vars);
@@ -129,7 +144,7 @@ void		sig_init(int sig, void (*sig_handler)(int));
 void		sigint_hander(int sig);
 void		sigquit_hander(int sig);
 void	sigint_hander_executor(int sig);
-char		*rl_replace_line(const char *text, int clear_undo);
+// char		*rl_replace_line(const char *text, int clear_undo);
 char		**ft_split_string(char const *s, char* list);
 int			is_part_of_list(char c, char *list);
 t_token_lst	*tokenize(char	*input);
@@ -138,10 +153,10 @@ int			ft_check_pipe(char *str);
 void		display_tokens(t_token_lst *token);
 // void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
-void		expand_quotes(char **original, t_token_type token_type);
+void		expand_quotes(char **original, t_token_type token_type, int	*to_trim, char ***args_lst, int *pos);
 void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
-void		expand_quotes_red(char **original, t_token_type token_type, t_red_error *error);
-t_red_error	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL, int *has_space, int *has_alpha);
+void		expand_quotes_red(char **original);
+void expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
 int			ft_strlcmp(const char *s1, const char *s2);
 int			check_str(char *str);
@@ -222,6 +237,16 @@ int two_d_array_len(char **arr);
 char	*trim_str(char *str);
 int	ft_cout_red(char *input, char c);
 int syntax_errors(char *input);
+
+
+void		expand_redirection_fname(t_token *token);
+int		expand_redirection_vars(char **original, char *copy);
+char	*epur_str(char *str);
+char	*join_multiple_args(char **args);
+char	*get_key(char *str);
+char	*get_value(char *str);
+int	count_split_str(char	**arr);
+void	expand_variables_special(char **original, char	*copy, t_token_type token_type, t_trim trim, char ***args_list, int *pos);
 # endif
 
 
