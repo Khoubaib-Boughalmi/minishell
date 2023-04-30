@@ -85,49 +85,25 @@ char	*join_multiple_args(char **args)
 	return (new_str);
 }
 
-// t_separated_token	*sep_token_new_node(char *value, t_red_type sep_token_type)
-// {
-// 	t_separated_token	*token;
-
-// 	token = (t_separated_token *)malloc(sizeof(t_separated_token));
-// 	if(!token)
-// 		return (0);
-// 	token->value = (char *)malloc(ft_strlen((char *)value) + 1);
-// 	token->type = sep_token_type;
-// 	if(!token->value)
-// 		return (0);
-// 	ft_strlcpy(token->value, value, ft_strlen((char *)value) + 1);
-// 	token->next = NULL;
-// 	return (token);
-// }
-
-// void	sep_token_add_back(t_separated_token *token, t_red_type sep_token_type)
-// {
-// 	t_separated_token	*command_lst;
-// 	t_separated_token	*redirection_lst;
-
-// 	command_lst = g_struct->seperated_token_arr[0];
-// 	redirection_lst = g_struct->seperated_token_arr[1];
-// 	if(sep_token_type == COMMAND)
-// 	{
-// 		if(!g_struct->seperated_token_arr[0])
-// 			g_struct->seperated_token_arr[0] = token;
-// 		else
-// 		{
-// 			while (command_lst->next)
-// 				command_lst = command_lst->next;
-// 			command_lst->next = token;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if(!g_struct->seperated_token_arr[1])
-// 			g_struct->seperated_token_arr[1] = token;
-// 		else
-// 		{
-// 			while (redirection_lst->next)
-// 				redirection_lst = redirection_lst->next;
-// 			redirection_lst->next = token;
-// 		}
-// 	}
-// }
+int	check_ambiguous(int vars, char **original)
+{
+	char	*original_cpy;
+	int		i;
+	
+	if (vars && !(*original))
+		return (1);
+	original_cpy = ft_strdup(*original);
+	if (original_cpy)
+	{
+		expand_quotes_red(&original_cpy);
+		i = 0;
+		if (original_cpy)
+		{
+			while (original_cpy[i] && original_cpy[i] == ' ')
+				i++;
+			if (!original_cpy[i])
+				return (1);
+		}
+	}
+	return (0);
+}

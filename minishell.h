@@ -258,6 +258,7 @@ void	ft_norm_1_1(t_export export, char *value);
 void	ft_norm_2(char **list_vars, t_export export, char *key, char *value);
 void	ft_norm_2_2(t_export export, char *key, char *value);
 char	*initiate_origin_copy(char **original);
+int	check_ambiguous(int vars, char **original);
 # endif
 
 

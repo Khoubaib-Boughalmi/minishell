@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:36:28 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 18:41:04 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/04/30 20:06:29 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_envp_node	*envp_new_node(char *key, char *value, t_envp envp_val)
 	if (!value)
 	{
 		if (envp_val == ENVP)
-			node->value = ft_strdup('\0');
+			node->value = ft_strdup(0);
 		else
 			node->value = NULL;
 	}
