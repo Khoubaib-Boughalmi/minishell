@@ -45,7 +45,7 @@ char	**ft_split_qotes(char *s, char c)
 	int		j;
 	int		k;
 	char	n;
-	char	**resulta;
+	char	**result;
 
 	j = 0;
 	i = -1;
@@ -54,8 +54,8 @@ char	**ft_split_qotes(char *s, char c)
 		return (0);
 	while (*s == ' ')
 		s++;
-	resulta = (char **)malloc(sizeof(char *) * (how_mush_char(s, c) + 1));
-	if (!resulta)
+	result = (char **)malloc(sizeof(char *) * (how_mush_char(s, c) + 1));
+	if (!result)
 		return (0);
 	while (++i <= ft_strlen(s))
 	{
@@ -70,10 +70,10 @@ char	**ft_split_qotes(char *s, char c)
 		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0
 				&& j < how_mush_char(s, c) -1)
 		{
-			resulta[j++] = make_word(s, k, i);
+			result[j++] = make_word(s, k, i);
 			k = -1;
 		}
 	}
-	resulta[j] = 0;
-	return (resulta);
+	result[j] = 0;
+	return (result);
 }

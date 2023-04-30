@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:44:27 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/14 16:45:05 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/04/29 14:47:43 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,22 @@ int	init_envp(char **envp)
 {
 	t_envp_node	*node;
 	int			i;
+	char		*key;
+	char		*value;
 
 	i = 0;
 	if (!envp)
 		return (0);
 	while (envp[i])
 	{
-		node = envp_new_node(get_key(envp[i]), get_value(envp[i]), ENVP);
+		key = get_key(envp[i]);
+		value = get_value(envp[i]);
+		node = envp_new_node(key, value, ENVP);
 		if (!node)
 			return (0);
 		envp_lst_add_back(node, &(g_struct->envp_head));
+		free(key);
+		free(value);
 		i++;
 	}
 	if (!duplicate_list_export())
