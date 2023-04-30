@@ -15,6 +15,9 @@ SRCS_MAND= 		./src/main.c								\
 				./src/envp/export_node.c					\
 				./src/builtins/env.c						\
 				./src/builtins/export_with_args.c			\
+				./src/builtins/export_no_args.c				\
+				./src/builtins/export_norm_file.c			\
+				./src/builtins/export_get_key_val.c			\
 				./src/builtins/unset.c						\
 				./src/builtins/pwd.c						\
 				./src/builtins/echo.c						\

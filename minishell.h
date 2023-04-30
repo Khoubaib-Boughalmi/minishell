@@ -86,6 +86,14 @@ typedef struct s_envp_node
 	char				*value;
 } t_envp_node;
 
+typedef struct s_export
+{
+	t_envp_node	*export_node;
+	t_envp_node	*env_node;
+	t_envp_node	*prev_node_export;
+	t_envp_node	*prev_node_envp;
+} t_export;
+
 typedef struct s_token_lst
 {
 	t_token				*token;
@@ -244,6 +252,11 @@ char	*epur_str(char *str);
 char	*join_multiple_args(char **args);
 char	*get_key(char *str);
 char	*get_value(char *str);
+void	ft_export_no_args(void);
+void	ft_norm_1(char **list_vars, t_export export, char *key, char *value);
+void	ft_norm_1_1(t_export export, char *value);
+void	ft_norm_2(char **list_vars, t_export export, char *key, char *value);
+void	ft_norm_2_2(t_export export, char *key, char *value);
 # endif
 
 

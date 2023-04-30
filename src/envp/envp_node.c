@@ -1,47 +1,51 @@
-#include "../../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envp_node.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 18:36:28 by kboughal          #+#    #+#             */
+/*   Updated: 2023/04/30 18:41:04 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../minishell.h"
 
 t_envp_node	*envp_new_node(char *key, char *value, t_envp envp_val)
 {
 	t_envp_node	*node;
 
 	node = (t_envp_node *)malloc(sizeof(t_envp_node));
-	if(!node)
-		return (0);
 	node->key = (char *)malloc(ft_strlen((char *)key) + 1);
-	if(value && ft_strlen(value) > 0)
+	if (value && ft_strlen(value) > 0)
 		node->value = (char *)malloc(ft_strlen((char *)value) + 1);
-	else if(value && ft_strlen(value) == 0)
+	else if (value && ft_strlen(value) == 0)
 		node->value = (char *)malloc(sizeof(char));
-	if(!value)
+	if (!value)
 	{
-		if(envp_val == ENVP)
-		{
-			node->value =  (char *)malloc(sizeof(char));
-			node->value[0] = '\0';
-		}
+		if (envp_val == ENVP)
+			node->value = ft_strdup('\0');
 		else
-		{
-			node->value =  NULL;
-		}
+			node->value = NULL;
 	}
-	if(!node->key)
+	if (!node->key)
 		return (0);
 	ft_strlcpy(node->key, key, ft_strlen((char *)key) + 1);
 	if (value && ft_strlen(value) > 0)
 		ft_strlcpy(node->value, value, ft_strlen((char *)value) + 1);
-	else if(value && ft_strlen(value) == 0)
+	else if (value && ft_strlen(value) == 0)
 		node->value[0] = '\0';
 	node->next = NULL;
 	return (node);
 }
 
-void envp_lst_add_back(t_envp_node *node, t_envp_node **head)
+void	envp_lst_add_back(t_envp_node *node, t_envp_node **head)
 {
 	t_envp_node	*head_copy;
 
 	head_copy = *head;
-	if(*head == NULL)
+	if (*head == NULL)
 		*head = node;
 	else
 	{
@@ -51,7 +55,7 @@ void envp_lst_add_back(t_envp_node *node, t_envp_node **head)
 	}
 }
 
-void envp_delete_node(int pos, t_envp_node **head)
+void	envp_delete_node(int pos, t_envp_node **head)
 {
 	int			i;
 	t_envp_node	*current;
@@ -59,7 +63,7 @@ void envp_delete_node(int pos, t_envp_node **head)
 
 	i = -1;
 	current = *head;
-	if(pos == 0)
+	if (pos == 0)
 	{
 		*head = (*head)->next;
 		free(current);
@@ -77,17 +81,18 @@ void envp_delete_node(int pos, t_envp_node **head)
 		free(current);
 	}
 }
+
 //can be used for variable expansion
 t_envp_node	*envp_find_node(char *key, size_t len, t_envp_node *head)
 {
-	t_envp_node *ptr;
+	t_envp_node	*ptr;
 
 	ptr = head;
-	if(!len)
+	if (!len)
 		return ((void *)0);
 	while (ptr)
 	{
-		if(!ft_strncmp(ptr->key, key, get_variable_len(key)))
+		if (!ft_strncmp(ptr->key, key, get_variable_len(key)))
 			return (ptr);
 		ptr = ptr->next;
 	}

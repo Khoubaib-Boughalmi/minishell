@@ -1,1 +1,2 @@
 unset USER HOME
+env | sort
