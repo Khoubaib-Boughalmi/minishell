@@ -160,8 +160,8 @@ int			ft_check_pipe(char *str);
 void		display_tokens(t_token_lst *token);
 // void		expand_variables(t_token_lst *tokens_lst);
 void		expand(t_token_lst *tokens_lst);
-void		expand_quotes(char **original, t_token_type token_type, int	*to_trim);
-void		expand_variables(char **original, char *copy, t_token_type token_type, t_trim trim);
+void		expand_quotes(char **original);
+void		expand_variables(char **original, char *copy, t_trim trim);
 void		expand_quotes_red(char **original);
 void expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL);
 void		expand_variables_handler(char **original, char *copy, int *i, t_token_type token_type);
@@ -257,6 +257,7 @@ void	ft_norm_1(char **list_vars, t_export export, char *key, char *value);
 void	ft_norm_1_1(t_export export, char *value);
 void	ft_norm_2(char **list_vars, t_export export, char *key, char *value);
 void	ft_norm_2_2(t_export export, char *key, char *value);
+char	*initiate_origin_copy(char **original);
 # endif
 
 

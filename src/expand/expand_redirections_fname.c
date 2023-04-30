@@ -69,7 +69,6 @@ void    expand_redirection_fname(t_token *token)
     }
     else
     {
-        // ft_printf("asdszdsd;\n");
         i = 0;
         if(token->redirect_fname)
         {
@@ -110,4 +109,3 @@ void    expand_redirection_fname(t_token *token)
     if(copy)
         free(copy);
 }
-// echo hello > $USER"hello ''$USER'' world"$USER

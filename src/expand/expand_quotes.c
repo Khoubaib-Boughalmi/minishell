@@ -1,75 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_quotes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 19:26:18 by kboughal          #+#    #+#             */
+/*   Updated: 2023/04/30 19:56:45 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-void expand_quotes(char **original, t_token_type token_type, int *to_trim)
+void	expand_double_quotes(char **original, int *i, char *copy)
 {
-	int	i = 0;
-	int	j = 0;
+	*i += 1;
+	while (copy[*i] && copy[*i] != '\"')
+	{
+		if (copy[*i] == '$' && ft_isdigit(copy[*i + 1]))
+			*i += 2;
+		else if (copy[*i] == '$')
+		{
+			expand_variables(original, copy + *i, NOTRIM);
+			*i += 1;
+			while (copy[*i] && copy[*i] != ' ' && copy[*i] != '\"' \
+			&& copy[*i] != '\'' && copy[*i] != '$' && copy[*i] != '|' \
+			&& copy[*i] != '-')
+				*i += 1;
+		}
+		else if (copy[*i] != '$')
+		{
+			cbc_str_join(original, copy[*i]);
+			*i += 1;
+		}
+	}
+	if (copy[*i] == '\"')
+		*i += 1;
+}
+
+void	expand_no_quotes(char **original, int *i, char *copy)
+{
+	if (copy[*i] == '$' && (ft_isdigit(copy[*i + 1]) || copy[*i + 1] == '@'))
+		*i += 2;
+	else if (copy[*i] == '$')
+	{
+		if (*i)
+			expand_variables(original, copy + *i, NOTRIM);
+		else
+			expand_variables(original, copy + *i, TRIM);
+		*i += 1;
+		while (copy[*i] && copy[*i] != ' ' && copy[*i] != '\"' \
+		&& copy[*i] != '\'' && copy[*i] != '$' && copy[*i] != '-')
+			*i += 1;
+	}
+	else
+	{
+		cbc_str_join(original, copy[*i]);
+		*i += 1;
+	}
+}
+
+void	expand_quotes(char **original)
+{
+	int		i;
+	int		j;
 	char	*copy;
 
-	copy = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
-	ft_strlcpy(copy, *original, ft_strlen(*original) + 1);
-	copy[ft_strlen(*original)] = '\0';
-	memset(*original, 0, ft_strlen(*original));
-	free(*original);
-	*original = NULL;
-	while(copy[i])
+	i = 0;
+	j = 0;
+	copy = initiate_origin_copy(original);
+	while (copy[i])
 	{
-		if(copy[i] == '\"')
-		{
-			i++;
-			while (copy[i] && copy[i] != '\"')
-			{
-				if(copy[i] == '$' && ft_isdigit(copy[i+1]))
-					i += 2;
-				else if(copy[i] == '$')
-				{
-					*to_trim = 0;
-					expand_variables(original, copy + i, token_type, NOTRIM);
-					i++;
-					while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '|' && copy[i] != '-')
-						i++;
-				}
-				else if(copy[i] != '$')
-				{
-					cbc_str_join(original, copy[i]);
-					i++;
-				}
-			}
-			if(copy[i] == '\"')
-				i++;
-		}
-		else if(copy[i] == '\'')
+		if (copy[i] == '\"')
+			expand_double_quotes(original, &i, copy);
+		else if (copy[i] == '\'')
 		{
 			i++;
 			while (copy[i] && copy[i] != '\'')
-			{
-				cbc_str_join(original, copy[i]);
-				i++;
-			}
-			if(copy[i] == '\'')
+				cbc_str_join(original, copy[i++]);
+			if (copy[i] == '\'')
 				i++;
 		}
 		else
-		{
-			if(copy[i] == '$' && (ft_isdigit(copy[i+1]) || copy[i+1] == '@'))
-				i += 2;
-			else if(copy[i] == '$')
-			{
-				*to_trim = 1;
-				if(i)
-					expand_variables(original, copy + i, token_type, NOTRIM);
-				else
-					expand_variables(original, copy + i, token_type, TRIM);
-				i++;
-				while (copy[i] && copy[i] != ' ' && copy[i] != '\"' && copy[i] != '\'' && copy[i] != '$' && copy[i] != '-')
-					i++;				
-			}
-			else
-			{
-				cbc_str_join(original, copy[i]);
-				i++;	
-			}
-		}
+			expand_no_quotes(original, &i, copy);
 	}
 	free(copy);
 }

@@ -101,7 +101,7 @@ int redirect_out_file_heredoc(char *red)
 				if(str[i] == '$')
 				{
 					str[ft_strlen(str)-1] = '\0';
-					expand_variables(&new_str, str + i, AST_COMMAND, NOTRIM);
+					expand_variables(&new_str, str + i, NOTRIM);
 					if(new_str)
                     {
 						j = 0;

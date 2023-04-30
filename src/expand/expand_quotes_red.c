@@ -1,51 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_quotes_red.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 18:51:44 by kboughal          #+#    #+#             */
+/*   Updated: 2023/04/30 19:01:40 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-void expand_quotes_red(char **original)
+void	expand_quotes_red(char **original)
 {
-	int	i = 0;
-	int	j = 0;
+	int		i;
+	int		j;
 	char	*copy;
 
-	copy = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
-	ft_strlcpy(copy, *original, ft_strlen(*original) + 1);
-	copy[ft_strlen(*original)] = '\0';
-	memset(*original, 0, ft_strlen(*original));
-	free(*original);
-	*original = NULL;
-	while(copy[i])
+	i = 0;
+	j = 0;
+	copy = initiate_origin_copy(original);
+	while (copy[i])
 	{
-		if(copy[i] == '\"')
+		if (copy[i] == '\"')
 		{
 			i++;
 			while (copy[i] && copy[i] != '\"')
-			{
-					cbc_str_join(original, copy[i]);
-					i++;
-			}
-			if(copy[i] && copy[i] == '\"')
+				cbc_str_join(original, copy[i++]);
+			if (copy[i] && copy[i] == '\"')
 				i++;
 		}
-		else if(copy[i] == '\'')
+		else if (copy[i] == '\'')
 		{
 			i++;
 			while (copy[i] && copy[i] != '\'')
-			{
-				cbc_str_join(original, copy[i]);
-				i++;
-			}
-			if(copy[i] && copy[i] == '\'')
+				cbc_str_join(original, copy[i++]);
+			if (copy[i] && copy[i] == '\'')
 				i++;
 		}
 		else
-		{
-				cbc_str_join(original, copy[i]);
-				i++;	 
-		}
+			cbc_str_join(original, copy[i++]);
 	}
 	free(copy);
 }
-
-/*
-	1/ .. > $space_r"foo" = expand vars =>hello "foo boo" = split with space (only words outside of the quotes) => [hello, "foo boo"] ==> AMBIGUOUS
-	2/ .. > $1_word_space_l_r'foo' = expand vars =>     hello    'foo' ==> [hello, foo] ==> AMBIGUOUS
-*/
