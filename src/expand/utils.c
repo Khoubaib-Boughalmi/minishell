@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:57:24 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 18:58:56 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:38:00 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	get_variable_len(char *start)
 	size_t	i;
 
 	i = 0;
-	while (start[i] && start[i] != ' ' && start[i] != '\"' && start[i] != '\'' && start[i] != '$' && start[i] != '|'  && start[i] != '-')
+	while (start[i] && start[i] != ' ' && start[i] != '\"' && \
+	start[i] != '\'' && start[i] != '$' && start[i] != '|' && start[i] != '-')
 		i++;
 	return (i);
 }
@@ -25,7 +26,7 @@ int	get_variable_len(char *start)
 char	*initiate_origin_copy(char **original)
 {
 	char	*copy;
-	
+
 	copy = (char *)malloc(sizeof(char) * ft_strlen(*original) + 1);
 	ft_strlcpy(copy, *original, ft_strlen(*original) + 1);
 	copy[ft_strlen(*original)] = '\0';
