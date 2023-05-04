@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_var_redirect.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 19:31:42 by kboughal          #+#    #+#             */
+/*   Updated: 2023/05/04 19:33:55 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 char	*trim_str(char *str)
 {
-	int	i;
-	int	j;
-	int	k;
+	int		i;
+	int		j;
+	int		k;
 	char	*new_str;
 
-	if(!str)
-		return NULL;
+	if (!str)
+		return (NULL);
 	i = 0;
 	k = 0;
 	j = ft_strlen(str) - 1;
@@ -28,26 +40,23 @@ char	*trim_str(char *str)
 	return (new_str);
 }
 
-void	expand_variables_redirect(char **original, char	*copy, t_trim trim, t_ambg AMBG_VAL)
+void	expand_variables_redirect(char **original, char	*copy, \
+		t_trim trim, t_ambg AMBG_VAL)
 {
 	t_envp_node	*tmp;
-	char	*expanded_exit;
-	char	*trimed;
-	char	**splited;
-
 	int			i;
-	int			j;
 
 	tmp = NULL;
 	i = 0;
-	if(copy[1] == '?')
+	if (copy[1] == '?')
 		expand_exit_status(original, &(copy[1]));
-	else if(!copy[1] || copy[1] == ' ' || copy[1] == '|' )
+	else if (!copy[1] || copy[1] == ' ' || copy[1] == '|' )
 		cbc_str_join(original, '$');
 	else
 	{
-		tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), g_struct->envp_head);
-		if(tmp && tmp->value)
+		tmp = envp_find_node(&(copy[1]), get_variable_len(&(copy[1])), \
+		g_struct->envp_head);
+		if (tmp && tmp->value)
 		{
 			i = -1;
 			while (tmp->value[++i])
