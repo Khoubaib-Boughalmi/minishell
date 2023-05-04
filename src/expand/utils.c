@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:57:24 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/04 19:38:00 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/04 20:17:23 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,29 @@ char	*initiate_origin_copy(char **original)
 	free(*original);
 	*original = NULL;
 	return (copy);
+}
+
+void	set_ambiguous_state(t_token *token)
+{
+	token->redirect_error = AMBIGUOUSERR;
+	g_struct->exit_status = 1;
+}
+
+int	get_start(char *str)
+{
+	int	i;
+	int	start;
+
+	i = 0;
+	start = 0;
+	while (str[i])
+	{
+		if (str[i] && (str[i] != '\"' && str[i] != '\''))
+			return (start);
+		if (str[i + 1] && (str[i] == '\"' || str[i] == '\'') \
+		&& str[i + 1] == str[i])
+			start = i + 2;
+		i += 2;
+	}
+	return (start);
 }
