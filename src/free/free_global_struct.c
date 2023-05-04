@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_global_struct.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 21:19:03 by kboughal          #+#    #+#             */
+/*   Updated: 2023/05/04 21:20:56 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-void	free_token_lst()
+void	free_token_lst(void)
 {
 	int			i;
 	t_token_lst	*ptr;
@@ -8,14 +20,14 @@ void	free_token_lst()
 
 	i = -1;
 	current = g_struct->tokens_head;
-	if(!current)
-		return;
+	if (!current)
+		return ;
 	ptr = current->next;
-	while(ptr)
+	while (ptr)
 	{
-		if(current->token->type == AST_COMMAND)
+		if (current->token->type == AST_COMMAND)
 			free_split(current->token->args);
-		else if(ptr->token->type == AST_REDIRECTION)
+		else if (ptr->token->type == AST_REDIRECTION)
 		{
 			free(ptr->token->redirect_fname);
 			free(ptr->token->redirect_fd);
@@ -26,7 +38,7 @@ void	free_token_lst()
 	}
 }
 
-void	free_envp_lst()
+void	free_envp_lst(void)
 {
 	int			i;
 	t_envp_node	*ptr;
@@ -34,22 +46,21 @@ void	free_envp_lst()
 
 	i = -1;
 	current = g_struct->envp_head;
-	if(!current)
-		return;
+	if (!current)
+		return ;
 	ptr = current->next;
-	while(current)
+	while (current)
 	{
 		free(current->key);
 		free(current->value);
 		free(current);
 		current = ptr;
-		if(ptr)
+		if (ptr)
 			ptr = ptr->next;
 	}
 }
 
-
-void	free_export_lst()
+void	free_export_lst(void)
 {
 	int			i;
 	t_envp_node	*ptr;
@@ -57,30 +68,30 @@ void	free_export_lst()
 
 	i = -1;
 	current = g_struct->export_head;
-	if(!current)
-		return;
+	if (!current)
+		return ;
 	ptr = current->next;
-	while(current)
+	while (current)
 	{
 		free(current->key);
 		free(current->value);
 		free(current);
 		current = ptr;
-		if(ptr)
+		if (ptr)
 			ptr = ptr->next;
 	}
 }
 
-void	free_cmds_reds_array()
+void	free_cmds_reds_array(void)
 {
 	int	i;
 
 	i = -1;
-	if(g_struct->list_cmds)
+	if (g_struct->list_cmds)
 		free_split(g_struct->list_cmds);
 }
 
-void	free_global_struct()
+void	free_global_struct(void)
 {
 	free(g_struct->src_input);
 	free_token_lst();
@@ -89,5 +100,3 @@ void	free_global_struct()
 	free_export_lst();
 	free(g_struct);
 }
-
-//  total heap usage: 675 allocs, 401 frees, 228,710 bytes allocated
