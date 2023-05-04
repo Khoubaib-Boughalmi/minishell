@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 21:20:16 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/01 16:41:07 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:22:05 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_split_data(char *str)
 	return (tmp);
 }
 
-char	init_copy_rd(t_token *token)
+char	*init_copy_rd(t_token *token)
 {
 	char	*copy;
 	
@@ -71,7 +71,7 @@ void	expand_redirection_fname(t_token *token)
 	char	*rd_fname_copy;
 
 	i = 0;
-copy = (char *)malloc(sizeof(char) * ft_strlen(token->redirect_fname) + 1);
+	copy = (char *)malloc(sizeof(char) * ft_strlen(token->redirect_fname) + 1);
 	ft_strlcpy(copy, token->redirect_fname, \
 	ft_strlen(token->redirect_fname) + 1);
 	copy[ft_strlen(token->redirect_fname)] = '\0';
