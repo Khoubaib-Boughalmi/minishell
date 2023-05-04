@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 21:20:16 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 21:28:08 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:41:07 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ char	*ft_split_data(char *str)
 		if (str[i + 1] && (str[i] == '\"' || str[i] == '\'') \
 		&& str[i + 1] == str[i])
 			start = i + 2;
-		i++;
-		i++;
+		i += 2;
 	}
 	j = ft_strlen(str);
 	while (j > 0)
@@ -47,6 +46,20 @@ char	*ft_split_data(char *str)
 	return (tmp);
 }
 
+char	init_copy_rd(t_token *token)
+{
+	char	*copy;
+	
+	copy = (char *)malloc(sizeof(char) * ft_strlen(token->redirect_fname) + 1);
+	ft_strlcpy(copy, token->redirect_fname, \
+	ft_strlen(token->redirect_fname) + 1);
+	copy[ft_strlen(token->redirect_fname)] = '\0';
+	ft_memset(token->redirect_fname, 0, ft_strlen(token->redirect_fname));
+	free(token->redirect_fname);
+	token->redirect_fname = NULL;
+	return (copy);
+}
+
 void	expand_redirection_fname(t_token *token)
 {
 	int		i;
@@ -58,14 +71,14 @@ void	expand_redirection_fname(t_token *token)
 	char	*rd_fname_copy;
 
 	i = 0;
-	copy = (char *)malloc(sizeof(char) * ft_strlen(token->redirect_fname) + 1);
+copy = (char *)malloc(sizeof(char) * ft_strlen(token->redirect_fname) + 1);
 	ft_strlcpy(copy, token->redirect_fname, \
 	ft_strlen(token->redirect_fname) + 1);
 	copy[ft_strlen(token->redirect_fname)] = '\0';
 	ft_memset(token->redirect_fname, 0, ft_strlen(token->redirect_fname));
 	free(token->redirect_fname);
 	token->redirect_fname = NULL;
-	if (expand_redirection_vars(&(token->redirect_fname), copy))
+		if (expand_redirection_vars(&(token->redirect_fname), copy))
 	{
 		token->redirect_error = AMBIGUOUSERR;
 		g_struct->exit_status = 1;

@@ -1,2 +1,1 @@
 echo a > ""$space"b"
-rm b
