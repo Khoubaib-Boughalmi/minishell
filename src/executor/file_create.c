@@ -81,6 +81,7 @@ int redirect_out_file_heredoc(char *red)
     int		i;
     int		j;
 
+    signal(SIGINT, SIG_DFL);
 	j = 0;
     new_str = NULL;
     pipe(pip);
@@ -131,5 +132,6 @@ int redirect_out_file_heredoc(char *red)
         free(red_cpy);
     close(pip[1]);
     dup2(g_struct->stin, 0);
+    signal(SIGINT, &sigint_hander);
     return pip[0];
 }

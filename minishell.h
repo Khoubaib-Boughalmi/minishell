@@ -187,6 +187,7 @@ int 	ft_check_space_pipe(char **temp);
 char	**ft_args_split(char *str);
 char	**ft_der_insert(char	*input, char	**str, char *c);
 char	**ft_split_qotes(char *s, char c);
+int		rl_replace_line(const char *msg, int val);
 
 
 int			ft_check_dub_der2(char	*input, char n);

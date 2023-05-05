@@ -68,7 +68,7 @@ B_OBJ 		= ${SRCS_BONUS:.c=.o}
 	${CC} -c $< -o $@ ${CFLAGS}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
-		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L ~/Desktop/readline/8.2.1/lib -I ~/Desktop/readline/8.2.1/include -o ${NAME}
+		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L /Users/kboughal/.brew/opt/readline/lib -I /Users/kboughal/.brew/opt/readline/include -o ${NAME}
 # 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
 
 
