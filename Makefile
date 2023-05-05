@@ -27,6 +27,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/signals/sig_handler.c					\
 				./src/signals/sig_init.c					\
 				./src/utils/utils.c							\
+				./src/utils/utils2.c							\
 				./src/utils/split_string.c					\
 				./src/utils/cbc_str_join.c					\
 				./src/tokenize/display_tokens.c				\

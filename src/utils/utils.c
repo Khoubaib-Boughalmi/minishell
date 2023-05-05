@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:48:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/14 17:05:46 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/05 14:37:16 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,60 +71,4 @@ int	check_str(char *str)
 	if (!str || !str[0] || str[0] == '\n')
 		return (0);
 	return (1);
-}
-
-char	*create_envp_value(char *key)
-{
-	char		*full_path;
-	t_envp_node	*envp_ptr;
-
-	envp_ptr = g_struct->envp_head;
-	full_path = NULL;
-	while (envp_ptr)
-	{
-		if (!strncmp(key, envp_ptr->key, 4))
-		{
-			full_path = (char *)malloc(sizeof(char) * \
-			ft_strlen(envp_ptr->value) + 1);
-			ft_strlcpy(full_path, envp_ptr->value, \
-			ft_strlen(envp_ptr->value) + 1);
-			break ;
-		}
-		envp_ptr = envp_ptr->next;
-	}
-	return (full_path);
-}
-
-char	*epur_str(char *str)
-{
-	int		i;
-	int		j;
-	int		flag;
-	char	*new_str;
-
-	flag = (i = 0, j = 0, 0);
-	new_str = (char *)malloc(sizeof(char) * ft_strlen(str + 1));
-	if (!new_str)
-		return (str);
-	while (str[i] == ' ' || str[i] == '\t')
-		i += 1;
-	while (str[i])
-	{
-		if (str[i] == ' ' || str[i] == '\t')
-			flag = 1;
-		if (!(str[i] == ' ' || str[i] == '\t'))
-		{
-			if (flag)
-			{
-				new_str[j] = ' ';
-				j++;
-			}
-			flag = 0;
-			new_str[j] = str[i];
-			j++;
-		}
-		i += 1;
-	}
-	new_str[j] = '\0';
-	return (new_str);
 }
