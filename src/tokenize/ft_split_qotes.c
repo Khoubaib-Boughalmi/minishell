@@ -1,4 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_qotes.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 15:31:45 by rennatiq          #+#    #+#             */
+/*   Updated: 2023/05/05 13:23:05 by rennatiq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
+
+int	scep_qoutes(char *s, int i)
+{
+	char	n;
+
+	if (s[i] == '\'' || s[i] == '\"')
+	{
+		n = s[i++];
+		while (!s[i] || (s[i] != n && s[i] != n))
+			i++;
+	}
+	return (i);
+}
 
 static int	how_mush_char(char *s, char c)
 {
@@ -39,17 +64,34 @@ static char	*make_word(const char *s, int k, int i)
 	return (resulta);
 }
 
-char	**ft_split_qotes(char *s, char c)
+void	ft_split_norm(char *s, char **result, char c)
 {
 	int		i;
 	int		j;
 	int		k;
-	char	n;
-	char	**result;
 
 	j = 0;
 	i = -1;
 	k = -1;
+	while (++i <= ft_strlen(s))
+	{
+		if (s[i] != c && k < 0)
+			k = i;
+		i = scep_qoutes(s, i);
+		if ((s[i] == c || i == ft_strlen(s)) && k >= 0
+			&& j < how_mush_char(s, c) - 1)
+		{
+			result[j++] = make_word(s, k, i);
+			k = -1;
+		}
+	}
+	result[j] = 0;
+}
+
+char	**ft_split_qotes(char *s, char c)
+{
+	char	**result;
+
 	if (!s || how_mush_char(s, c) == 0)
 		return (0);
 	while (*s == ' ')
@@ -57,23 +99,6 @@ char	**ft_split_qotes(char *s, char c)
 	result = (char **)malloc(sizeof(char *) * (how_mush_char(s, c) + 1));
 	if (!result)
 		return (0);
-	while (++i <= ft_strlen(s))
-	{
-		if (s[i] != c && k < 0)
-			k = i;
-		if (s[i] == '\'' || s[i] == '\"')
-		{
-			n = s[i++];
-			while (!s[i] || (s[i] != n && s[i] != n))
-				i++;
-		}
-		else if ((s[i] == c || i == ft_strlen(s)) && k >= 0
-				&& j < how_mush_char(s, c) -1)
-		{
-			result[j++] = make_word(s, k, i);
-			k = -1;
-		}
-	}
-	result[j] = 0;
+	ft_split_norm(s, result, c);
 	return (result);
 }

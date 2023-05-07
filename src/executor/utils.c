@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/03 15:37:21 by rennatiq          #+#    #+#             */
+/*   Updated: 2023/05/03 20:11:53 by rennatiq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int	count_commands(t_token_lst *token_lst)
@@ -6,10 +18,10 @@ int	count_commands(t_token_lst *token_lst)
 	int	count;
 
 	count = 0;
-	while(token_lst && token_lst->token->type != AST_PIPE)
+	while (token_lst && token_lst->token->type != AST_PIPE)
 	{
 		i = 0;
-		if(token_lst->token->type == AST_COMMAND)
+		if (token_lst->token->type == AST_COMMAND)
 		{
 			while (token_lst->token->args[i])
 				i++;
@@ -25,34 +37,31 @@ int	count_redirections(t_token_lst *token_lst)
 	int	count;
 
 	count = 0;
-	while(token_lst && token_lst->token->type != AST_PIPE)
+	while (token_lst && token_lst->token->type != AST_PIPE)
 	{
-		if(token_lst->token->type == AST_REDIRECTION)
+		if (token_lst->token->type == AST_REDIRECTION)
 			count ++;
 		token_lst = token_lst->next;
 	}
 	return (count);
 }
 
-char	**get_envp_arr()
+char	**get_envp_arr(void)
 {
 	int			i;
 	int			j;
-	int			key_len;
-	int			value_len;
 	int			len;
 	t_envp_node	*ptr;
-	char			*str;
-	char			**envp_str;
+	char		**envp_str;
 
 	i = 0;
 	ptr = g_struct->envp_head;
 	len = envp_list_vars_len(ptr);
-	if(!len)
-		return NULL;
+	if (!len)
+		return (NULL);
 	envp_str = (char **)malloc(sizeof(char *) * len + 1);
-	if(!envp_str)
-		return NULL;
+	if (!envp_str)
+		return (NULL);
 	envp_str[len] = 0;
 	while (ptr)
 	{
@@ -66,7 +75,6 @@ char	**get_envp_arr()
 	return (envp_str);
 }
 
-
 char	*join_multiple_args(char **args)
 {
 	int		i;
@@ -74,7 +82,7 @@ char	*join_multiple_args(char **args)
 
 	i = 0;
 	new_str = (char *)malloc(sizeof(char));
-	if(!new_str)
+	if (!new_str)
 		return (NULL);
 	new_str[0] = '\0';
 	while (args[i])
@@ -89,7 +97,7 @@ int	check_ambiguous(int vars, char **original)
 {
 	char	*original_cpy;
 	int		i;
-	
+
 	if (vars && !(*original))
 		return (1);
 	original_cpy = ft_strdup(*original);

@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 21:23:05 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/07 21:26:26 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:31:00 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,6 @@ int	ft_check_der_right(char *str)
 		if (str[j] == '>')
 			return (1);
 		j++;
-	}
-	return (0);
-}
-
-int	ft_check_last_der2(char	*input)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] == '>' && input[i + 1] == '\0')
-		{
-			j = i + 1;
-			while (input[j] != '\0')
-			{
-				if (input[i] != ' ' && input[i] != '\t')
-					break ;
-				j++;
-			}
-			if (input[j] == '\0')
-				return (1);
-		}
-		i++;
 	}
 	return (0);
 }

@@ -30,7 +30,6 @@ SRCS_MAND= 		./src/main.c								\
 				./src/utils/utils2.c							\
 				./src/utils/split_string.c					\
 				./src/utils/cbc_str_join.c					\
-				./src/tokenize/display_tokens.c				\
 				./src/tokenize/tokenize_utils1.c			\
 				./src/tokenize/tokenize_utils2.c			\
 				./src/tokenize/tokenize.c					\
@@ -54,6 +53,12 @@ SRCS_MAND= 		./src/main.c								\
 				./src/expand/expand_redirection_vars.c		\
 				./src/executor/executor.c					\
 				./src/executor/utils.c						\
+				./src/executor/utile_execute.c				\
+				./src/executor/redirections.c				\
+				./src/executor/exute.c						\
+				./src/executor/reder_heredoc.c				\
+				./src/executor/list_cmd_red.c				\
+				./src/executor/utile_execute2.c				\
 				./src/free/free_global_struct.c				\
 				./src/free/free.c							\
 				./get_next_line/get_next_line.c				\
@@ -69,8 +74,6 @@ B_OBJ 		= ${SRCS_BONUS:.c=.o}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
 		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L /Users/kboughal/.brew/opt/readline/lib -I /Users/kboughal/.brew/opt/readline/include -o ${NAME}
-# 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
-
 
 ${PRINTF}:	
 		make all -C libft/ft_printf

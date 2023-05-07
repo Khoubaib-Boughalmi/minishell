@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khoubaib <khoubaib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:09:44 by khoubaib          #+#    #+#             */
-/*   Updated: 2022/10/07 21:10:08 by khoubaib         ###   ########.fr       */
+/*   Updated: 2023/05/07 10:24:53 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s)
 	int		i;
 	int		len;
 
-	if(!s)
+	if (!s)
 		return (NULL);
 	len = ft_strlen(s);
 	i = 0;

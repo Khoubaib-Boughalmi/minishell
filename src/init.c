@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:44:27 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/29 14:47:43 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/07 10:02:40 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,29 @@ int	init_envp(char **envp)
 	if (!duplicate_list_export())
 		return (0);
 	return (1);
+}
+
+int	is_builtin2(char *cmd)
+{
+	int		i;
+	char	**builtins;
+
+	i = 0;
+	builtins = ft_split("cd exit export unset", ' ');
+	if (!builtins)
+		return (0);
+	while (builtins[i])
+	{
+		if (cmd)
+		{
+			if (!ft_strlcmp(builtins[i], cmd))
+			{
+				free_split(builtins);
+				return (1);
+			}
+		}
+		i++;
+	}
+	free_split(builtins);
+	return (0);
 }

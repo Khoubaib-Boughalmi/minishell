@@ -1,0 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reder_heredoc.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 20:08:52 by rennatiq          #+#    #+#             */
+/*   Updated: 2023/05/07 15:22:24 by kboughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../minishell.h"
+
+void	redirect_heredoc(char *str, char *new_str, int *pip)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			str[ft_strlen(str) - 1] = '\0';
+			expand_variables(&new_str, str + i, NOTRIM);
+			if (new_str)
+			{
+				j = 0;
+				while (new_str[j])
+					ft_putchar_fd(new_str[j++], pip[1]);
+				i += get_variable_len(str + i + 1);
+			}
+			free(new_str);
+			new_str = NULL;
+		}
+		else
+			ft_putchar_fd(str[i], pip[1]);
+		i++;
+	}
+	ft_putchar_fd('\n', pip[1]);
+}
+
+void	redirect_heredoc_norm(char *new_str, char *red, char *str, int *pip)
+{
+	if (char_in_str(str, '$') && !char_in_str(red, '\"')
+		&& !char_in_str(red, '\''))
+		redirect_heredoc(str, new_str, pip);
+	else
+		ft_putstr_fd(str, pip[1]);
+	free(str);
+	str = NULL;
+}
+
+int	redirect_out_file_heredoc(char *red)
+{
+	int		pip[2];
+	char	*str;
+	char	*new_str;
+	char	*red_cpy;
+
+	signal(SIGINT, SIG_DFL);
+	new_str = NULL;
+	pipe(pip);
+	dup2(g_struct->ppin, 0);
+	red = ft_strjoin(red, "\n");
+	red_cpy = ft_strdup(red);
+	expand_quotes_red(&red_cpy);
+	str = get_next_line(0);
+	while (str)
+	{
+		if (!ft_strlcmp(red_cpy, str))
+			break ;
+		redirect_heredoc_norm(new_str, red, str, pip);
+		str = get_next_line(0);
+	}
+	if (red_cpy)
+		free(red_cpy);
+	close(pip[1]);
+	dup2(g_struct->stin, 0);
+	return (pip[0]);
+}

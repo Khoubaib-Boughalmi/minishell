@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: khoubaib <khoubaib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 20:34:53 by khoubaib          #+#    #+#             */
-/*   Updated: 2022/10/07 20:40:09 by khoubaib         ###   ########.fr       */
+/*   Updated: 2023/05/07 10:25:03 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_return_index(const char *ptr, unsigned long *i)
 long long	ft_atoi(const char *ptr)
 {
 	unsigned long	i;
-	long long	res;
+	long long		res;
 	short			sign;
 
 	res = 0;

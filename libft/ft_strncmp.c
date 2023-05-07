@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma >      +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 21:14:37 by khoubaib          #+#    #+#             */
-/*   Updated: 2023/03/15 18:11:32 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/07 10:24:45 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	while (s1[i] == s2[i] && s1[i] != '\0')
 	{
 		if (n-- == 0)
-			break;
+			break ;
 		i++;
 	}
-	if(!s1[i] && !n)
+	if (!s1[i] && !n)
 		return (0);
 	else
 		return (1);
