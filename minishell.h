@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/07 15:22:53 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:46:20 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@
 # include <unistd.h>
 # include "libft/libft.h"
 # include "get_next_line/get_next_line.h"
-# include	"./libft/ft_printf/ft_printf.h"
+# include "./libft/ft_printf/ft_printf.h"
 
-// AST node types
-typedef enum s_token_type
+typedef enum
 {
 	AST_COMMAND,
 	AST_PIPE,
 	AST_REDIRECTION,
 }	t_token_type;
 
-typedef enum s_red_type
+typedef enum
 {
 	INPUT,
 	APPEND,
@@ -44,26 +43,26 @@ typedef enum s_red_type
 	COMMAND,
 }	t_red_type;
 
-typedef enum s_red_error
+typedef enum
 {
 	NOERR,
 	FILEERR,
 	AMBIGUOUSERR,
 }	t_red_error;
 
-typedef enum s_trim
+typedef enum
 {
 	NOTRIM,
 	TRIM,
 }	t_trim;
 
-typedef enum s_ambg
+typedef enum
 {
 	NOAMBG,
 	AMBG,
 }	t_ambg;
 
-typedef enum s_envp
+typedef enum
 {
 	ENVP,
 	EXPORT,
@@ -209,7 +208,7 @@ int				ft_check_space_pipe(char **temp);
 char			**ft_args_split(char *str);
 char			**ft_der_insert(char	*input, char	**str, char *c);
 char			**ft_split_qotes(char *s, char c);
-int				rl_replace_line(const char *msg, int val);
+// int				rl_replace_line(const char *msg, int val);
 
 int				ft_check_dub_der2(char	*input, char n);
 int				ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst);
@@ -241,9 +240,9 @@ int				count_redirections(t_token_lst *token_lst);
 t_token_lst		*ft_put_intoken(char **str);
 t_red_type		redtype(char *str);
 //free
-void			free_token_lst(void);
+void			free_token_lst(t_token_lst *token_lst);
 void			free_envp_nodes_lst(void);
-void			free_cmds_reds_array(void);
+void			free_cmds_reds_array(char **list_cmds, t_redirection **list_reds);
 void			free_global_struct(void);
 void			free_all(void);
 

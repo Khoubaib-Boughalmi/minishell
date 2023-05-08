@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reder_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:08:52 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/07 15:22:24 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:24:11 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	redirect_out_file_heredoc(char *red)
 	char	*str;
 	char	*new_str;
 	char	*red_cpy;
+	char	*str_join;
 
-	signal(SIGINT, SIG_DFL);
 	new_str = NULL;
 	pipe(pip);
 	dup2(g_struct->ppin, 0);

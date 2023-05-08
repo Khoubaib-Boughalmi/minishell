@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/07 14:28:53 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/08 21:31:02 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_global_struct	*g_struct;
+
 
 int	repl(void)
 {
@@ -21,22 +22,44 @@ int	repl(void)
 	input = NULL;
 	while (1)
 	{
-		input = readline("$ ");
+		input = get_next_line(0);
 		if (!input)
 		{
 			free_all();
 			exit(g_struct->exit_status);
 		}
+		if (input[strlen(input) - 1] == '\n')
+			input[strlen(input) - 1] = '\0';
 		if (input[0] == '\0')
 		{
 			free(input);
 			continue ;
 		}
-		add_history(input);
 		tokenize_expand_execute(input);
 		free(input);
 	}
 	return (g_struct->exit_status);
+	// char	*input;
+
+	// input = NULL;
+	// while (1)
+	// {
+	// 	input = readline("$ ");
+	// 	if (!input)
+	// 	{
+	// 		free_all();
+	// 		exit(g_struct->exit_status);
+	// 	}
+	// 	if (input[0] == '\0')
+	// 	{
+	// 		free(input);
+	// 		continue ;
+	// 	}
+	// 	add_history(input);
+	// 	tokenize_expand_execute(input);
+	// 	free(input);
+	// }
+	// return (g_struct->exit_status);
 }
 
 int	main(int ac, char *av[], char *envp[])

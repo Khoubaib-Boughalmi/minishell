@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:40:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/06 09:14:55 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:23:23 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ex_main_norm(t_redirection **list_reds, char **str)
 	}
 	else if (str && !list_reds[0])
 		cmd_not_found(str);
+	free_cmds_reds_array(str, list_reds);
 	exit (0);
 }
 

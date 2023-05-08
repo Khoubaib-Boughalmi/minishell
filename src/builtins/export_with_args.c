@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_with_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:26:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 17:41:51 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:48:29 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	check_export_key_val(char *key, char *value)
 	i = 1;
 	if ((!ft_isalpha(key[0]) && key[0] != '_') || !check_str(key))
 	{
-		printf("minishell: not a valid identifier\n");
+		ft_printf("minishell: not a valid identifier\n");
 		return (0);
 	}
 	while (key[i])
 	{
 		if (key[i] != '_' && !(ft_isalnum(key[i])))
 		{
-			printf("minishell: not a valid identifier\n");
+			ft_printf("minishell: not a valid identifier\n");
 			g_struct->exit_status = 1;
 			return (0);
 		}

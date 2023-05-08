@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_cmd_red.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:04:58 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/04 15:05:10 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/08 22:44:08 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ t_redirection	**create_lst_redirections(t_token_lst *token_lst)
 		{
 			lst_reds[++i] = (t_redirection *)malloc(sizeof(t_redirection));
 			if (!lst_reds[i])
+			{
+				free(lst_reds);
 				return (0);
+			}
 			lst_reds[i]->value = token_lst->token->redirect_fname;
 			lst_reds[i]->type = token_lst->token->red_type;
 			lst_reds[i]->redirect_error = token_lst->token->redirect_error;
