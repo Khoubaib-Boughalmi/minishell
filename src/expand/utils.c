@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:57:24 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/04 20:17:23 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:20:53 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int	get_start(char *str)
 
 	i = 0;
 	start = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] && (str[i] != '\"' && str[i] != '\''))
 			return (start);
 		if (str[i + 1] && (str[i] == '\"' || str[i] == '\'') \
 		&& str[i + 1] == str[i])
 			start = i + 2;
-		i += 2;
+		i += 1;
 	}
 	return (start);
 }

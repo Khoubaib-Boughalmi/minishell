@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:06:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/06 09:13:30 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:34:39 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ void	execve_norm(char **str)
 	}
 	execve(path_finder(str[0], g_struct->envp_head),
 		str, get_envp_arr());
-}
-
-void	exit_status_norm(void)
-{
-	if (WIFEXITED(g_struct->exit_status))
-		g_struct->exit_status = WEXITSTATUS(g_struct->exit_status);
-	else if (WIFSIGNALED(g_struct->exit_status))
-		g_struct->exit_status = WTERMSIG(g_struct->exit_status) + 127;
 }
 
 void	last_cmd_norm(t_redirection **list_reds, char **str)
@@ -57,7 +49,7 @@ void	last_cmd_norm(t_redirection **list_reds, char **str)
 		exit (0);
 	}
 	waitpid(a1, &g_struct->exit_status, 0);
-	exit_status_norm();
+	g_struct->exit_status = (g_struct->exit_status >> 8) & 255;
 	close(g_struct->stin);
 	close(g_struct->stout);
 	while (wait(NULL) > 0)

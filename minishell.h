@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 21:46:20 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:27:48 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ void			ft_norm_1(char **list_vars, t_export export, char *key,
 void			ft_norm_1_1(t_export export, char *value);
 void			ft_norm_2(char **list_vars, t_export export, char *key,
 					char *value);
-void			ft_norm_2_2(t_export export, char *key, char *value);
+void			ft_norm_2_2(t_export export, char *key);
 char			*initiate_origin_copy(char **original);
 int				check_ambiguous(int vars, char **original);
 void			set_ambiguous_state(t_token *token);

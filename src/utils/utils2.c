@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:35:43 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/05 14:54:08 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:10:15 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*epur_str(char *str)
 
 	i = 0;
 	j = 0;
-	new_str = (char *)malloc(sizeof(char) * ft_strlen(str + 1));
+	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!new_str)
 		return (str);
 	while (str[i] == ' ' || str[i] == '\t')

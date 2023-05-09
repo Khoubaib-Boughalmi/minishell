@@ -6,13 +6,13 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:26:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/08 12:48:29 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:09:49 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	check_export_key_val(char *key, char *value)
+int	check_export_key_val(char *key)
 {
 	int	i;
 
@@ -35,9 +35,9 @@ int	check_export_key_val(char *key, char *value)
 	return (1);
 }
 
-void	ft_export_no_val(char **list_vars, t_export export, int i, char *value)
+void	ft_export_no_val(char **list_vars, t_export export, int i)
 {
-	if (!check_export_key_val(list_vars[i], value))
+	if (!check_export_key_val(list_vars[i]))
 			g_struct->exit_status = 1;
 	else
 	{
@@ -54,7 +54,7 @@ void	ft_export_no_val(char **list_vars, t_export export, int i, char *value)
 //export key and value
 void	ft_export_k_v(char **list_vars, t_export export, char *key, char *value)
 {
-	if (check_export_key_val(key, value))
+	if (check_export_key_val(key))
 		ft_norm_1(list_vars, export, key, value);
 	else
 		g_struct->exit_status = 1;
@@ -65,6 +65,8 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 	char	*key;
 	char	*value;
 
+	value = NULL;
+	key = NULL;
 	if (char_in_str(list_vars[i], '='))
 	{
 		key = get_key(list_vars[i]);
@@ -78,12 +80,12 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 			ft_export_k_v(list_vars, export, key, value);
 		else
 		{
-			if (check_export_key_val(key, value))
+			if (check_export_key_val(key))
 				ft_norm_2(list_vars, export, key, value);
 		}
 	}
 	else
-		ft_export_no_val(list_vars, export, i, value);
+		ft_export_no_val(list_vars, export, i);
 }
 
 void	ft_export_with_args(char **list_vars)
@@ -93,6 +95,8 @@ void	ft_export_with_args(char **list_vars)
 	char		*value;
 	t_export	export;
 
+	value = NULL;
+	key = NULL;
 	export.prev_node_export = NULL;
 	if (list_vars_len(list_vars) == 1)
 	{

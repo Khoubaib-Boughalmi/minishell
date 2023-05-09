@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:09:51 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 14:35:29 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:15:10 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	redirect_in_out(t_redirection **list_reds)
 	}
 	red_in_last(list_reds, fd);
 	red_out_last(list_reds, fd);
+	free(fd);
 	return (0);
 }
 

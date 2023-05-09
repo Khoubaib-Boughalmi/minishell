@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 18:38:32 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 18:38:59 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:05:55 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	duplicate_list_export(void)
 {
-	int			i;
 	t_envp_node	*node;
 	t_envp_node	*envp_ptr;
 
