@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export_norm_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:36:01 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/09 12:10:20 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:27:17 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_norm_2_2(t_export export, char *key, char *value)
+void	ft_norm_2_2(t_export export, char *key)
 {
 	if (export.prev_node_export->value)
 		free(export.prev_node_export->value);
@@ -48,7 +48,7 @@ void	ft_norm_2(char **list_vars, t_export export, char *key, char *value)
 		envp_lst_add_back(export.env_node, &(g_struct->envp_head));
 	}
 	else
-		ft_norm_2_2(export, key, value);
+		ft_norm_2_2(export, key);
 }
 
 void	ft_norm_1_1(t_export export, char *value)

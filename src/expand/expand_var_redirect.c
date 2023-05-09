@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:31:42 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/04 19:33:55 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:11:48 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*trim_str(char *str)
 		i++;
 	while (j >= 0 && j >= i && str[j] == ' ')
 		j--;
-	new_str = (char *)malloc(sizeof(char) * (j - i + 1));
+	new_str = (char *)malloc(sizeof(char) * (j - i + 10));
 	k = 0;
 	while (str[i] && i <= j)
 	{

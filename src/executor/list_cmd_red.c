@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_cmd_red.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:04:58 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 10:44:40 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:12:52 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	**create_lst_commands(t_token_lst *token_lst)
 
 	j = -1;
 	lst_cmd = (char **)malloc(sizeof(char *)
-			* (count_commands(token_lst) + 1));
+			* (count_commands(token_lst) + 2));
 	if (!lst_cmd)
 		return (0);
 	while (token_lst && token_lst->token->type != AST_PIPE)

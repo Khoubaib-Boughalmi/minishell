@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 21:13:04 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/07 21:13:05 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:17:32 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ int	ft_count_der(char	**str, char n)
 			if (str[i][j] == n)
 			{
 				count++;
-				while (str[i][j] == n)
+				while (str[i][j] && str[i][j] == n)
 					j++;
 			}
-			j++;
+			else
+				j++;
 		}
 		i++;
 	}
-	return (2 * count);
+	return (count * 2);
 }

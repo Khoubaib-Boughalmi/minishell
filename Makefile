@@ -1,5 +1,5 @@
 NAME 				= minishell
-CFLAGS 			= #-fsanitize=address -g -Wall -Wextra -Werror -std=c99
+CFLAGS 			= # -fsanitize=address -g #-Wall -Wextra -Werror -std=c99
 CC 				= cc
 RM 				= rm -f
 LIBFT				= libft/libft.a
@@ -21,12 +21,12 @@ SRCS_MAND= 		./src/main.c								\
 				./src/builtins/pwd.c						\
 				./src/builtins/echo.c						\
 				./src/builtins/cd.c							\
-				./src/builtins/utils.c							\
-				./src/builtins/exit.c							\
+				./src/builtins/utils.c						\
+				./src/builtins/exit.c						\
 				./src/signals/sig_handler.c					\
 				./src/signals/sig_init.c					\
 				./src/utils/utils.c							\
-				./src/utils/utils2.c							\
+				./src/utils/utils2.c						\
 				./src/utils/split_string.c					\
 				./src/utils/cbc_str_join.c					\
 				./src/tokenize/tokenize_utils1.c			\
@@ -46,7 +46,7 @@ SRCS_MAND= 		./src/main.c								\
 				./src/expand/expand_var.c					\
 				./src/expand/expand_var_redirect.c			\
 				./src/expand/expand_quotes.c				\
-				./src/expand/expand_quotes_red.c				\
+				./src/expand/expand_quotes_red.c			\
 				./src/expand/expand_redirections_fname.c	\
 				./src/expand/expand_exit.c					\
 				./src/expand/expand_redirection_vars.c		\
