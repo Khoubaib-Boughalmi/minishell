@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:40:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 22:23:23 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:48:46 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ex_main(t_token_lst *token1, t_token_lst *token2)
 		close(fd[0]);
 		ex_main_norm(list_reds, str);
 	}
+	free_cmds_reds_array(str, list_reds);
 	g_struct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);

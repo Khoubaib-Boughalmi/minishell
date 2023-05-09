@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:28:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 22:44:20 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 10:45:04 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,9 @@ void	execut_token(t_token_lst	*tokens_lst)
 	else
 	{
 		execut_token_norm(str, list_reds);
-		if (WIFEXITED(g_struct->exit_status))
-			g_struct->exit_status = WEXITSTATUS(g_struct->exit_status);
-		else if (WIFSIGNALED(g_struct->exit_status))
-			g_struct->exit_status = WTERMSIG(g_struct->exit_status) + 127;
+		g_struct->exit_status =(g_struct->exit_status >> 8) & 255;
 	}
-	if(str)
-		free_split(str);
+	free_cmds_reds_array(str, list_reds);
 }
 
 int	tokenize_expand_execute(char *input)

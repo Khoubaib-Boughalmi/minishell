@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:37:21 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/03 20:11:53 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 10:43:38 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**get_envp_arr(void)
 	len = envp_list_vars_len(ptr);
 	if (!len)
 		return (NULL);
-	envp_str = (char **)malloc(sizeof(char *) * len + 1);
+	envp_str = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!envp_str)
 		return (NULL);
 	envp_str[len] = 0;

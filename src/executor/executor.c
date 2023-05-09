@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:38:24 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 22:23:41 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:48:24 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	executor_norm(char **str, t_redirection **list_reds, t_token_lst *tmp1)
 	list_reds = create_lst_redirections(tmp1);
 	signal(SIGINT, &sigint_hander_executor);
 	last_cmd_norm(list_reds, str);
+	free_cmds_reds_array(str, list_reds);
 	dup2(g_struct->ppout, 1);
 	dup2(g_struct->ppin, 0);
 }
