@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:07:27 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 20:30:22 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:34:20 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	expand_no_quotes_red(char **original, char *copy, int *i, int *vars)
 	else if (copy[*i] == '$')
 	{
 		*vars = 1;
-		expand_variables_redirect(original, copy + *i, TRIM, NOAMBG);
+		expand_variables_redirect(original, copy + *i);
 		*i += 1;
 		skip_chars(copy, i);
 	}
@@ -61,7 +61,7 @@ void	expand_dquotes(char **original, char *copy, int *i, int *vars)
 		else if (copy[*i] == '$')
 		{
 			*vars = 1;
-			expand_variables_redirect(original, copy + *i, TRIM, NOAMBG);
+			expand_variables_redirect(original, copy + *i);
 			*i += 1;
 			skip_chars(copy, i);
 		}

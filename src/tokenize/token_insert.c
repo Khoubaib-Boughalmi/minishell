@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_insert.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:03:21 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 10:22:29 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:31:07 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	rediractions_insert2(t_token_lst *node2, t_token_lst *node, char **tmp)
 
 void	rediractions_insert(t_token_lst	*node, char *str1, char *str2, int *i)
 {
-	int			k;
 	char		**tmp;
 	t_token_lst	*node2;
 
+	node2 = NULL;
 	node->token->red_type = redtype(str1);
 	node->token->redirect_fd = ft_strdup(str1);
 	node->token->args = NULL;

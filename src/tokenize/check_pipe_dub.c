@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_pipe_dub.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:32:55 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/05 13:08:34 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:26:47 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int	ft_check_init3(char	*input, int i)
 int	ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst)
 {
 	int		i;
-	int		j;
-	char	n;
 
 	i = 0;
 	while (input[i])

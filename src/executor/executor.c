@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:38:24 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 08:48:24 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:36:19 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	executor(t_token_lst *token_lst)
 	t_token_lst		*tmp1;
 
 	i = -1;
+	str = NULL;
+	list_reds = NULL;
 	if (!token_lst)
 		return ;
 	tmp1 = token_lst;

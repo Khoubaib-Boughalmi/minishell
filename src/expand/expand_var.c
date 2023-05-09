@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:24:48 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/04 19:28:49 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:31:43 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	expand_variables_core(char **original, t_trim trim, t_envp_node *tmp)
 void	expand_variables(char **original, char	*copy, t_trim trim)
 {
 	t_envp_node	*tmp;
-	char		*expanded_exit;
 	int			i;
-	int			j;
 
 	tmp = NULL;
 	i = 0;

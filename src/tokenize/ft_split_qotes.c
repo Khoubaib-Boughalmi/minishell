@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_qotes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:31:45 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/05 13:23:05 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:29:35 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	ft_split_norm(char *s, char **result, char c)
 	j = 0;
 	i = -1;
 	k = -1;
-	while (++i <= ft_strlen(s))
+	while (++i <= (int)ft_strlen(s))
 	{
 		if (s[i] != c && k < 0)
 			k = i;
 		i = scep_qoutes(s, i);
-		if ((s[i] == c || i == ft_strlen(s)) && k >= 0
+		if ((s[i] == c || i == (int)ft_strlen(s)) && k >= 0
 			&& j < how_mush_char(s, c) - 1)
 		{
 			result[j++] = make_word(s, k, i);

@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:31:42 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/09 18:11:48 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:34:11 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ char	*trim_str(char *str)
 	return (new_str);
 }
 
-void	expand_variables_redirect(char **original, char	*copy, \
-		t_trim trim, t_ambg AMBG_VAL)
+void	expand_variables_redirect(char **original, char	*copy)
 {
 	t_envp_node	*tmp;
 	int			i;

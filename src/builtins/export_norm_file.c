@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:36:01 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/09 18:27:17 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:29:37 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_norm_2_2(t_export export, char *key)
 	}
 }
 
-void	ft_norm_2(char **list_vars, t_export export, char *key, char *value)
+void	ft_norm_2(t_export export, char *key)
 {
 	export.prev_node_export = envp_find_node(key, \
 	ft_strlen(key), g_struct->export_head);
@@ -62,7 +62,7 @@ void	ft_norm_1_1(t_export export, char *value)
 	}
 }
 
-void	ft_norm_1(char **list_vars, t_export export, char *key, char *value)
+void	ft_norm_1(t_export export, char *key, char *value)
 {
 	export.prev_node_export = envp_find_node(key, ft_strlen(key), \
 	g_struct->export_head);

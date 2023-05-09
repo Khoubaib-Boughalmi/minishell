@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:18:09 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/04 19:18:45 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:31:33 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	expand(t_token_lst *tokens_lst)
 {
 	t_envp_node	*tmp;
-	char		*expanded_exit;
 	int			i;
-	int			j;
 
 	tmp = NULL;
 	while (tokens_lst)

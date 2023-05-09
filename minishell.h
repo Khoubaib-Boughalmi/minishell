@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 18:27:48 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:34:25 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,7 @@ void			expand(t_token_lst *tokens_lst);
 void			expand_quotes(char **original);
 void			expand_variables(char **original, char *copy, t_trim trim);
 void			expand_quotes_red(char **original);
-void			expand_variables_redirect(char **original, char	*copy,
-					t_trim trim, t_ambg AMBG_VAL);
+void			expand_variables_redirect(char **original, char	*copy);
 void			expand_variables_handler(char **original, char *copy,
 					int *i, t_token_type token_type);
 int				ft_strlcmp(const char *s1, const char *s2);
@@ -194,7 +193,7 @@ void			cbc_str_join(char **original, char c);
 void			create_original_str(char **original);
 
 char			*ft_strdup_file(char	*s);
-char			**ft_split_der(char	**str, char *input, char n);
+char			**ft_split_der(char	**str, char n);
 void			ft_lst_token_add_back(t_token_lst **lst,
 					t_token_lst *new_token);
 int				ft_count_str(char	**str);
@@ -271,11 +270,9 @@ char			*join_multiple_args(char **args);
 char			*get_key(char *str);
 char			*get_value(char *str);
 void			ft_export_no_args(void);
-void			ft_norm_1(char **list_vars, t_export export, char *key,
-					char *value);
+void			ft_norm_1(t_export export, char *key, char *value);
 void			ft_norm_1_1(t_export export, char *value);
-void			ft_norm_2(char **list_vars, t_export export, char *key,
-					char *value);
+void			ft_norm_2(t_export export, char *key);
 void			ft_norm_2_2(t_export export, char *key);
 char			*initiate_origin_copy(char **original);
 int				check_ambiguous(int vars, char **original);

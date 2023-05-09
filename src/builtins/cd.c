@@ -6,13 +6,13 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:48:35 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/29 14:54:35 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:11:23 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_cd_core(char **list_vars)
+int	ft_cd_core(void)
 {
 	t_envp_node	*home_node;
 
@@ -44,7 +44,7 @@ void	ft_cd(char **list_vars)
 	{
 		if (!list_vars[1] || !ft_strlcmp(list_vars[1], "~"))
 		{
-			if (!ft_cd_core(list_vars))
+			if (!ft_cd_core())
 				return ;
 		}
 		if (chdir(list_vars[1]))

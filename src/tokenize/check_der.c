@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_der.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:31:59 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/05 12:52:58 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:26:34 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	ft_check_mul_der_norm(char	*input, char c, int k, int i)
 int	ft_check_mul_der(char	*input, char c)
 {
 	int		i;
-	int		j;
-	char	n;
 	int		k;
 
 	i = 0;

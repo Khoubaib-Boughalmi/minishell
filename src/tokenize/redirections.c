@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 21:13:46 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/04/08 23:14:27 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:30:34 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	split_norm2(char **res, char *str, int *j)
 	}
 }
 
-char	**ft_split_der(char	**str, char *input, char n)
+char	**ft_split_der(char	**str, char n)
 {
 	int		i;
 	int		j;

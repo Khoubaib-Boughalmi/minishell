@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:01:29 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 12:57:19 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:30:41 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ t_token_lst	*tokenize(char	*input)
 	if (!temp || !temp[0])
 		return (0);
 	temp = ft_pipe_insert(input, temp);
-	temp = ft_split_der(temp, input, '>');
-	temp = ft_split_der(temp, input, '<');
+	temp = ft_split_der(temp, '>');
+	temp = ft_split_der(temp, '<');
 	token = ft_put_intoken(temp);
 	return (token);
 }

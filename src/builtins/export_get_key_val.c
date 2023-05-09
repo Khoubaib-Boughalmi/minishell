@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 17:41:39 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 18:35:18 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/09 21:09:49 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*get_key(char *str)
 
 	i = 0;
 	len = 0;
+	key = NULL;
 	while (str[len] && str[len] != '=')
 		len++;
 	if (len)
