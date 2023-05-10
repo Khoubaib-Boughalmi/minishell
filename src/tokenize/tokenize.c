@@ -59,8 +59,13 @@ t_token_lst	*tokenize(char	*input)
 
 	token = NULL;
 	temp = ft_split_qotes(input, '|');
-	if (!temp || !temp[0])
+	if (!temp)
 		return (0);
+	if (!temp[0])
+	{
+		free_split(temp);
+		return (0);
+	}
 	temp = ft_pipe_insert(input, temp);
 	temp = ft_split_der(temp, '>');
 	temp = ft_split_der(temp, '<');

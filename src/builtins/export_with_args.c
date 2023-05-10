@@ -74,6 +74,8 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 		if (!check_str(key))
 		{
 			g_struct->exit_status = 1;
+			free(key);
+			free(value);
 			return ;
 		}
 		if (value)
@@ -83,6 +85,8 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 			if (check_export_key_val(key))
 				ft_norm_2(export, key);
 		}
+		free(key);
+		free(value);
 	}
 	else
 		ft_export_no_val(list_vars, export, i);

@@ -18,8 +18,7 @@ void	expand_exit_status(char **original, char *copy)
 	int		i;
 
 	i = -1;
-	if (WIFEXITED(g_struct->exit_status))
-		g_struct->exit_status = WEXITSTATUS(g_struct->exit_status);
+	g_struct->exit_status = g_struct->exit_status >> 8 & 255;
 	if (ft_strlen(copy) >= 2)
 	{
 		expanded_exit = ft_strjoin(ft_itoa(g_struct->exit_status), &(copy[1]));
@@ -32,4 +31,5 @@ void	expand_exit_status(char **original, char *copy)
 		while (expanded_exit[++i])
 			cbc_str_join(original, expanded_exit[i]);
 	}
+	free(expanded_exit);
 }

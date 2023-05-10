@@ -18,11 +18,13 @@ void	expand_variables_core(char **original, t_trim trim, t_envp_node *tmp)
 	char	*trimed;
 
 	i = -1;
+	trimed = NULL;
 	if (trim)
 	{
 		trimed = epur_str(tmp->value);
 		while (trimed[++i])
 			cbc_str_join(original, trimed[i]);
+		free(trimed);
 	}
 	else
 	{

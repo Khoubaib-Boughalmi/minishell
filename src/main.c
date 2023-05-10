@@ -37,7 +37,7 @@ int	repl(void)
 		}
 		tokenize_expand_execute(input);
 		free(input);
-		system("leaks minishell");
+		// system("leaks minishell");
 	}
 	return (g_struct->exit_status);
 	// char	*input;

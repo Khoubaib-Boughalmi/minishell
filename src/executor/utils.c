@@ -112,6 +112,7 @@ int	check_ambiguous(int vars, char **original)
 			if (!original_cpy[i])
 				return (1);
 		}
+		free(original_cpy);
 	}
 	return (0);
 }
