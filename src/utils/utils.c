@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:48:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/05 14:37:16 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:36:58 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ void	free_split(char **list)
 
 	i = -1;
 	while (list[++i])
+		free(list[i]);
+	free(list);
+}
+
+void	free_args(t_token_lst *current, char **list)
+{
+	int	i;
+
+	i = -1;
+	while (++i < current->token->num_args)
 		free(list[i]);
 	free(list);
 }

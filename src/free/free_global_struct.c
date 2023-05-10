@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 21:19:03 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/10 15:07:37 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:26:41 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	free_token_lst(t_token_lst *token_lst)
 		{
 			if(current->token->args)
 			{
-				free_split(current->token->args);
+				free_args(current, current->token->args);
 			}
 		}
 		else if(current->token->type == AST_PIPE)

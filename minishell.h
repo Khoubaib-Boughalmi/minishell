@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 21:34:25 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:33:25 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,5 +284,5 @@ void			red_out_last(t_redirection **list_reds, int *fd);
 void			red_in_last(t_redirection **list_reds, int *fd);
 int				is_builtin2(char *cmd);
 int				splcount(t_redirection **list_reds);
-
+void	free_args(t_token_lst *token, char **list);
 #endif
