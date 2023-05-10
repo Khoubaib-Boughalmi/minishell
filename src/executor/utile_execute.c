@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utile_execute.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 20:01:59 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/08 14:35:18 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:09:34 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ void	red_in_last(t_redirection **list_reds, int *fd)
 	}
 	if (t != -1)
 		dup2(t, 1);
+	i = 0;
+	while (list_reds[i])
+	{
+		if (list_reds[i]->type == OUTPUT)
+			close(fd[i]);
+		if (list_reds[i]->type == APPEND)
+			close(fd[i]);
+		i++;
+	}
 }
 
 void	red_out_last(t_redirection **list_reds, int *fd)
@@ -48,6 +57,15 @@ void	red_out_last(t_redirection **list_reds, int *fd)
 	}
 	if (t != -1)
 		dup2(t, 0);
+	i = 0;
+	while (list_reds[i])
+	{
+		if (list_reds[i]->type == INPUT)
+			close(fd[i]);
+		if (list_reds[i]->type == HEREDOC)
+			close(fd[i]);
+		i++;
+	}
 }
 
 int	splcount(t_redirection **list_reds)

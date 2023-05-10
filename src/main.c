@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/10 17:45:53 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:12:00 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	repl(void)
 		}
 		tokenize_expand_execute(input);
 		free(input);
-		// system("leaks minishell");
+		system("leaks minishell");
 	}
 	return (g_struct->exit_status);
 	// char	*input;
