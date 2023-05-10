@@ -15,15 +15,19 @@
 void	expand_exit_status(char **original, char *copy)
 {
 	char	*expanded_exit;
+	char	*itoa_str;
 	int		i;
 
 	i = -1;
-	g_struct->exit_status = g_struct->exit_status >> 8 & 255;
+	if (WIFEXITED(g_struct->exit_status))
+		g_struct->exit_status = WEXITSTATUS(g_struct->exit_status);
 	if (ft_strlen(copy) >= 2)
 	{
-		expanded_exit = ft_strjoin(ft_itoa(g_struct->exit_status), &(copy[1]));
+		itoa_str = ft_itoa(g_struct->exit_status);
+		expanded_exit = ft_strjoin(itoa_str, &(copy[1]));
 		while (expanded_exit[++i] && i <= get_variable_len(&(copy[1])))
 			cbc_str_join(original, expanded_exit[i]);
+		free(itoa_str);
 	}
 	else
 	{

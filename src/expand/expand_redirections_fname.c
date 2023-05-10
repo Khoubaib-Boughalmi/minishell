@@ -49,6 +49,7 @@ void	check_ambiguous_fname(t_token *token, char **split_words)
 		if (!tmp || tmp[0] == '\0')
 			count++;
 		k++;
+		free(tmp);
 	}
 	if (count < k - 1)
 		set_ambiguous_state(token);

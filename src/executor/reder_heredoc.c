@@ -58,23 +58,27 @@ int	redirect_out_file_heredoc(char *red)
 	char	*str;
 	char	*new_str;
 	char	*red_cpy;
+	char	*new_red;
 
 	new_str = NULL;
 	pipe(pip);
 	dup2(g_struct->ppin, 0);
-	red = ft_strjoin(red, "\n");
-	red_cpy = ft_strdup(red);
+	new_red = ft_strjoin(red, "\n");
+	red_cpy = ft_strdup(new_red);
 	expand_quotes_red(&red_cpy);
 	str = get_next_line(0);
 	while (str)
 	{
 		if (!ft_strlcmp(red_cpy, str))
 			break ;
-		redirect_heredoc_norm(new_str, red, str, pip);
+		redirect_heredoc_norm(new_str, new_red, str, pip);
 		str = get_next_line(0);
 	}
 	if (red_cpy)
 		free(red_cpy);
+	if (new_red)
+		free(new_red);
+	free(str);
 	close(pip[1]);
 	dup2(g_struct->stin, 0);
 	return (pip[0]);
