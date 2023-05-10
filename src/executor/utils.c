@@ -110,7 +110,10 @@ int	check_ambiguous(int vars, char **original)
 			while (original_cpy[i] && original_cpy[i] == ' ')
 				i++;
 			if (!original_cpy[i])
+			{
+				free(original_cpy);
 				return (1);
+			}
 		}
 		free(original_cpy);
 	}

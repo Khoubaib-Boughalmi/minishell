@@ -82,9 +82,15 @@ int	redirect_in_out(t_redirection **list_reds)
 	while (list_reds[i])
 	{
 		if (ambiguous_check(list_reds, i))
+		{
+			free(fd);
 			return (1);
+		}
 		if (redirect_in_out_norm(list_reds, i, fd))
+		{
+			free(fd);
 			return (1);
+		}
 		i++;
 	}
 	red_in_last(list_reds, fd);
