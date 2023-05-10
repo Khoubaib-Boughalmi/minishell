@@ -61,22 +61,21 @@ void	free_token_lst(t_token_lst *token_lst)
 	ptr = current;
 	while(current)
 	{
-		// if(current->token->type == AST_COMMAND)
-		// {
-		// 	if(current->token->args)
-		// 	{
-		// 		printf("str : %s\n", current->token->args[0]);
-		// 		free_split(current->token->args);
-		// 	}
-		// }
-		// else if(current->token->type == AST_PIPE)
-		// 	free_split(current->token->args);
-		// else if(ptr->token->type == AST_REDIRECTION)
-		// {
-		// 	if(ptr->token->redirect_fname)
-		// 		free(ptr->token->redirect_fname);
-		// 	free(ptr->token->redirect_fd);
-		// }
+		if(current->token->type == AST_COMMAND)
+		{
+			if(current->token->args)
+			{
+				free_split(current->token->args);
+			}
+		}
+		else if(current->token->type == AST_PIPE)
+			free_split(current->token->args);
+		else if(ptr->token->type == AST_REDIRECTION)
+		{
+			if(ptr->token->redirect_fname)
+				free(ptr->token->redirect_fname);
+			free(ptr->token->redirect_fd);
+		}
 		ptr = current->next;
 		free(current->token);
 		free(current);

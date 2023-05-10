@@ -38,7 +38,7 @@ char	**create_lst_commands(t_token_lst *token_lst)
 			{
 				if (token_lst->token->args[i] == NULL)
 					continue;
-				lst_cmd[++j] = token_lst->token->args[i];
+				lst_cmd[++j] = ft_strdup(token_lst->token->args[i]);
 			}
 		}
 		token_lst = token_lst->next;
@@ -67,7 +67,7 @@ t_redirection	**create_lst_redirections(t_token_lst *token_lst)
 				free(lst_reds);
 				return (0);
 			}
-			lst_reds[i]->value = token_lst->token->redirect_fname;
+			lst_reds[i]->value = ft_strdup(token_lst->token->redirect_fname);
 			lst_reds[i]->type = token_lst->token->red_type;
 			lst_reds[i]->redirect_error = token_lst->token->redirect_error;
 		}

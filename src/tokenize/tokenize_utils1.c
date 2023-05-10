@@ -80,6 +80,6 @@ char	**ft_pipe_insert(char	*input, char	**str)
 		res[++j] = ft_strdup("|");
 	j++;
 	res[j] = 0;
-	ft_free_token(str);
+	free_split(str);
 	return (res);
 }

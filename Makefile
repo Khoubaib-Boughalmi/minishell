@@ -1,5 +1,5 @@
 NAME 				= minishell
-CFLAGS 			= -Wall -Wextra -Werror -std=c99 -fsanitize=address -g
+CFLAGS             = -fsanitize=address,leak -g
 CC 				= cc
 RM 				= rm -f
 LIBFT				= libft/libft.a

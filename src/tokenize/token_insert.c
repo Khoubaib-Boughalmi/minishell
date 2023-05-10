@@ -86,6 +86,7 @@ void	rediractions_insert(t_token_lst	*node, char *str1, char *str2, int *i)
 			node->token->redirect_fname = ft_strdup(tmp[0]);
 			rediractions_insert2(node2, node, tmp);
 		}
+		free_split(tmp);
 		(*i)++;
 	}
 }
@@ -113,6 +114,6 @@ t_token_lst	*ft_put_intoken(char **str)
 		ft_lst_token_add_back(&token, node);
 		i++;
 	}
-	ft_free_token(str);
+	free_split(str);
 	return (token);
 }

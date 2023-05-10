@@ -39,6 +39,7 @@ void	split_norm(char **res, char *str, int *j)
 		res[*j] = ft_strdup(temp[k++]);
 		(*j)++;
 	}
+	free_split(temp);
 }
 
 void	split_norm2(char **res, char *str, int *j)
@@ -54,6 +55,7 @@ void	split_norm2(char **res, char *str, int *j)
 		res[*j] = ft_strdup(temp[k++]);
 		(*j)++;
 	}
+	free_split(temp);
 }
 
 char	**ft_split_der(char	**str, char n)
@@ -77,6 +79,6 @@ char	**ft_split_der(char	**str, char n)
 		i++;
 	}
 	res[j] = 0;
-	ft_free_token(str);
+	free_split(str);
 	return (res);
 }

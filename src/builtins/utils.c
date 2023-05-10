@@ -33,6 +33,7 @@ int	is_builtin(char	*cmd)
 		}
 		i++;
 	}
+	free_split(builtins);
 	return (0);
 }
 

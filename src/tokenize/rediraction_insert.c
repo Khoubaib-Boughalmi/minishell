@@ -88,5 +88,6 @@ char	**ft_der_insert_2(char *input, char **str, char *c, char *a)
 		return (0);
 	ft_der_insert_norm3(&tmp_args, &i, &j, res);
 	ft_der_insert_norm2(&tmp_args, &i, &j, res);
+	free_split(str);
 	return (res);
 }
