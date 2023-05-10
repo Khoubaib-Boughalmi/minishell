@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:28:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 10:45:04 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:03:51 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	tokenize_expand_execute(char *input)
 	if (ft_check_mul_pipe(input, tokens_lst))
 	{
 		ft_putstr_fd("minishell: syntax error\n", 2);
+		free_token_lst(tokens_lst);
 		g_struct->exit_status = 2;
 		return (1);
 	}
