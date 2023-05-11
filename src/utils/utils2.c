@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:35:43 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/09 18:10:15 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:00:31 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,11 @@ char	*epur_str(char *str)
 		i += 1;
 	epur_str_core(str, new_str, &i, &j);
 	return (new_str);
+}
+
+int	check_str(char *str)
+{
+	if (!str || !str[0] || str[0] == '\n')
+		return (0);
+	return (1);
 }

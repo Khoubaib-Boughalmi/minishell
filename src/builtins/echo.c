@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:55:03 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/29 15:03:04 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:46:38 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	check_flags(char	*flag)
 	int	i;
 
 	i = 1;
-	if (flag[0] != '-')
+	if(ft_strlen(flag) < 2)
+		return (0);
+	if (flag[0] != '-' || flag[1] != 'n')
 		return (0);
 	while (flag[i] && flag[i] == 'n')
 		i++;
@@ -60,9 +62,11 @@ void	ft_echo(char	**list_vars)
 	int	flag;
 
 	flag = 0;
-	if (!check_str(list_vars[1]))
+	if (!list_vars[1])
 		ft_printf("\n");
 	else
+	{
 		ft_echo_core(list_vars, flag);
+	}
 	g_struct->exit_status = 0;
 }

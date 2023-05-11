@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_with_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:26:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/09 20:30:34 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:10:12 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,18 @@ void	ft_export_no_val(char **list_vars, t_export export, int i)
 //export key and value
 void	ft_export_k_v(t_export export, char *key, char *value)
 {
-	if (check_export_key_val(key))
-		ft_norm_1(export, key, value);
+	if (value)
+	{
+		if (check_export_key_val(key))
+			ft_norm_1(export, key, value);
+		else
+			g_struct->exit_status = 1;
+	}
 	else
-		g_struct->exit_status = 1;
+	{
+		if (check_export_key_val(key))
+			ft_norm_2(export, key);
+	}
 }
 
 void	ft_export_with_args_core(char **list_vars, t_export export, int i)
@@ -78,13 +86,7 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 			free(value);
 			return ;
 		}
-		if (value)
-			ft_export_k_v(export, key, value);
-		else
-		{
-			if (check_export_key_val(key))
-				ft_norm_2(export, key);
-		}
+		ft_export_k_v(export, key, value);
 		free(key);
 		free(value);
 	}

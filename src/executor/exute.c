@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exute.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:06:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 09:34:39 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:30:42 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	last_cmd_norm(t_redirection **list_reds, char **str)
 			handle_builtin(str);
 			exit(g_struct->exit_status);
 		}
-		if (str[0] && path_finder(str[0], g_struct->envp_head))
+		if (str[0][0] && path_finder(str[0], g_struct->envp_head))
 			execve_norm(str);
 		else if (str && !list_reds[0])
 			cmd_not_found(str);

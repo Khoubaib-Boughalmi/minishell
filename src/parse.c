@@ -6,25 +6,11 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:28:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/10 15:03:51 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:28:14 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	is_pipe(t_token_lst *tokens_lst)
-{
-	t_token_lst	*tmp;
-
-	tmp = tokens_lst;
-	while (tmp)
-	{
-		if (tmp->token->type == AST_PIPE)
-			return (1);
-		tmp = tmp->next;
-	}
-	return (0);
-}
 
 void	check_access_norm(char **str)
 {
@@ -55,14 +41,14 @@ void	execut_token_norm(char **str, t_redirection **list_reds)
 			handle_builtin(str);
 			exit(g_struct->exit_status);
 		}
-		else if (str[0] && path_finder(str[0], g_struct->envp_head))
+		if (str[0][0] && path_finder(str[0], g_struct->envp_head))
 		{
 			check_access_norm(str);
 			signal(SIGQUIT, SIG_DFL);
 			execve(path_finder(str[0], g_struct->envp_head),
 				str, get_envp_arr());
 		}
-		else if (str && !list_reds[0])
+		else if (str[0] && !list_reds[0])			
 			cmd_not_found(str);
 		exit (0);
 	}
@@ -81,9 +67,25 @@ void	execut_token(t_token_lst	*tokens_lst)
 	else
 	{
 		execut_token_norm(str, list_reds);
-		g_struct->exit_status =(g_struct->exit_status >> 8) & 255;
+		g_struct->exit_status = (g_struct->exit_status >> 8) & 255;
 	}
 	free_cmds_reds_array(str, list_reds);
+}
+
+int	tokenize_expand_execute_norm(char *input, t_token_lst *tokens_lst)
+{
+	if (ft_check_mul_pipe(input, tokens_lst))
+	{
+		ft_putstr_fd("minishell: syntax error\n", 2);
+		free_token_lst(tokens_lst);
+		g_struct->exit_status = 2;
+		return (1);
+	}
+	g_struct->tokens_head = tokens_lst;
+	expand(tokens_lst);
+	g_struct->ppin = dup(0);
+	g_struct->ppout = dup(1);
+	return (0);
 }
 
 int	tokenize_expand_execute(char *input)
@@ -98,17 +100,8 @@ int	tokenize_expand_execute(char *input)
 	tokens_lst = tokenize(input);
 	if (!tokens_lst)
 		return (1);
-	if (ft_check_mul_pipe(input, tokens_lst))
-	{
-		ft_putstr_fd("minishell: syntax error\n", 2);
-		free_token_lst(tokens_lst);
-		g_struct->exit_status = 2;
+	if (tokenize_expand_execute_norm(input, tokens_lst))
 		return (1);
-	}
-	g_struct->tokens_head = tokens_lst;
-	expand(tokens_lst);
-	g_struct->ppin = dup(0);
-	g_struct->ppout = dup(1);
 	if (is_pipe(tokens_lst))
 		executor(tokens_lst);
 	else

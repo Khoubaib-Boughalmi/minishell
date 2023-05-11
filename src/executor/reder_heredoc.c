@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reder_heredoc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:08:52 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 21:36:38 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:23:49 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ void	redirect_heredoc_norm(char *new_str, char *red, char *str, int *pip)
 	str = NULL;
 }
 
+void	redirect_out_file_heredoc_norm(char *str, char *new_red, char *red_cpy)
+{
+	if (red_cpy)
+		free(red_cpy);
+	if (new_red)
+		free(new_red);
+	free(str);
+}
+
 int	redirect_out_file_heredoc(char *red)
 {
 	int		pip[2];
@@ -74,11 +83,7 @@ int	redirect_out_file_heredoc(char *red)
 		redirect_heredoc_norm(new_str, new_red, str, pip);
 		str = get_next_line(0);
 	}
-	if (red_cpy)
-		free(red_cpy);
-	if (new_red)
-		free(new_red);
-	free(str);
+	redirect_out_file_heredoc_norm(str, new_red, red_cpy);
 	close(pip[1]);
 	dup2(g_struct->stin, 0);
 	return (pip[0]);

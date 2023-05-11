@@ -6,14 +6,13 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/10 18:16:34 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:06:45 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 t_global_struct	*g_struct;
-
 
 int	repl(void)
 {
@@ -25,7 +24,6 @@ int	repl(void)
 		input = get_next_line(0);
 		if (!input)
 		{
-			free_all();
 			exit(g_struct->exit_status);
 		}
 		if (input[strlen(input) - 1] == '\n')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:48:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/10 17:36:58 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:00:27 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,4 @@ int	ft_strlcmp(const char *s1, const char *s2)
 	while (s1[i] == s2[i] && s1[i] != '\0')
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
-int	check_str(char *str)
-{
-	if (!str || !str[0] || str[0] == '\n')
-		return (0);
-	return (1);
 }

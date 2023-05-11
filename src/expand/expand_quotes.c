@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:26:18 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/30 19:56:45 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:18:52 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,28 @@ void	expand_quotes(char **original)
 	i = 0;
 	j = 0;
 	copy = initiate_origin_copy(original);
-	while (copy[i])
+	if(!ft_strlcmp(copy, "\"\"") || !ft_strlcmp(copy, "\'\'"))
 	{
-		if (copy[i] == '\"')
-			expand_double_quotes(original, &i, copy);
-		else if (copy[i] == '\'')
+		// ft_printf("sdasdasd\n");
+		cbc_str_join(original, '\0');
+	}
+	else
+	{
+		while (copy[i])
 		{
-			i++;
-			while (copy[i] && copy[i] != '\'')
-				cbc_str_join(original, copy[i++]);
-			if (copy[i] == '\'')
+			if (copy[i] == '\"')
+				expand_double_quotes(original, &i, copy);
+			else if (copy[i] == '\'')
+			{
 				i++;
+				while (copy[i] && copy[i] != '\'')
+					cbc_str_join(original, copy[i++]);
+				if (copy[i] == '\'')
+					i++;
+			}
+			else
+				expand_no_quotes(original, &i, copy);
 		}
-		else
-			expand_no_quotes(original, &i, copy);
 	}
 	free(copy);
 }

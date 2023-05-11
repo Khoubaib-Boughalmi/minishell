@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:44:27 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/07 10:02:40 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:29:15 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,19 @@ int	is_builtin2(char *cmd)
 		i++;
 	}
 	free_split(builtins);
+	return (0);
+}
+
+int	is_pipe(t_token_lst *tokens_lst)
+{
+	t_token_lst	*tmp;
+
+	tmp = tokens_lst;
+	while (tmp)
+	{
+		if (tmp->token->type == AST_PIPE)
+			return (1);
+		tmp = tmp->next;
+	}
 	return (0);
 }

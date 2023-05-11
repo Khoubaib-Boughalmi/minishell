@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/10 17:33:25 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:29:33 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void			sig_init(int sig, void (*sig_handler)(int));
 void			sigint_hander(int sig);
 void			sigquit_hander(int sig);
 void			sigint_hander_executor(int sig);
-// char		*rl_replace_line(const char *text, int clear_undo);
+char			*rl_replace_line(const char *text, int clear_undo);
 char			**ft_split_string(char const *s, char *list);
 int				is_part_of_list(char c, char *list);
 t_token_lst		*tokenize(char	*input);
@@ -241,9 +241,8 @@ t_red_type		redtype(char *str);
 //free
 void			free_token_lst(t_token_lst *token_lst);
 void			free_envp_nodes_lst(void);
-void			free_cmds_reds_array(char **list_cmds, t_redirection **list_reds);
-void			free_global_struct(void);
-void			free_all(void);
+void			free_cmds_reds_array(char **list_cmds,
+					t_redirection **list_reds);
 
 void			ex_main(t_token_lst *token1, t_token_lst *token2);
 
@@ -284,5 +283,7 @@ void			red_out_last(t_redirection **list_reds, int *fd);
 void			red_in_last(t_redirection **list_reds, int *fd);
 int				is_builtin2(char *cmd);
 int				splcount(t_redirection **list_reds);
-void	free_args(t_token_lst *token, char **list);
+void			free_args(t_token_lst *token, char **list);
+int				is_pipe(t_token_lst *tokens_lst);
+
 #endif

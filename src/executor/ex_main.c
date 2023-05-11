@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ex_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:40:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 08:48:46 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:30:43 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ex_main_norm(t_redirection **list_reds, char **str)
+void	ex_main_norm2(t_redirection **list_reds, char **str)
 {
 	if (redirect_in_out(list_reds))
 		exit(g_struct->exit_status);
@@ -21,7 +21,12 @@ void	ex_main_norm(t_redirection **list_reds, char **str)
 		handle_builtin(str);
 		exit(g_struct->exit_status);
 	}
-	if (str[0] && path_finder(str[0], g_struct->envp_head))
+}
+
+void	ex_main_norm(t_redirection **list_reds, char **str)
+{
+	ex_main_norm2(list_reds, str);
+	if (str[0][0] && path_finder(str[0], g_struct->envp_head))
 	{
 		if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
 		{
