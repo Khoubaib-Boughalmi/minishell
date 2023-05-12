@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_with_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:26:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/10 19:10:12 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:36:19 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,17 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 		value = get_value(list_vars[i]);
 		if (!check_str(key))
 		{
+			printf("asdasdasddsasdasdasd\n");
 			g_struct->exit_status = 1;
 			free(key);
 			free(value);
 			return ;
 		}
 		ft_export_k_v(export, key, value);
-		free(key);
-		free(value);
+		if(key)
+			free(key);
+		if(value)
+			free(value);
 	}
 	else
 		ft_export_no_val(list_vars, export, i);
