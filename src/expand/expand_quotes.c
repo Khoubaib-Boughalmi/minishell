@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 19:26:18 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/11 18:18:52 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:07:47 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,8 @@ void	expand_quotes(char **original)
 	i = 0;
 	j = 0;
 	copy = initiate_origin_copy(original);
-	if(!ft_strlcmp(copy, "\"\"") || !ft_strlcmp(copy, "\'\'"))
-	{
-		// ft_printf("sdasdasd\n");
+	if (!ft_strlcmp(copy, "\"\"") || !ft_strlcmp(copy, "\'\'"))
 		cbc_str_join(original, '\0');
-	}
 	else
 	{
 		while (copy[i])

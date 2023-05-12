@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:55:03 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/11 18:46:38 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:32:52 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	check_flags(char	*flag)
 	int	i;
 
 	i = 1;
-	if(ft_strlen(flag) < 2)
+	if (ft_strlen(flag) < 2)
 		return (0);
 	if (flag[0] != '-' || flag[1] != 'n')
 		return (0);
