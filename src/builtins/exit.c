@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:03:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/29 15:06:40 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:58:38 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ void	ft_exit_core(char **list_vars)
 	int	i;
 
 	i = 0;
+	if (!list_vars[1][0])
+	{
+		ft_printf("minishell: exit: %s: numeric argument required\n", \
+		list_vars[1]);
+		exit(255);
+	}
 	if (list_vars[1][0] == '-')
 		i++;
 	while (list_vars[1][i])
 	{
 		if (!ft_isdigit(list_vars[1][i]))
 		{
-			printf("minishell: exit: %s: numeric argument required\n", \
+			ft_printf("minishell: exit: %s: numeric argument required\n", \
 			list_vars[1]);
 			exit(255);
 		}
@@ -39,7 +45,7 @@ void	ft_exit(char **list_vars)
 		ft_exit_core(list_vars);
 	if (list_vars_len(list_vars) > 2)
 	{
-		printf("minishell: exit: too many arguments\n");
+		ft_printf("minishell: exit: too many arguments\n");
 		exit(1);
 	}
 	else if (list_vars_len(list_vars) == 2)

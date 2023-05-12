@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/10 19:29:33 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:01:24 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 # include "get_next_line/get_next_line.h"
 # include "./libft/ft_printf/ft_printf.h"
 
-typedef enum
+typedef enum s_token_type
 {
 	AST_COMMAND,
 	AST_PIPE,
 	AST_REDIRECTION,
 }	t_token_type;
 
-typedef enum
+typedef enum s_red_type
 {
 	INPUT,
 	APPEND,
@@ -43,26 +43,26 @@ typedef enum
 	COMMAND,
 }	t_red_type;
 
-typedef enum
+typedef enum s_red_error
 {
 	NOERR,
 	FILEERR,
 	AMBIGUOUSERR,
 }	t_red_error;
 
-typedef enum
+typedef enum s_trim
 {
 	NOTRIM,
 	TRIM,
 }	t_trim;
 
-typedef enum
+typedef enum s_ambg
 {
 	NOAMBG,
 	AMBG,
 }	t_ambg;
 
-typedef enum
+typedef enum s_envp
 {
 	ENVP,
 	EXPORT,
@@ -175,15 +175,12 @@ int				is_part_of_list(char c, char *list);
 t_token_lst		*tokenize(char	*input);
 int				ft_check_der(char *str);
 int				ft_check_pipe(char *str);
-void			display_tokens(t_token_lst *token);
-// void		expand_variables(t_token_lst *tokens_lst);
+
 void			expand(t_token_lst *tokens_lst);
 void			expand_quotes(char **original);
 void			expand_variables(char **original, char *copy, t_trim trim);
 void			expand_quotes_red(char **original);
 void			expand_variables_redirect(char **original, char	*copy);
-void			expand_variables_handler(char **original, char *copy,
-					int *i, t_token_type token_type);
 int				ft_strlcmp(const char *s1, const char *s2);
 int				check_str(char *str);
 void			expand_exit_status(char **original, char *copy);
@@ -192,24 +189,17 @@ int				get_variable_len(char *start);
 void			cbc_str_join(char **original, char c);
 void			create_original_str(char **original);
 
-char			*ft_strdup_file(char	*s);
 char			**ft_split_der(char	**str, char n);
 void			ft_lst_token_add_back(t_token_lst **lst,
 					t_token_lst *new_token);
 int				ft_count_str(char	**str);
 char			**ft_pipe_insert(char *input, char	**str);
 int				ft_count_der(char	**str, char n);
-char			*ft_strdup_arg(char	*s);
-char			*ft_strdup_der(char	*s);
 
 char			*ft_strtrim(char const *s1, char const *set);
-int				ft_check_space_pipe(char **temp);
-char			**ft_args_split(char *str);
-char			**ft_der_insert(char	*input, char	**str, char *c);
 char			**ft_split_qotes(char *s, char c);
 // int				rl_replace_line(const char *msg, int val);
 
-int				ft_check_dub_der2(char	*input, char n);
 int				ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst);
 int				ft_check_der(char *str);
 int				ft_check_pipe(char *str);
@@ -220,16 +210,9 @@ char			**ft_der_insert_2(char	*input, char	**str,
 					char *c, char *a);
 void			ft_free_token(char **str);
 
-void			piping_main(t_token_lst *tokens_lst);
-void			ft_infile_error(char *infile);
-void			ft_outfile_error(char *outfile);
-void			ft_excute_error(char *cmd);
 char			*path_finder(char *cmd, t_envp_node *envp);
-void			ft_error(char *m);
 void			cmd_not_found(char **cmd);
-void			ft_error_msg(char *m);
 
-// executor stuff
 char			*create_envp_value(char *key);
 void			executor(t_token_lst *token_lst);
 char			**create_lst_commands(t_token_lst *token_lst);
@@ -240,7 +223,6 @@ t_token_lst		*ft_put_intoken(char **str);
 t_red_type		redtype(char *str);
 //free
 void			free_token_lst(t_token_lst *token_lst);
-void			free_envp_nodes_lst(void);
 void			free_cmds_reds_array(char **list_cmds,
 					t_redirection **list_reds);
 

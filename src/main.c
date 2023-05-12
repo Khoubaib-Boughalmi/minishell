@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:51:33 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/11 18:06:45 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:06:55 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,44 +21,21 @@ int	repl(void)
 	input = NULL;
 	while (1)
 	{
-		input = get_next_line(0);
+		input = readline("$ ");
 		if (!input)
 		{
 			exit(g_struct->exit_status);
 		}
-		if (input[strlen(input) - 1] == '\n')
-			input[strlen(input) - 1] = '\0';
 		if (input[0] == '\0')
 		{
 			free(input);
 			continue ;
 		}
+		add_history(input);
 		tokenize_expand_execute(input);
 		free(input);
-		// system("leaks minishell");
 	}
 	return (g_struct->exit_status);
-	// char	*input;
-
-	// input = NULL;
-	// while (1)
-	// {
-	// 	input = readline("$ ");
-	// 	if (!input)
-	// 	{
-	// 		free_all();
-	// 		exit(g_struct->exit_status);
-	// 	}
-	// 	if (input[0] == '\0')
-	// 	{
-	// 		free(input);
-	// 		continue ;
-	// 	}
-	// 	add_history(input);
-	// 	tokenize_expand_execute(input);
-	// 	free(input);
-	// }
-	// return (g_struct->exit_status);
 }
 
 int	main(int ac, char *av[], char *envp[])

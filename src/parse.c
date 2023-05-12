@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:28:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/11 18:28:14 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:02:30 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	execut_token_norm(char **str, t_redirection **list_reds)
 	a1 = fork();
 	if (a1 == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (redirect_in_out(list_reds))
 			exit(g_struct->exit_status);
 		if (is_builtin(str[0]))
@@ -44,11 +45,10 @@ void	execut_token_norm(char **str, t_redirection **list_reds)
 		if (str[0][0] && path_finder(str[0], g_struct->envp_head))
 		{
 			check_access_norm(str);
-			signal(SIGQUIT, SIG_DFL);
 			execve(path_finder(str[0], g_struct->envp_head),
 				str, get_envp_arr());
 		}
-		else if (str[0] && !list_reds[0])			
+		else if (str[0] && !list_reds[0])
 			cmd_not_found(str);
 		exit (0);
 	}
@@ -63,7 +63,13 @@ void	execut_token(t_token_lst	*tokens_lst)
 	str = create_lst_commands(tokens_lst);
 	list_reds = create_lst_redirections(tokens_lst);
 	if (is_builtin2(str[0]))
+	{
+		if (redirect_in_out(list_reds))
+			exit(g_struct->exit_status);
 		handle_builtin(str);
+		dup2(g_struct->ppout, 1);
+		dup2(g_struct->ppin, 0);
+	}
 	else
 	{
 		execut_token_norm(str, list_reds);
