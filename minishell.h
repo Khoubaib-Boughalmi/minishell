@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 15:01:24 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:28:36 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int				count_commands(t_token_lst *token_lst);
 int				count_redirections(t_token_lst *token_lst);
 t_token_lst		*ft_put_intoken(char **str);
 t_red_type		redtype(char *str);
-//free
+void			execut_token_norm(char **str, t_redirection **list_reds);
 void			free_token_lst(t_token_lst *token_lst);
 void			free_cmds_reds_array(char **list_cmds,
 					t_redirection **list_reds);

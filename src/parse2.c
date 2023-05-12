@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exute.c                                            :+:      :+:    :+:   */
+/*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 15:06:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 17:14:18 by kboughal         ###   ########.fr       */
+/*   Created: 2023/05/12 17:25:11 by kboughal          #+#    #+#             */
+/*   Updated: 2023/05/12 17:30:25 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-void	execve_norm(char **str)
+void	check_access_norm(char **str)
 {
 	if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
 	{
@@ -24,21 +24,22 @@ void	execve_norm(char **str)
 		ft_printf("minishell: %s: Permission denied\n", str[0]);
 		exit(126);
 	}
-	execve(path_finder(str[0], g_struct->envp_head),
-		str, get_envp_arr());
 }
 
-void	last_cmd_norm2(void)
+void	execut_token_norm2(char **str, t_redirection **list_reds)
 {
-	g_struct->exit_status = (g_struct->exit_status >> 8) & 255;
-	close(g_struct->stin);
-	close(g_struct->stout);
-	while (wait(NULL) > 0)
-		;
-	signal(SIGINT, &sigint_hander);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	if (redirect_in_out(list_reds))
+		exit(g_struct->exit_status);
+	if (is_builtin(str[0]))
+	{
+		handle_builtin(str);
+		exit(g_struct->exit_status);
+	}
 }
 
-void	last_cmd_norm(t_redirection **list_reds, char **str)
+void	execut_token_norm(char **str, t_redirection **list_reds)
 {
 	int	a1;
 
@@ -46,21 +47,17 @@ void	last_cmd_norm(t_redirection **list_reds, char **str)
 	a1 = fork();
 	if (a1 == 0)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		if (redirect_in_out(list_reds))
-			exit(g_struct->exit_status);
-		if (is_builtin(str[0]))
-		{
-			handle_builtin(str);
-			exit(g_struct->exit_status);
-		}
+		execut_token_norm2(str, list_reds);
 		if (str[0][0] && path_finder(str[0], g_struct->envp_head))
-			execve_norm(str);
-		else if (str && !list_reds[0])
+		{
+			check_access_norm(str);
+			execve(path_finder(str[0], g_struct->envp_head),
+				str, get_envp_arr());
+		}
+		else if (str[0] && !list_reds[0])
 			cmd_not_found(str);
 		exit (0);
 	}
 	waitpid(a1, &g_struct->exit_status, 0);
-	last_cmd_norm2();
+	signal(SIGINT, &sigint_hander);
 }

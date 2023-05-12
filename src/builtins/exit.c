@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:03:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/12 14:58:38 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:31:53 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_exit(char **list_vars)
 	if (list_vars_len(list_vars) > 2)
 	{
 		ft_printf("minishell: exit: too many arguments\n");
-		exit(1);
+		g_struct->exit_status = 1;
 	}
 	else if (list_vars_len(list_vars) == 2)
 	{

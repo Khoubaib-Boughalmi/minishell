@@ -7,6 +7,7 @@ PRINTF			= libft/ft_printf/libftprintf.a
 
 SRCS_MAND= 		./src/main.c								\
 				./src/parse.c								\
+				./src/parse2.c								\
 				./src/init.c								\
 				./src/envp/envp_node.c						\
 				./src/envp/export_node.c					\
