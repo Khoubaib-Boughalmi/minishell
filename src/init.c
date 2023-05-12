@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:44:27 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/10 19:29:15 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:35:12 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	is_builtin2(char *cmd)
 	char	**builtins;
 
 	i = 0;
-	builtins = ft_split("cd exit export unset", ' ');
+	builtins = ft_split("cd exit export unset pwd", ' ');
 	if (!builtins)
 		return (0);
 	while (builtins[i])

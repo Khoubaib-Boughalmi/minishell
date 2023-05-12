@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:28:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 15:02:30 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:27:17 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ void	execut_token_norm(char **str, t_redirection **list_reds)
 {
 	int	a1;
 
-	signal(SIGINT, &sigint_hander_executor);
+	signal(SIGINT, SIG_IGN);
 	a1 = fork();
 	if (a1 == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		if (redirect_in_out(list_reds))
 			exit(g_struct->exit_status);
 		if (is_builtin(str[0]))
@@ -53,6 +54,7 @@ void	execut_token_norm(char **str, t_redirection **list_reds)
 		exit (0);
 	}
 	waitpid(a1, &g_struct->exit_status, 0);
+	signal(SIGINT, &sigint_hander);
 }
 
 void	execut_token(t_token_lst	*tokens_lst)

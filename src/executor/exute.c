@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:06:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 14:57:59 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:11:52 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	last_cmd_norm(t_redirection **list_reds, char **str)
 {
 	int	a1;
 
+	signal(SIGINT, SIG_IGN);
 	a1 = fork();
 	if (a1 == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (redirect_in_out(list_reds))
 			exit(g_struct->exit_status);
 		if (is_builtin(str[0]))
@@ -54,4 +57,5 @@ void	last_cmd_norm(t_redirection **list_reds, char **str)
 	close(g_struct->stout);
 	while (wait(NULL) > 0)
 		;
+	signal(SIGINT, &sigint_hander);
 }

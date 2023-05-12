@@ -6,7 +6,7 @@
 /*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:40:30 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 14:52:12 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:10:12 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ void	ex_main(t_token_lst *token1, t_token_lst *token2)
 	close(fd[1]);
 	str = create_lst_commands(token1);
 	list_reds = create_lst_redirections(token1);
-	signal(SIGINT, &sigint_hander_executor);
+	signal(SIGINT, SIG_IGN);
 	a1 = fork();
 	if (a1 == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		close(fd[0]);
 		ex_main_norm(list_reds, str);
 	}
@@ -70,4 +71,5 @@ void	ex_main(t_token_lst *token1, t_token_lst *token2)
 	g_struct->stin = dup2(fd[0], 0);
 	close(fd[0]);
 	executor(token2);
+	signal(SIGINT, &sigint_hander_executor);
 }

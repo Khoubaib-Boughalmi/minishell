@@ -5,8 +5,6 @@ RM 				= rm -f
 LIBFT				= libft/libft.a
 PRINTF			= libft/ft_printf/libftprintf.a
 
-# SRCS_BONUS=
-
 SRCS_MAND= 		./src/main.c								\
 				./src/parse.c								\
 				./src/init.c								\
@@ -66,15 +64,12 @@ SRCS_MAND= 		./src/main.c								\
 				./src/executor/file_create.c				\
 
 M_OBJ 		= ${SRCS_MAND:.c=.o}
-B_OBJ 		= ${SRCS_BONUS:.c=.o}
 
 %.o: %.c
 	${CC} -c $< -o $@ ${CFLAGS}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
 		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L  ~/.brew/opt/readline/lib -I  ~/.brew/opt/readline/include -o ${NAME}
-# 		${CC} ${CFLAGS} ${B_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -o ${BONUS_NAME}
-# -fsanitize=address -g
 
 ${PRINTF}:	
 		make all -C libft/ft_printf
@@ -84,8 +79,6 @@ ${LIBFT}:
 		make bonus -C libft
 
 all:	${NAME} 
-
-# bonus:	${BONUS_NAME}
 
 clean:	
 		${RM} ${M_OBJ} 

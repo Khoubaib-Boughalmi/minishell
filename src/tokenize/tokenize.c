@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:01:29 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 12:31:46 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:08:00 by kboughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,33 @@ t_red_type	redtype(char *str)
 		return (OUTPUT);
 }
 
+void	tab_to_space(char *input)
+{
+	int		i;
+	char	n;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+		{
+			n = input[i++];
+			while (!input[i] || (input[i] != n && input[i] != n))
+				i++;
+		}
+		if (input[i] == '\t')
+			input[i] = ' ';
+		i++;
+	}
+}
+
 t_token_lst	*tokenize(char	*input)
 {
 	t_token_lst	*token;
 	char		**temp;
 
 	token = NULL;
+	tab_to_space(input);
 	temp = ft_split_qotes(input, '|');
 	if (!temp)
 		return (0);
