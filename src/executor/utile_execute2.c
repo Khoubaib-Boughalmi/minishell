@@ -6,7 +6,7 @@
 /*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 11:08:26 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/05 11:12:14 by rennatiq         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:17:37 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	**get_paths(t_envp_node *envp)
 			return (ft_split(envp->value, ':'));
 		envp = envp->next;
 	}
-	ft_printf("minishell: No such file or directory\n");
+	ft_putstr_fd("minishell: No such file or directory\n", 2);
 	exit(127);
 }
 

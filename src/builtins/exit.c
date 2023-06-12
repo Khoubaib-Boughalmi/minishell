@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:03:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/12 17:31:53 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:15:41 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	ft_exit_core(char **list_vars)
 	i = 0;
 	if (!list_vars[1][0])
 	{
-		ft_printf("minishell: exit: %s: numeric argument required\n", \
-		list_vars[1]);
+		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 		exit(255);
 	}
 	if (list_vars[1][0] == '-')
@@ -29,8 +28,7 @@ void	ft_exit_core(char **list_vars)
 	{
 		if (!ft_isdigit(list_vars[1][i]))
 		{
-			ft_printf("minishell: exit: %s: numeric argument required\n", \
-			list_vars[1]);
+			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 			exit(255);
 		}
 		i++;
@@ -45,7 +43,7 @@ void	ft_exit(char **list_vars)
 		ft_exit_core(list_vars);
 	if (list_vars_len(list_vars) > 2)
 	{
-		ft_printf("minishell: exit: too many arguments\n");
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		g_struct->exit_status = 1;
 	}
 	else if (list_vars_len(list_vars) == 2)

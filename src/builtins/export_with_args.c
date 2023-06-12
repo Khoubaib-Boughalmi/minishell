@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_with_args.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:26:55 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/12 18:36:19 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:50:53 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	check_export_key_val(char *key)
 	i = 1;
 	if ((!ft_isalpha(key[0]) && key[0] != '_') || !check_str(key))
 	{
-		ft_printf("minishell: not a valid identifier\n");
+		ft_putstr_fd("minishell: not a valid identifier\n", 2);
 		return (0);
 	}
 	while (key[i])
 	{
 		if (key[i] != '_' && !(ft_isalnum(key[i])))
 		{
-			ft_printf("minishell: not a valid identifier\n");
+			ft_putstr_fd("minishell: not a valid identifier\n", 2);
 			g_struct->exit_status = 1;
 			return (0);
 		}
@@ -51,7 +51,6 @@ void	ft_export_no_val(char **list_vars, t_export export, int i)
 	}
 }
 
-//export key and value
 void	ft_export_k_v(t_export export, char *key, char *value)
 {
 	if (value)
@@ -68,6 +67,14 @@ void	ft_export_k_v(t_export export, char *key, char *value)
 	}
 }
 
+void	ft_export_with_args_core_norm(char *key, char *value)
+{
+	if (key)
+		free(key);
+	if (value)
+		free(value);
+}
+
 void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 {
 	char	*key;
@@ -81,38 +88,13 @@ void	ft_export_with_args_core(char **list_vars, t_export export, int i)
 		value = get_value(list_vars[i]);
 		if (!check_str(key))
 		{
-			printf("asdasdasddsasdasdasd\n");
 			g_struct->exit_status = 1;
-			free(key);
-			free(value);
+			ft_export_with_args_core_norm(key, value);
 			return ;
 		}
 		ft_export_k_v(export, key, value);
-		if(key)
-			free(key);
-		if(value)
-			free(value);
+		ft_export_with_args_core_norm(key, value);
 	}
 	else
 		ft_export_no_val(list_vars, export, i);
-}
-
-void	ft_export_with_args(char **list_vars)
-{
-	int			i;
-	char		*key;
-	char		*value;
-	t_export	export;
-
-	value = NULL;
-	key = NULL;
-	export.prev_node_export = NULL;
-	if (list_vars_len(list_vars) == 1)
-	{
-		ft_export_no_args();
-		return ;
-	}
-	i = 0;
-	while (list_vars[++i])
-		ft_export_with_args_core(list_vars, export, i);
 }

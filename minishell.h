@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:34:40 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 17:28:36 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:51:31 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,8 @@ int				ft_count_der(char	**str, char n);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split_qotes(char *s, char c);
 // int				rl_replace_line(const char *msg, int val);
+void			ft_export_with_args_core(char **list_vars,
+					t_export export, int i);
 
 int				ft_check_mul_pipe(char	*input, t_token_lst *tokens_lst);
 int				ft_check_der(char *str);

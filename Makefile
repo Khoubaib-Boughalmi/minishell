@@ -70,7 +70,7 @@ M_OBJ 		= ${SRCS_MAND:.c=.o}
 	${CC} -c $< -o $@ ${CFLAGS}
 
 ${NAME}: ${LIBFT} ${PRINTF} ${M_OBJ}
-		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L  ~/.brew/opt/readline/lib -I  ~/.brew/opt/readline/include -o ${NAME}
+		${CC} ${CFLAGS} ${M_OBJ} libft/ft_printf/libftprintf.a libft/libft.a -lreadline -L /Users/rennatiq/Desktop/readline/8.2.1/lib -I  /Users/rennatiq/Desktop/readline/8.2.1/include -o ${NAME}
 
 ${PRINTF}:	
 		make all -C libft/ft_printf

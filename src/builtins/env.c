@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 15:03:18 by kboughal          #+#    #+#             */
-/*   Updated: 2023/04/29 15:03:44 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:14:42 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_env(void)
 	}
 	if (!envp_find_node("PATH", 4, g_struct->envp_head))
 	{
-		ft_printf("minishell: env: No such file or directory\n");
+		ft_putstr_fd("minishell: env: No such file or directory\n", 2);
 		g_struct->exit_status = 1;
 		return ;
 	}

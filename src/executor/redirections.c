@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:09:51 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/09 18:15:10 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:17:31 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	ambiguous_check(t_redirection **list_reds, int i)
 {
 	if (list_reds[i]->redirect_error == AMBIGUOUSERR)
 	{
-		ft_printf("minishell : ambiguous redirect\n");
+		ft_putstr_fd("minishell : ambiguous redirect\n", 2);
 		g_struct->exit_status = 1;
 		return (1);
 	}
 	else if (list_reds[i]->redirect_error == FILEERR)
 	{
-		ft_printf("minishell : No such file or directory\n");
+		ft_putstr_fd("minishell : No such file or directory\n", 2);
 		g_struct->exit_status = 1;
 		return (1);
 	}
@@ -102,7 +102,7 @@ int	redirect_in_out(t_redirection **list_reds)
 void	cmd_not_found(char **cmd)
 {
 	dup2(g_struct->ppout, 1);
-	ft_putstr_fd("minishell : command not found\n", 1);
+	ft_putstr_fd("minishell : command not found\n", 2);
 	free_split(cmd);
 	g_struct->exit_status = 127;
 	exit (g_struct->exit_status);

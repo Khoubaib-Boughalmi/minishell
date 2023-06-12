@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exute.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:06:10 by rennatiq          #+#    #+#             */
-/*   Updated: 2023/05/12 17:14:18 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:16:30 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	execve_norm(char **str)
 {
 	if (access(path_finder(str[0], g_struct->envp_head), F_OK) < 0)
 	{
-		ft_printf("minishell: No such file or directory\n");
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		exit(127);
 	}
 	if (access(path_finder(str[0], g_struct->envp_head), X_OK) < 0)
 	{
-		ft_printf("minishell: %s: Permission denied\n", str[0]);
+		ft_putstr_fd("minishell: Permission denied\n", 2);
 		exit(126);
 	}
 	execve(path_finder(str[0], g_struct->envp_head),

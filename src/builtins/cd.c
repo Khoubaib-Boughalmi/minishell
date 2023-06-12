@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kboughal < kboughal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: rennatiq <rennatiq@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 14:48:35 by kboughal          #+#    #+#             */
-/*   Updated: 2023/05/12 17:42:10 by kboughal         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:14:17 by rennatiq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ int	ft_cd_core(void)
 	g_struct->envp_head);
 	if (!home_node)
 	{
-		ft_printf("minishell: cd: HOME not set\n");
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		return (0);
 	}
 	if (chdir(home_node->value))
 	{
-		ft_printf("minishell: %s: No such file or directory\n", \
-		home_node->value);
+		ft_putstr_fd("minishell: No such file or directory\n", 2);
 		g_struct->exit_status = 1;
 		return (0);
 	}
@@ -74,7 +73,7 @@ void	ft_cd(char **list_vars)
 {
 	if (list_vars_len(list_vars) > 2)
 	{
-		ft_printf("cd: too many arguments\n");
+		ft_putstr_fd("cd: too many arguments\n", 2);
 		g_struct->exit_status = 1;
 	}
 	else
